@@ -10,6 +10,8 @@
         <Location left="670" top="915" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
+        <Member type="Method">public void StartGame()</Member>
+        <Member type="Method">public void Leave()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -18,14 +20,14 @@
         <Location left="435" top="915" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
-        <Modifier>None</Modifier>
-      </Entity>
-      <Entity type="Class">
-        <Name>MultiplayerManager</Name>
-        <Access>Public</Access>
-        <Location left="632" top="119" />
-        <Size width="162" height="216" />
-        <Collapsed>False</Collapsed>
+        <Member type="Field">Transform roomHolder</Member>
+        <Member type="Field">InputField roomName</Member>
+        <Member type="Field">InputField playerName</Member>
+        <Member type="Field">Slider playerSlider</Member>
+        <Member type="Method">public void OnReceiveRoomListUpdate()</Member>
+        <Member type="Method">private void ClearRooms()</Member>
+        <Member type="Method">private void SetRooms()</Member>
+        <Member type="Method">public void CreateRoom()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -34,22 +36,48 @@
         <Location left="815" top="119" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
+        <Member type="Field">Text TimerText</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>GameManager</Name>
         <Access>Public</Access>
         <Location left="443" top="120" />
-        <Size width="162" height="216" />
+        <Size width="162" height="230" />
         <Collapsed>False</Collapsed>
+        <Member type="Field">GameObject aliveElves</Member>
+        <Member type="Field">GameObject santa</Member>
+        <Member type="Field">const int startTime = 5000</Member>
+        <Member type="Field">int remainingTIme</Member>
+        <Member type="Method">public static void FindElves()</Member>
+        <Member type="Method">public static void FindSanta()</Member>
+        <Member type="Method">public IEnumerator Timer()</Member>
+        <Member type="Method">public void CheckGameStatus()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>Player</Name>
         <Access>Public</Access>
-        <Location left="1661" top="146" />
-        <Size width="162" height="216" />
+        <Location left="1665" top="68" />
+        <Size width="162" height="366" />
         <Collapsed>False</Collapsed>
+        <Member type="Field">float speed</Member>
+        <Member type="Field">const float baseSpeed = 10</Member>
+        <Member type="Field">float jumpPower</Member>
+        <Member type="Field">const float baseJumpPower = 10</Member>
+        <Member type="Field">int health</Member>
+        <Member type="Field">float interactionRange</Member>
+        <Member type="Field">bool carrying</Member>
+        <Member type="Field">Transform cam</Member>
+        <Member type="Field">float rotateMultiplier</Member>
+        <Member type="Method">private void Jump()</Member>
+        <Member type="Method">private void Walk()</Member>
+        <Member type="Method">public void Interact()</Member>
+        <Member type="Method">public void CheckInteract()</Member>
+        <Member type="Method">public virtual void Death()</Member>
+        <Member type="Method">public virtual void CheckHealth()</Member>
+        <Member type="Method">public void ReceiveDamage(int damageAmount)</Member>
+        <Member type="Method">private void CamRotate()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -58,14 +86,22 @@
         <Location left="1562" top="466" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
+        <Member type="Field">int attackDamage</Member>
+        <Member type="Field">const int baseAttackDamage = 1</Member>
+        <Member type="Field">float attackCooldown</Member>
+        <Member type="Field">private bool canAttack</Member>
+        <Member type="Method">public IEnumerator Attack()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>Elves</Name>
         <Access>Public</Access>
-        <Location left="1758" top="466" />
+        <Location left="1759" top="466" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
+        <Member type="Field">bool canStruggle</Member>
+        <Member type="Method">public void KnockOut()</Member>
+        <Member type="Method">public void Struggle()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -74,6 +110,7 @@
         <Location left="2639" top="185" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
+        <Member type="Method">public void Interact()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -82,6 +119,11 @@
         <Location left="2856" top="447" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
+        <Member type="Field">bool isActive</Member>
+        <Member type="Field">int currentElve</Member>
+        <Member type="Method">public void Kill()</Member>
+        <Member type="Method">public void PlaceElve()</Member>
+        <Member type="Method">public void FreeElve()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -90,6 +132,8 @@
         <Location left="2028" top="466" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
+        <Member type="Field">int currentSpectate</Member>
+        <Member type="Method">public void SwitchTarget(int switchVal)</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -108,6 +152,23 @@
         <Collapsed>False</Collapsed>
         <Modifier>None</Modifier>
       </Entity>
+      <Entity type="Class">
+        <Name>KnockedOutElve</Name>
+        <Access>Public</Access>
+        <Location left="2639" top="748" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Room</Name>
+        <Access>Public</Access>
+        <Location left="169" top="915" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public void Join()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
     </Entities>
     <Relationships>
       <Relationship type="Association" first="0" second="1">
@@ -118,15 +179,15 @@
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
-      <Relationship type="Generalization" first="7" second="5">
+      <Relationship type="Generalization" first="6" second="4">
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
       </Relationship>
-      <Relationship type="Generalization" first="6" second="5">
+      <Relationship type="Generalization" first="5" second="4">
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
       </Relationship>
-      <Relationship type="Generalization" first="9" second="8">
+      <Relationship type="Generalization" first="8" second="7">
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="False">
@@ -134,7 +195,7 @@
           <Y>434</Y>
         </BendPoint>
       </Relationship>
-      <Relationship type="Association" first="10" second="7">
+      <Relationship type="Association" first="9" second="6">
         <Label>
         </Label>
         <StartOrientation>Horizontal</StartOrientation>
@@ -142,7 +203,7 @@
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
-      <Relationship type="Generalization" first="11" second="8">
+      <Relationship type="Generalization" first="10" second="7">
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
@@ -150,7 +211,7 @@
           <Y>556</Y>
         </BendPoint>
       </Relationship>
-      <Relationship type="Association" first="12" second="3">
+      <Relationship type="Association" first="11" second="2">
         <Label>
         </Label>
         <StartOrientation>Vertical</StartOrientation>
@@ -158,7 +219,27 @@
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
-      <Relationship type="Association" first="8" second="5">
+      <Relationship type="Association" first="7" second="4">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Generalization" first="12" second="7">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>2721</X>
+          <Y>723</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>2721</X>
+          <Y>443</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Association" first="13" second="1">
         <Label>
         </Label>
         <StartOrientation>Horizontal</StartOrientation>
