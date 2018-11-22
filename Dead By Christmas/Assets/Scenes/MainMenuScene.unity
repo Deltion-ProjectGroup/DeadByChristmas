@@ -1283,6 +1283,7 @@ MonoBehaviour:
   roomInput: {fileID: 1477639233}
   playerSlider: {fileID: 167147687}
   mainMenu: {fileID: 1452943237}
+  preGameScene: PreGameLobbyScene
 --- !u!1 &308173872
 GameObject:
   m_ObjectHideFlags: 0

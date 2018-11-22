@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class NetworkLobby : Photon.MonoBehaviour {
 
     [Header("Build Version")]
     public string version;
-    [Header("RoomInformation")]
+    [Header("Room Information")]
     public Transform roomHolder;
     public GameObject roomButton;
     public InputField nameInput, roomInput;
     public Slider playerSlider;
+    [Header("Extra Infomration")]
     public GameObject mainMenu;
+    public string preGameScene;
 
     //Connects with Photon.
     public void Start()
@@ -50,7 +53,7 @@ public class NetworkLobby : Photon.MonoBehaviour {
             PhotonNetwork.player.NickName = nameInput.text;
             RoomOptions ro = new RoomOptions() { IsVisible = true, MaxPlayers = (byte)playerSlider.value };
             PhotonNetwork.JoinOrCreateRoom(roomInput.text, ro, TypedLobby.Default);
-            mainMenu.SetActive(false);
+            SceneManager.LoadScene(preGameScene);
         }
     }
 
@@ -61,7 +64,7 @@ public class NetworkLobby : Photon.MonoBehaviour {
         {
             PhotonNetwork.player.NickName = nameInput.text;
             PhotonNetwork.JoinRoom(roomName);
-            mainMenu.SetActive(false);
+            SceneManager.LoadScene(preGameScene);
         }
     }
 }
