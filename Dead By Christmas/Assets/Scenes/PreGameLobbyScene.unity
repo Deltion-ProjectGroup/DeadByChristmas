@@ -222,15 +222,16 @@ MonoBehaviour:
   - {fileID: 694683671}
   - {fileID: 2072542480}
   - {fileID: 1808443106}
-  readyColor: {r: 0.19972134, g: 1, b: 0, a: 0}
-  neutralColor: {r: 1, g: 0, b: 0, a: 0}
+  readyColor: {r: 0.19972134, g: 1, b: 0, a: 1}
+  neutralColor: {r: 1, g: 0, b: 0, a: 1}
   readyText: Ready
   neutralText: Not ready
-  waitForPlayerText: 
-  readyUpText: 
-  waitTime: 0
-  minPlrRequired: 0
-  timerText: {fileID: 0}
+  waitForPlayerText: Waiting for players
+  readyUpText: Ready up
+  waitTime: 10
+  remainingTime: 0
+  minPlrRequired: 3
+  timerText: {fileID: 1715155125}
 --- !u!4 &333227460
 Transform:
   m_ObjectHideFlags: 0
@@ -870,7 +871,6 @@ GameObject:
   - component: {fileID: 1643308622}
   - component: {fileID: 1643308621}
   - component: {fileID: 1643308620}
-  - component: {fileID: 1643308624}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -955,21 +955,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1643308624
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1643308619}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ac9f42d742c51f47a322596333d0049, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  from: {fileID: 0}
-  to: {fileID: 0}
-  slider: {fileID: 0}
-  valueInput: {fileID: 0}
 --- !u!1 &1715155123
 GameObject:
   m_ObjectHideFlags: 0

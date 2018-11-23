@@ -38,4 +38,5 @@ MonoBehaviour:
   - RequestForPickupTimes
   - AddPlayer
   - RemovePlayer
+  - CheckReadyPlayers
   DisableAutoOpenWizard: 1

@@ -11,8 +11,10 @@ public class GameLobby : MonoBehaviour {
     [Header("ReadyData")]
     public Color readyColor, neutralColor;
     public string readyText, neutralText, waitForPlayerText, readyUpText;
-    public int waitTime, minPlrRequired;
+    public int waitTime, remainingTime, minPlrRequired;
     public Text timerText;
+    [Header("IntermissionStuff")]
+    bool inIntermission;
 
     //Spawns the player in the lobby 
     public void OnJoinedRoom()
@@ -37,9 +39,8 @@ public class GameLobby : MonoBehaviour {
     {
         yield return new WaitForSeconds(0.1f);
         GetPlayers();
-        print("GOT PLAYERS");
         ReSort();
-        print("RESORTED");
+        GetComponent<PhotonView>().RPC("CheckReadyPlayers", PhotonTargets.MasterClient);
 
     }
     [PunRPC]
@@ -48,6 +49,7 @@ public class GameLobby : MonoBehaviour {
     {
         yield return null;
         GetPlayers();
+        GetComponent<PhotonView>().RPC("CheckReadyPlayers", PhotonTargets.MasterClient);
     }
     //Gets all the players in the game and sets the list to it
     public void GetPlayers()
@@ -64,6 +66,80 @@ public class GameLobby : MonoBehaviour {
             allPlayers[i].transform.position = playerPlatformPositions[i + 1].position;
         }
     }
+    [PunRPC]
+    //Checks if everyone is ready and changes the readyText if needed
+    public IEnumerator CheckReadyPlayers()
+    {
+        yield return null;
+        if(allPlayers.Count + 1 >= minPlrRequired)
+        {
+            if (AllReady())
+            {
+                StartCoroutine(Intermission());
+            }
+            else
+            {
+                timerText.text = readyUpText;
+                if (inIntermission)
+                {
+                    StopAllCoroutines();
+                }
+            }
+        }
+        else
+        {
+            timerText.text = waitForPlayerText;
+            if (inIntermission)
+            {
+                StopAllCoroutines();
+            }
+        }
+    }
+    //this actually checks if everyone is ready
+    bool AllReady()
+    {
+        if (!localPlayer.GetComponent<LobbyPlayer>().isReady)
+        {
+            return false;
+        }
+        else
+        {
+            for (int i = 0; i < allPlayers.Count; i++)
+            {
+                if (!allPlayers[i].GetComponent<LobbyPlayer>().isReady)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    //The intermission countdown
+    IEnumerator Intermission()
+    {
+        inIntermission = true;
+        remainingTime = waitTime;
+        while(remainingTime > 0)
+        {
+            yield return new WaitForSeconds(1);
+            if(allPlayers.Count + 1 < minPlrRequired)
+            {
+                timerText.text = waitForPlayerText;
+                StopAllCoroutines();
+            }
+            else
+            {
+                if (!AllReady())
+                {
+                    timerText.text = readyUpText;
+                    StopAllCoroutines();
+                }
+            }
+            remainingTime--;
+            timerText.text = remainingTime.ToString();
+        }
+        inIntermission = false;
+    }
     //Toggles the ready button
     public void ToggleReady(Image readyButton)
     {
@@ -71,13 +147,31 @@ public class GameLobby : MonoBehaviour {
         {
             localPlayer.GetComponent<LobbyPlayer>().isReady = false;
             readyButton.color = neutralColor;
-            localPlayer.GetComponent<LobbyPlayer>().readyText.text = readyText;
+            localPlayer.GetComponent<LobbyPlayer>().readyText.text = neutralText;
         }
         else
         {
             localPlayer.GetComponent<LobbyPlayer>().isReady = true;
             readyButton.color = readyColor;
-            localPlayer.GetComponent<LobbyPlayer>().readyText.text = neutralText;
+            localPlayer.GetComponent<LobbyPlayer>().readyText.text = readyText;
+        }
+        GetComponent<PhotonView>().RPC("CheckReadyPlayers", PhotonTargets.MasterClient);
+    }
+    //What happens if the master client left
+    public void OnMasterClientSwitched()
+    {
+        GetPlayers();
+        GetComponent<PhotonView>().RPC("CheckReadyPlayers", PhotonTargets.MasterClient);
+    }
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.isWriting)
+        {
+            stream.SendNext(timerText.text);
+        }
+        else
+        {
+            timerText.text = (string)stream.ReceiveNext();
         }
     }
 }
