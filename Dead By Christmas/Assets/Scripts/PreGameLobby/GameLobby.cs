@@ -7,6 +7,7 @@ public class GameLobby : MonoBehaviour {
     public GameObject localPlayer;
     public List<GameObject> allPlayers = new List<GameObject>();
     public Transform[] playerPlatformPositions;
+
     //Spawns the player in the lobby 
     public void OnJoinedRoom()
     {
@@ -27,7 +28,9 @@ public class GameLobby : MonoBehaviour {
     {
         yield return new WaitForSeconds(0.1f);
         GetPlayers();
+        print("GOT PLAYERS");
         ReSort();
+        print("RESORTED");
 
     }
     [PunRPC]
@@ -44,9 +47,9 @@ public class GameLobby : MonoBehaviour {
     public void ReSort()
     {
         localPlayer.transform.position = playerPlatformPositions[0].position;
-        for(int i = 1; i < allPlayers.Count; i++)
+        for(int i = 0; i < allPlayers.Count; i++)
         {
-            allPlayers[i - 1].transform.position = playerPlatformPositions[i].position;
+            allPlayers[i].transform.position = playerPlatformPositions[i + 1].position;
         }
     }
 }
