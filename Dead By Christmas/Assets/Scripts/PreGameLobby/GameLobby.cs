@@ -12,6 +12,7 @@ public class GameLobby : MonoBehaviour {
     public void OnJoinedRoom()
     {
         localPlayer = PhotonNetwork.Instantiate("LobbyPlayer", Vector3.zero, Quaternion.identity, 0);
+        localPlayer.GetComponent<LobbyPlayer>().userName.text = PhotonNetwork.player.NickName;
         GetComponent<PhotonView>().RPC("AddPlayer", PhotonTargets.All);
     }
     //The void that makes sure the game starts
