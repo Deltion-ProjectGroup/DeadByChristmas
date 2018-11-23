@@ -20,6 +20,7 @@ public class NetworkLobby : Photon.MonoBehaviour {
     //Connects with Photon.
     public void Start()
     {
+        PhotonNetwork.automaticallySyncScene = true;
         PhotonNetwork.ConnectUsingSettings(version);
     }
 
@@ -53,7 +54,7 @@ public class NetworkLobby : Photon.MonoBehaviour {
             PhotonNetwork.player.NickName = nameInput.text;
             RoomOptions ro = new RoomOptions() { IsVisible = true, MaxPlayers = (byte)playerSlider.value };
             PhotonNetwork.JoinOrCreateRoom(roomInput.text, ro, TypedLobby.Default);
-            SceneManager.LoadScene(preGameScene);
+            PhotonNetwork.LoadLevel(preGameScene);
         }
     }
 
@@ -64,7 +65,6 @@ public class NetworkLobby : Photon.MonoBehaviour {
         {
             PhotonNetwork.player.NickName = nameInput.text;
             PhotonNetwork.JoinRoom(roomName);
-            SceneManager.LoadScene(preGameScene);
         }
     }
 }
