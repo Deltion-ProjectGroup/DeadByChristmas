@@ -8,26 +8,52 @@
         <Name>GameLobby</Name>
         <Access>Public</Access>
         <Location left="670" top="915" />
-        <Size width="162" height="216" />
+        <Size width="162" height="536" />
         <Collapsed>False</Collapsed>
+        <Member type="Field">GameObject localPlayer</Member>
+        <Member type="Field">List&lt;GameObject&gt; allPlayer</Member>
+        <Member type="Field">Transform[] playerPlatformPositions</Member>
+        <Member type="Field">Color readyColor</Member>
+        <Member type="Field">Color neutralColor</Member>
+        <Member type="Field">string readyText</Member>
+        <Member type="Field">string neutralText</Member>
+        <Member type="Field">string waitForPlayerText</Member>
+        <Member type="Field">string readyUpText</Member>
+        <Member type="Field">int waitTime</Member>
+        <Member type="Field">int remainingTime</Member>
+        <Member type="Field">int minPlrRequired</Member>
+        <Member type="Field">Text timerText</Member>
+        <Member type="Field">bool inIntermission</Member>
         <Member type="Method">public void StartGame()</Member>
         <Member type="Method">public void Leave()</Member>
+        <Member type="Method">public void OnJoinedRoom()</Member>
+        <Member type="Method">public IEnemerator RPCAddPlayer()</Member>
+        <Member type="Method">public IEnemerator RPCRemovePlayer()</Member>
+        <Member type="Method">public void GetPlayers()</Member>
+        <Member type="Method">public void ReSort()</Member>
+        <Member type="Method">public IEnemerator RPCCheckReadyPlayers()</Member>
+        <Member type="Method">public bool AllReady()</Member>
+        <Member type="Method">public IEnemerator Intermission()</Member>
+        <Member type="Method">public void ToggleReady()</Member>
+        <Member type="Method">public void OnMasterClientSwitched()</Member>
+        <Member type="Method">public void OnPhotonSerializeView()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>NetworkLobby</Name>
         <Access>Public</Access>
         <Location left="435" top="915" />
-        <Size width="162" height="216" />
+        <Size width="162" height="264" />
         <Collapsed>False</Collapsed>
         <Member type="Field">Transform roomHolder</Member>
-        <Member type="Field">InputField roomName</Member>
-        <Member type="Field">InputField playerName</Member>
+        <Member type="Field">InputField roomInput</Member>
+        <Member type="Field">InputField nameInput</Member>
         <Member type="Field">Slider playerSlider</Member>
+        <Member type="Field">string version</Member>
+        <Member type="Field">string preGameScene</Member>
         <Member type="Method">public void OnReceiveRoomListUpdate()</Member>
-        <Member type="Method">private void ClearRooms()</Member>
-        <Member type="Method">private void SetRooms()</Member>
         <Member type="Method">public void CreateRoom()</Member>
+        <Member type="Method">public void JoinCertainRoom(string roomName)</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -167,13 +193,24 @@
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Method">public void Join()</Member>
+        <Member type="Method">public void SetInfo(RoomInfo aInfo, NetworkLobby aLobbyManager)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>LobbyPlayer</Name>
+        <Access>Public</Access>
+        <Location left="1382" top="102" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">Text userName</Member>
+        <Member type="Field">Text readyText</Member>
+        <Member type="Field">bool isReady</Member>
+        <Member type="Method">public void OnPhotonSerializeView()</Member>
         <Modifier>None</Modifier>
       </Entity>
     </Entities>
     <Relationships>
       <Relationship type="Association" first="0" second="1">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -196,8 +233,6 @@
         </BendPoint>
       </Relationship>
       <Relationship type="Association" first="9" second="6">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -212,16 +247,12 @@
         </BendPoint>
       </Relationship>
       <Relationship type="Association" first="11" second="2">
-        <Label>
-        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="7" second="4">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -240,6 +271,12 @@
         </BendPoint>
       </Relationship>
       <Relationship type="Association" first="13" second="1">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="4" second="14">
         <Label>
         </Label>
         <StartOrientation>Horizontal</StartOrientation>
