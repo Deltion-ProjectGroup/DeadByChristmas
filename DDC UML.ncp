@@ -84,14 +84,15 @@
       <Entity type="Class">
         <Name>Player</Name>
         <Access>Public</Access>
-        <Location left="1665" top="68" />
-        <Size width="162" height="366" />
+        <Location left="1665" top="60" />
+        <Size width="162" height="383" />
         <Collapsed>False</Collapsed>
         <Member type="Field">float speed</Member>
         <Member type="Field">const float baseSpeed = 10</Member>
         <Member type="Field">float jumpPower</Member>
         <Member type="Field">const float baseJumpPower = 10</Member>
         <Member type="Field">int health</Member>
+        <Member type="Field">float baseHealth</Member>
         <Member type="Field">float interactionRange</Member>
         <Member type="Field">bool carrying</Member>
         <Member type="Field">Transform cam</Member>
@@ -211,6 +212,8 @@
     </Entities>
     <Relationships>
       <Relationship type="Association" first="0" second="1">
+        <Label>
+        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -233,6 +236,8 @@
         </BendPoint>
       </Relationship>
       <Relationship type="Association" first="9" second="6">
+        <Label>
+        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -247,12 +252,16 @@
         </BendPoint>
       </Relationship>
       <Relationship type="Association" first="11" second="2">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="7" second="4">
+        <Label>
+        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -271,14 +280,14 @@
         </BendPoint>
       </Relationship>
       <Relationship type="Association" first="13" second="1">
+        <Label>
+        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="4" second="14">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
