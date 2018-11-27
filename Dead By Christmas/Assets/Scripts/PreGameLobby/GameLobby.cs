@@ -10,7 +10,7 @@ public class GameLobby : MonoBehaviour {
     public Transform[] playerPlatformPositions;
     [Header("ReadyData")]
     public Color readyColor, neutralColor;
-    public string readyText, neutralText, waitForPlayerText, readyUpText;
+    public string readyText, neutralText, waitForPlayerText, readyUpText, loadText;
     public int waitTime, remainingTime, minPlrRequired;
     public Text timerText;
     [Header("IntermissionStuff")]
@@ -41,7 +41,6 @@ public class GameLobby : MonoBehaviour {
         GetPlayers();
         ReSort();
         GetComponent<PhotonView>().RPC("CheckReadyPlayers", PhotonTargets.MasterClient);
-
     }
     [PunRPC]
     //If a player left everyone will get the new playerlist
@@ -138,6 +137,7 @@ public class GameLobby : MonoBehaviour {
             remainingTime--;
             timerText.text = remainingTime.ToString();
         }
+        timerText.text = loadText;
         inIntermission = false;
     }
     //Toggles the ready button
@@ -160,8 +160,7 @@ public class GameLobby : MonoBehaviour {
     //What happens if the master client left
     public void OnMasterClientSwitched()
     {
-        GetPlayers();
-        GetComponent<PhotonView>().RPC("CheckReadyPlayers", PhotonTargets.MasterClient);
+        GetComponent<PhotonView>().RPC("RemovePlayer", PhotonTargets.MasterClient);
     }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
