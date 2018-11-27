@@ -15,6 +15,11 @@ public class GameLobby : MonoBehaviour {
     public Text timerText;
     [Header("IntermissionStuff")]
     bool inIntermission;
+    [Header("CustomProperties")]
+    public GameObject masterOptions;
+    public bool visible = true;
+    public Text lockedText;
+    public Text hideText;
 
     //Spawns the player in the lobby 
     public void OnJoinedRoom()
@@ -23,6 +28,10 @@ public class GameLobby : MonoBehaviour {
         localPlayer.GetComponent<LobbyPlayer>().readyText.text = neutralText;
         localPlayer.GetComponent<LobbyPlayer>().userName.text = PhotonNetwork.player.NickName;
         GetComponent<PhotonView>().RPC("AddPlayer", PhotonTargets.All);
+        if (PhotonNetwork.isMasterClient)
+        {
+            masterOptions.SetActive(true);
+        }
     }
     //The void that makes sure the game starts
     public void StartGame()
@@ -55,6 +64,13 @@ public class GameLobby : MonoBehaviour {
     {
         allPlayers = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
         allPlayers.Remove(localPlayer);
+        if (PhotonNetwork.isMasterClient)
+        {
+            for (int i = 0; i < allPlayers.Count; i++)
+            {
+                allPlayers[i].GetComponent<LobbyPlayer>().kickButton.SetActive(true);
+            }
+        }
     }
     //Places everyone on their pedestal like they should be
     public void ReSort()
@@ -157,20 +173,78 @@ public class GameLobby : MonoBehaviour {
         }
         GetComponent<PhotonView>().RPC("CheckReadyPlayers", PhotonTargets.MasterClient);
     }
+    public void ToggleLock(Text text)
+    {
+        if (PhotonNetwork.room.IsOpen)
+        {
+            text.text = "X";
+            PhotonNetwork.room.IsOpen = false;
+            PhotonNetwork.room.IsVisible = false;
+        }
+        else
+        {
+            text.text = "";
+            PhotonNetwork.room.IsOpen = true;
+            if (visible)
+            {
+                PhotonNetwork.room.IsVisible = true;
+            }
+        }
+    }
+    public void ToggleVisible(Text text)
+    {
+        if (visible)
+        {
+            visible = false;
+            text.text = "X";
+            PhotonNetwork.room.IsVisible = false;
+        }
+        else
+        {
+            visible = true;
+            text.text = "";
+            if (PhotonNetwork.room.IsOpen)
+            {
+                PhotonNetwork.room.IsVisible = true;
+            }
+        }
+    }
     //What happens if the master client left
     public void OnMasterClientSwitched()
     {
-        GetComponent<PhotonView>().RPC("RemovePlayer", PhotonTargets.MasterClient);
+        if (PhotonNetwork.isMasterClient)
+        {
+            GetComponent<PhotonView>().RPC("RemovePlayer", PhotonTargets.MasterClient);
+            masterOptions.SetActive(true);
+        }
+    }
+    [PunRPC]
+    public void KickPlayer(PhotonPlayer playerToKick)
+    {
+        if (PhotonNetwork.isMasterClient)
+        { 
+            PhotonNetwork.CloseConnection(playerToKick);
+        }
+    }
+    public void OnLeftRoom()
+    {
+        PhotonNetwork.LoadLevel("MainMenuScene");
     }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.isWriting)
         {
             stream.SendNext(timerText.text);
+            stream.SendNext(lockedText.text);
+            stream.SendNext(hideText.text);
+            stream.SendNext(visible);
         }
         else
         {
             timerText.text = (string)stream.ReceiveNext();
+            lockedText.text = (string)stream.ReceiveNext();
+            hideText.text = (string)stream.ReceiveNext();
+            visible = (bool)stream.ReceiveNext();
         }
     }
 }

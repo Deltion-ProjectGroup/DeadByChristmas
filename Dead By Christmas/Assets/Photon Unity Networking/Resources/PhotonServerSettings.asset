@@ -39,4 +39,5 @@ MonoBehaviour:
   - AddPlayer
   - RemovePlayer
   - CheckReadyPlayers
+  - KickPlayer
   DisableAutoOpenWizard: 1

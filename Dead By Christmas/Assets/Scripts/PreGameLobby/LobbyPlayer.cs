@@ -7,6 +7,7 @@ public class LobbyPlayer : MonoBehaviour {
 
     public Text userName;
     public Text readyText;
+    public GameObject kickButton;
     public bool isReady;
 
 
@@ -25,5 +26,10 @@ public class LobbyPlayer : MonoBehaviour {
             readyText.text = (string)stream.ReceiveNext();
             isReady = (bool)stream.ReceiveNext();
         }
+    }
+    public void KickThis()
+    {
+        PhotonPlayer thisPlayer = new PhotonPlayer(false, GetComponent<PhotonView>().ownerId, "KICKEDPLAYER");
+        GameObject.FindGameObjectWithTag("Manager").GetComponent<PhotonView>().RPC("KickPlayer", PhotonTargets.MasterClient, thisPlayer);//PHOTONPLAYER
     }
 }

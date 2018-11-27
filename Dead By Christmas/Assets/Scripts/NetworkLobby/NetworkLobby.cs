@@ -21,7 +21,15 @@ public class NetworkLobby : Photon.MonoBehaviour {
     public void Start()
     {
         PhotonNetwork.automaticallySyncScene = true;
-        PhotonNetwork.ConnectUsingSettings(version);
+        if (PhotonNetwork.connected)
+        {
+            mainMenu.SetActive(true);
+            nameInput.text = PhotonNetwork.player.NickName;
+        }
+        else
+        {
+            PhotonNetwork.ConnectUsingSettings(version);
+        }
     }
 
     //Makes the ui visible when you're connected.
