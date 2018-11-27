@@ -41,10 +41,10 @@ public class Player : MonoBehaviour {
 	[Header ("Camera")]
 	[SerializeField] Transform cam; //Transform of camera
 	[SerializeField] Transform headBone; //Transform of head bone
-	[SerializeField] float minX;
-	[SerializeField] float maxX;
-	float rotX;
-	float rotY;
+	[SerializeField] float minX; //Minimum clamping of X
+	[SerializeField] float maxX; //Maximum clamping of X
+	float rotX; //Current X rot
+	float rotY; //Current Y rot
 
 	void Start () {
 		//Assign variables
@@ -66,7 +66,6 @@ public class Player : MonoBehaviour {
 		}
 
 		CheckInteract ();
-
 		CamRotate ();
 	}
 
@@ -106,7 +105,9 @@ public class Player : MonoBehaviour {
 	}
 
 	public void CheckInteract () {
+		//Check if canInteract is true
 		if (canInteract ()) {
+			//Check for use input
 			if (Input.GetButtonDown ("Use")) {
 				Interact ();
 			}
@@ -114,28 +115,37 @@ public class Player : MonoBehaviour {
 	}
 
 	bool canInteract () {
+		//RaycastHit of camera
 		RaycastHit hit;
 
+		//Shoot ray
 		if (Physics.Raycast (cam.position, cam.forward, out hit, interactionRange)) {
+
+			//Check if the hit object is interactable
 			if (hit.transform.tag == interactTag) {
+				//Set bool to true
 				return true;
 			}
 		}
-
+		//Set bool to false
 		return false;
 	}
 
 	public void Interact () {
+		//To do if interacting
 		print ("Interacting...");
 	}
 
 	public void Death () {
+		//To do if dying
 		print ("Oof");
 	}
 
 	public void ReceiveDamage (int damageAmount) {
+		//Subtract damage amount to health
 		health -= damageAmount;
 
+		//Check if health is under zero
 		if (health <= 0) {
 			Death ();
 		}
@@ -145,25 +155,35 @@ public class Player : MonoBehaviour {
 		//Make multiplier
 		float multiplier = rotateMultiplier * Time.deltaTime;
 
+		//Make X rotation
 		float xToAdd = Input.GetAxis ("Mouse Y") * -1f * multiplier;
 		rotX += xToAdd;
 		rotX = clamped (rotX, minX, maxX);
 
+		//Set X rotation
+		headBone.localRotation = Quaternion.Euler (rotX, 0.0f, 0.0f);
 
+		//Make Y rotation
 		float yToAdd = Input.GetAxis ("Mouse X") * multiplier;
 		rotY += yToAdd;
-	
-		headBone.localRotation = Quaternion.Euler (rotX, 0.0f, 0.0f);
-		transform.rotation = Quaternion.Euler(0.0f, rotY, 0.0f);
+
+		//Set Y rotation
+		transform.rotation = Quaternion.Euler (0.0f, rotY, 0.0f);
 
 	}
 
 	float clamped (float input, float min, float max) {
+		//Check if input is under the min
 		if (input < min) {
+			//Set float to min
 			return min;
-		} else if (input > max) {
+		}
+		//Check if input is above the max
+		else if (input > max) {
+			//Set float to max
 			return max;
 		} else {
+			//Set float to input
 			return input;
 		}
 	}
