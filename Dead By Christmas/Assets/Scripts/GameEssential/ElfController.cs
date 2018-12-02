@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ElfController : MonoBehaviour {
 
-	public enum StruggleState { normal, struggling, knockedOut}
+	public enum StruggleState { normal, struggling, knockedOut , Crafting}
     public StruggleState struggleState;
     [Header("StruggleInfo")]
     public string struggleInput;
@@ -13,8 +13,13 @@ public class ElfController : MonoBehaviour {
     public float pullBackSpeed;
     int struggling;
     [Header("CraftingInfo")]
-    public Transform itemLocation;
     public float itemDetectRange;
+    public LayerMask craftingItemsMask;
+    private bool canCraft;
+    public int minimumItemAmount;
+    public string craftingInput;
+    public int craftingTime;
+    private IEnumerator currentCrafting;
     [Header("KnockOutInfo")]
     public Rigidbody[] bones;
     public bool isKnockedOut = true;
@@ -39,14 +44,43 @@ public class ElfController : MonoBehaviour {
             case StruggleState.knockedOut:
                 KnockedOut();
                 break;
+            case StruggleState.Crafting:
+                Crafting();
+                break;
         }
+    }
+
+    public void CheckForItems()
+    {
+        Collider[] itemsInRange = Physics.OverlapSphere(transform.position, itemDetectRange, craftingItemsMask);
+        canCraft = (itemsInRange.Length >= minimumItemAmount)? true : false;
+    }
+
+    public IEnumerator StartCrafting(float time)
+    {
+        for (float i = 0; i < time; i += 0.1f)
+        {
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        Collider[] itemsInRange = Physics.OverlapSphere(transform.position, itemDetectRange, craftingItemsMask);
+        for (int i = 0; i < minimumItemAmount; i++)
+        {
+            Destroy(itemsInRange[i].gameObject);
+        }
+        struggleState = StruggleState.normal;
     }
 
     public void Normal()
     {
         if (isKnockedOut)
-        {
             ToggleRagdoll(false);
+        CheckForItems();
+        if (canCraft && Input.GetButtonDown(craftingInput))
+        {
+            currentCrafting = StartCrafting(craftingTime);
+            StartCoroutine(currentCrafting);
+            struggleState = StruggleState.Crafting;
         }
     }
 
@@ -70,9 +104,7 @@ public class ElfController : MonoBehaviour {
     public void Struggling()
     {
         if (isKnockedOut)
-        {
             ToggleRagdoll(false);
-        }
         if (Input.GetButtonDown(struggleInput))
         {
             struggling += struggleTime;
@@ -90,8 +122,21 @@ public class ElfController : MonoBehaviour {
     public void KnockedOut()
     {
         if (!isKnockedOut)
-        {
             ToggleRagdoll(true);
+    }
+
+    public void Crafting()
+    {
+        if (Input.GetButtonUp(craftingInput))
+        {
+            struggleState = StruggleState.normal;
+            StopCoroutine(currentCrafting);
         }
+    }
+
+    public void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, itemDetectRange);
     }
 }
