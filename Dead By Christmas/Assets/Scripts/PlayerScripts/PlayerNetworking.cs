@@ -6,6 +6,7 @@ public class PlayerNetworking : MonoBehaviour {
 	Vector3 position; //Player pos for the network
 	Quaternion rotation; //Player rotation for the network
 	[SerializeField] float smoothing; //Lerp smoothing of position and rotation
+	public GameObject cam;
 	PhotonView photonView; //PhotonView of player
 	
 	void Start () {
@@ -15,7 +16,7 @@ public class PlayerNetworking : MonoBehaviour {
 		if (photonView.isMine) { 
 			print("Is mine...");
 			GetComponent<Player> ().enabled = true; //Enable player behaviour script
-
+			cam.SetActive(true);
 		} else {
 			StartCoroutine ("UpdateData"); //Update the data of the player
 		}
@@ -30,6 +31,8 @@ public class PlayerNetworking : MonoBehaviour {
 	}
 
 	void OnPhotonSerializeView (PhotonStream stream, PhotonMessageInfo info) {
+		print("Photon Serialize View");
+
 		//Check if you are writing to the network
 		if (stream.isWriting) {
 			stream.SendNext (transform.position);
@@ -37,7 +40,6 @@ public class PlayerNetworking : MonoBehaviour {
 		} else {
 			position = (Vector3) stream.ReceiveNext ();
 			rotation = (Quaternion) stream.ReceiveNext();
-
 		}
 	}
 

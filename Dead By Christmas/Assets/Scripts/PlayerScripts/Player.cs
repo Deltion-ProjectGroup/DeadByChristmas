@@ -11,17 +11,8 @@ public class Player : MonoBehaviour {
 	[SerializeField] float baseSpeed; //The base speed
 	float speed; //New speed (with multipliers etc.)
 
-	//Jumping
-	[SerializeField] float baseJumpPower; //The base jump power
-	float jumpPower; //New jump power (with multipliers etc.)
-	bool canJump;
-
 	//Rotating
 	[SerializeField] float rotateMultiplier; //Sensitivity of camera
-
-	//Other
-	Rigidbody playerRigidbody; //Rigidbody of player
-	[SerializeField] string jumpTag;
 
 	//HEADER HEALTH
 	//Health vars
@@ -46,52 +37,25 @@ public class Player : MonoBehaviour {
 	float rotX; //Current X rot
 	float rotY; //Current Y rot
 
-	void Start () {
+	//CALL THESE IN THE INHERITING SCRIPTS
+	public void PlayerStart () {
 		//Assign variables
 		speed = baseSpeed;
-		jumpPower = baseJumpPower;
 		health = baseHealth;
-		playerRigidbody = GetComponent<Rigidbody> ();
 
 		rotX = headBone.rotation.x;
 		rotY = transform.rotation.y;
 	}
 
-	void Update () {
-		//Get jump input
-		if (Input.GetButtonDown ("Jump")) {
-			if (canJump) {
-				Jump ();
-			}
-		}
-
+	public void PlayerUpdate () {
 		CheckInteract ();
 		CamRotate ();
 	}
 
-	void FixedUpdate () {
-		//Walk
+	public void PlayerFixedUpdate () {
 		Walk ();
 	}
-
-	void OnCollisionEnter (Collision c) {
-		//Check if the entered object is jumpable
-		if (c.transform.tag == jumpTag) {
-			canJump = true;
-		}
-	}
-
-	void OnCollisionExit (Collision c) {
-		//Check if the exited object is jumpable
-		if (c.transform.tag == jumpTag) {
-			canJump = false;
-		}
-	}
-
-	void Jump () {
-		//Add upward force
-		playerRigidbody.AddForce (Vector3.up * jumpPower);
-	}
+	//^^^ CALL THESE IN THE INHERITING SCRIPTS ^^^
 
 	void Walk () {
 		//Make multiplier
@@ -105,16 +69,14 @@ public class Player : MonoBehaviour {
 	}
 
 	public void CheckInteract () {
-		//Check if canInteract is true
-		if (canInteract ()) {
-			//Check for use input
+		if (CanInteract ()) {
 			if (Input.GetButtonDown ("Use")) {
 				Interact ();
 			}
 		}
 	}
 
-	bool canInteract () {
+	bool CanInteract () {
 		//RaycastHit of camera
 		RaycastHit hit;
 
@@ -123,11 +85,9 @@ public class Player : MonoBehaviour {
 
 			//Check if the hit object is interactable
 			if (hit.transform.tag == interactTag) {
-				//Set bool to true
 				return true;
 			}
 		}
-		//Set bool to false
 		return false;
 	}
 
@@ -156,9 +116,9 @@ public class Player : MonoBehaviour {
 		float multiplier = rotateMultiplier * Time.deltaTime;
 
 		//Make X rotation
-		float xToAdd = Input.GetAxis ("Mouse Y") * -1f * multiplier;
+		float xToAdd = -Input.GetAxis ("Mouse Y") * multiplier;
 		rotX += xToAdd;
-		rotX = clamped (rotX, minX, maxX);
+		rotX = Clamped (rotX, minX, maxX);
 
 		//Set X rotation
 		headBone.localRotation = Quaternion.Euler (rotX, 0.0f, 0.0f);
@@ -172,7 +132,7 @@ public class Player : MonoBehaviour {
 
 	}
 
-	float clamped (float input, float min, float max) {
+	float Clamped (float input, float min, float max) {
 		//Check if input is under the min
 		if (input < min) {
 			//Set float to min
@@ -180,10 +140,8 @@ public class Player : MonoBehaviour {
 		}
 		//Check if input is above the max
 		else if (input > max) {
-			//Set float to max
 			return max;
 		} else {
-			//Set float to input
 			return input;
 		}
 	}

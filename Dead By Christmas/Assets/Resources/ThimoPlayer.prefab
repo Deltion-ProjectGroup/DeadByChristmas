@@ -133,7 +133,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1228199661605776
 GameObject:
   m_ObjectHideFlags: 1
@@ -990,6 +990,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smoothing: 10
+  cam: {fileID: 1161875433620960}
 --- !u!114 &114973287765348062
 MonoBehaviour:
   m_ObjectHideFlags: 1
