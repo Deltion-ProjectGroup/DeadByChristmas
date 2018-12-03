@@ -96,7 +96,7 @@ public class Player : MonoBehaviour {
 		print ("Interacting...");
 		if (hit.collider != null) {
 
-			hit.transform.GetComponent<IntertactableObject> ().Interact ();
+			hit.transform.GetComponent<InteractableObject> ().Interact ();
 		} else {
 			print("Hit is null!");
 		}
