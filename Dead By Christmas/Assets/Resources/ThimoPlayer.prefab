@@ -250,9 +250,9 @@ GameObject:
   - component: {fileID: 95232728320754816}
   - component: {fileID: 54273128055731988}
   - component: {fileID: 65608298129358960}
-  - component: {fileID: 114973287765348062}
   - component: {fileID: 114742933177661148}
   - component: {fileID: 114533854258401974}
+  - component: {fileID: 114665844368323372}
   m_Layer: 0
   m_Name: ThimoPlayer
   m_TagString: Untagged
@@ -974,10 +974,30 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114742933177661148}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 1
+  instantiationId: 1
   currentMasterID: -1
   isRuntimeInstantiated: 0
+--- !u!114 &114665844368323372
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1496807331546942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ef7827597f6aab42976ec79b4618552, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseSpeed: 10
+  rotateMultiplier: 100
+  baseHealth: 10
+  interactionRange: 2
+  interactTag: Interactable
+  cam: {fileID: 4723548327025454}
+  headBone: {fileID: 4512571021633392}
+  minX: -20
+  maxX: 20
 --- !u!114 &114742933177661148
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -991,28 +1011,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smoothing: 10
   cam: {fileID: 1161875433620960}
---- !u!114 &114973287765348062
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1496807331546942}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c0821e5615bc6b48ba1e1ffde0bf811, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseSpeed: 10
-  baseJumpPower: 100
-  rotateMultiplier: 100
-  jumpTag: Jumpable
-  baseHealth: 10
-  interactionRange: 2
-  interactTag: Interactable
-  cam: {fileID: 4723548327025454}
-  headBone: {fileID: 4512571021633392}
-  minX: -20
-  maxX: 20
 --- !u!137 &137654679882599166
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

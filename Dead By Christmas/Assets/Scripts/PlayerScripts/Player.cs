@@ -68,6 +68,9 @@ public class Player : MonoBehaviour {
 		transform.Translate (horizontalAxis); //Horizontal axis
 	}
 
+	//RaycastHit of camera
+	RaycastHit hit;
+
 	public void CheckInteract () {
 		if (CanInteract ()) {
 			if (Input.GetButtonDown ("Use")) {
@@ -77,9 +80,6 @@ public class Player : MonoBehaviour {
 	}
 
 	bool CanInteract () {
-		//RaycastHit of camera
-		RaycastHit hit;
-
 		//Shoot ray
 		if (Physics.Raycast (cam.position, cam.forward, out hit, interactionRange)) {
 
@@ -94,6 +94,12 @@ public class Player : MonoBehaviour {
 	public void Interact () {
 		//To do if interacting
 		print ("Interacting...");
+		if (hit.collider != null) {
+
+			hit.transform.GetComponent<IntertactableObject> ().Interact ();
+		} else {
+			print("Hit is null!");
+		}
 	}
 
 	public void Death () {
