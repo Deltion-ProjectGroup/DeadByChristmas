@@ -185,4 +185,8 @@ public class ElfController : Player {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, itemDetectRange);
     }
+    public override void Death()
+    {
+        struggleState = StruggleState.knockedOut;
+    }
 }

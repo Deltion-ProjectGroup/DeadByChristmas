@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+public abstract class Player : MonoBehaviour {
 	//HEADER MOVEMENT
 	//Movement vars
 	[Header ("Movement")]
@@ -18,7 +18,7 @@ public class Player : MonoBehaviour {
 	//Health vars
 	[Header ("Health")]
 	[SerializeField] float baseHealth; //The base health
-	float health; //Current health
+	public float health; //Current health
 
 	//HEADER INTERACCTION
 	//Interaction vars
@@ -30,7 +30,7 @@ public class Player : MonoBehaviour {
 	//HEADER CAMERA
 	//Camera vars
 	[Header ("Camera")]
-	[SerializeField] Transform cam; //Transform of camera
+	public Transform cam; //Transform of camera
 	[SerializeField] Transform headBone; //Transform of head bone
 	[SerializeField] float minX; //Minimum clamping of X
 	[SerializeField] float maxX; //Maximum clamping of X
@@ -102,10 +102,7 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	public void Death () {
-		//To do if dying
-		print ("Oof");
-	}
+    public abstract void Death();
 
 	public void ReceiveDamage (int damageAmount) {
 		//Subtract damage amount to health
@@ -127,7 +124,7 @@ public class Player : MonoBehaviour {
 		rotX = Clamped (rotX, minX, maxX);
 
 		//Set X rotation
-		headBone.localRotation = Quaternion.Euler (rotX, 0.0f, 0.0f);
+		cam.localRotation = Quaternion.Euler (rotX, 0.0f, 0.0f);
 
 		//Make Y rotation
 		float yToAdd = Input.GetAxis ("Mouse X") * multiplier;
