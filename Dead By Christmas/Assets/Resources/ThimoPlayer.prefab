@@ -252,7 +252,7 @@ GameObject:
   - component: {fileID: 65608298129358960}
   - component: {fileID: 114742933177661148}
   - component: {fileID: 114533854258401974}
-  - component: {fileID: 114665844368323372}
+  - component: {fileID: 114315775008841780}
   m_Layer: 0
   m_Name: ThimoPlayer
   m_TagString: Untagged
@@ -952,6 +952,26 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114315775008841780
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1496807331546942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ef7827597f6aab42976ec79b4618552, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseSpeed: 10
+  rotateMultiplier: 100
+  baseHealth: 10
+  interactionRange: 2
+  interactTag: Interactable
+  cam: {fileID: 4723548327025454}
+  headBone: {fileID: 4512571021633392}
+  minX: -20
+  maxX: 20
 --- !u!114 &114533854258401974
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -978,26 +998,6 @@ MonoBehaviour:
   instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
---- !u!114 &114665844368323372
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1496807331546942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ef7827597f6aab42976ec79b4618552, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseSpeed: 10
-  rotateMultiplier: 100
-  baseHealth: 10
-  interactionRange: 2
-  interactTag: Interactable
-  cam: {fileID: 4723548327025454}
-  headBone: {fileID: 4512571021633392}
-  minX: -20
-  maxX: 20
 --- !u!114 &114742933177661148
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -22,6 +22,9 @@ public class PlayerNetworking : MonoBehaviour {
 		}
 	}
 
+
+	
+
 	IEnumerator UpdateData () {
 		while (true) {
 			transform.position = Vector3.Lerp (transform.position, position, Time.deltaTime * smoothing);
@@ -31,8 +34,6 @@ public class PlayerNetworking : MonoBehaviour {
 	}
 
 	void OnPhotonSerializeView (PhotonStream stream, PhotonMessageInfo info) {
-		print("Photon Serialize View");
-
 		//Check if you are writing to the network
 		if (stream.isWriting) {
 			stream.SendNext (transform.position);
