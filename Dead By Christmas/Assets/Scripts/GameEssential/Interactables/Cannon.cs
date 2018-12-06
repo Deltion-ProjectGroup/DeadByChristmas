@@ -39,6 +39,7 @@ public class Cannon : InteractableObject {
 		SetHasPlayer (true);
 		interactingPlayer.parent = playerInCannonParent;
 		interactingPlayer.GetComponent<Player> ().enabled = false;
+		interactingPlayer.GetComponent<Rigidbody>().isKinematic = false;
 		SetPlayerVars (interactingPlayer, false);
 
 		StartCoroutine ("SetToZero");
@@ -68,9 +69,10 @@ public class Cannon : InteractableObject {
 	}
 
 	void SetPlayerVars (Transform t, bool b) {
-
+		t.GetComponent<ElfController>().ToggleRagdoll(false);
 		t.GetComponent<Collider> ().enabled = b;
 		t.GetComponent<Rigidbody> ().useGravity = b;
+		t.GetComponent<Animator>().enabled = b;
 		t.GetComponent<Player> ().cam.gameObject.SetActive (b);
 		cannonCamera.gameObject.SetActive (!b);
 	}

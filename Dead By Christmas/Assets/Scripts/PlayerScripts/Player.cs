@@ -95,14 +95,14 @@ public abstract class Player : MonoBehaviour {
 		//To do if interacting
 		print ("Interacting...");
 		if (hit.collider != null) {
-
+			hit.transform.GetComponent<InteractableObject> ().interactingPlayer = transform;
 			hit.transform.GetComponent<InteractableObject> ().Interact ();
 		} else {
-			print("Hit is null!");
+			print ("Hit is null!");
 		}
 	}
 
-    public abstract void Death();
+	public abstract void Death ();
 
 	public void ReceiveDamage (int damageAmount) {
 		//Subtract damage amount to health
