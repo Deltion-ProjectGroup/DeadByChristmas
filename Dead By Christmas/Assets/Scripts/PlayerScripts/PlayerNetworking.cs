@@ -32,6 +32,7 @@ public class PlayerNetworking : MonoBehaviour {
         if (!photonView.isMine)
         {
             elf.enabled = false;
+            GetComponent<Animator>().enabled = true;
         }
 
     }
