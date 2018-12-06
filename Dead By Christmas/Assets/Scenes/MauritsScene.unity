@@ -710,6 +710,16 @@ Prefab:
       propertyPath: instantiationId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114134886553747876, guid: 8f141753deea01846995b605ef547f9e,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114968462251430750, guid: 8f141753deea01846995b605ef547f9e,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f141753deea01846995b605ef547f9e, type: 2}
   m_IsPrefabAsset: 0
@@ -730,6 +740,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseSpeed: 20
+  speed: 0
   rotateMultiplier: 20
   baseHealth: 100
   health: 0
@@ -746,6 +757,10 @@ MonoBehaviour:
   damageableObjects:
     serializedVersion: 2
     m_Bits: 512
+  abilities:
+  - {fileID: 11400000, guid: a2f4bdf8d049fe1488d2b419a9a4b0c7, type: 2}
+  canSpecial: 1
+  specialCooldown: 0
 --- !u!54 &1729342339
 Rigidbody:
   m_ObjectHideFlags: 0

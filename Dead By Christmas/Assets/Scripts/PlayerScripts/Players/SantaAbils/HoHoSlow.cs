@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Ho Ho Slow", menuName = "New HoHoSlow")]
+[CreateAssetMenu(fileName = "HoHoSlow", menuName = "New HoHoSlow")]
 public class HoHoSlow : Ability {
     public float duration;
     public float slowAmount;

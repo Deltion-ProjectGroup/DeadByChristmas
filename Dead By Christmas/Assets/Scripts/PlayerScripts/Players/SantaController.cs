@@ -1,15 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UsefulAttributes;
 
 public class SantaController : Player {
+    [Header("Damage")]
     public int damage;
     [SerializeField] int baseDamage;
     [SerializeField] float attackCooldown;
+    [Header("Attack")]
     [SerializeField] float attackRange;
     [SerializeField] LayerMask damageableObjects;
-    public Ability[] abilities;
     bool canAttack = true;
+    [Header("Abilities")]
+    public Ability[] abilities;
+    public bool canSpecial = true;
+    public float specialCooldown;
 
 	// Use this for initialization
 	void Start () {
@@ -23,6 +29,10 @@ public class SantaController : Player {
         if (Input.GetButtonDown("Fire1"))
         {
             StartCoroutine(Attack());
+        }
+        if (Input.GetButtonDown("Fire2"))
+        {
+            StartCoroutine(SpecialAttack(2));
         }
 	}
     private void FixedUpdate()
@@ -52,6 +62,16 @@ public class SantaController : Player {
                 print("NOTHING");
             }
             canAttack = true;
+        }
+    }
+    public IEnumerator SpecialAttack(float time)
+    {
+        if (canSpecial)
+        {
+            canSpecial = false;
+            abilities[0].Attack(transform);
+            yield return new WaitForSeconds(time);
+            canSpecial = true;
         }
     }
     public override void Death()

@@ -11,5 +11,5 @@ public abstract class Buff : MonoBehaviour {
     }
 
     // Update is called once per frame
-    public abstract IEnumerator Effect(float duration)
+    public abstract IEnumerator Effect(float duration);
 }
