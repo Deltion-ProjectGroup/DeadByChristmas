@@ -700,6 +700,16 @@ Prefab:
       propertyPath: baseHealth
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114084276438599508, guid: 8f141753deea01846995b605ef547f9e,
+        type: 2}
+      propertyPath: viewIdField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114084276438599508, guid: 8f141753deea01846995b605ef547f9e,
+        type: 2}
+      propertyPath: instantiationId
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f141753deea01846995b605ef547f9e, type: 2}
   m_IsPrefabAsset: 0

@@ -8,6 +8,7 @@ public class SantaController : Player {
     [SerializeField] float attackCooldown;
     [SerializeField] float attackRange;
     [SerializeField] LayerMask damageableObjects;
+    public Ability[] abilities;
     bool canAttack = true;
 
 	// Use this for initialization
