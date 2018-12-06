@@ -75,7 +75,7 @@ public class ElfController : Player {
         PlayerFixedUpdate();
         PlayerUpdate();
         if (isKnockedOut)
-            ToggleRagdoll(false);
+            GetComponent<PhotonView>().RPC("ToggleElfRagdoll", PhotonTargets.All, false);
         CheckForItems();
         if (canCraft && Input.GetButtonDown(craftingInput))
         {
@@ -95,7 +95,7 @@ public class ElfController : Player {
     public void Struggling()
     {
         if (isKnockedOut)
-            ToggleRagdoll(false);
+            GetComponent<PhotonView>().RPC("ToggleElfRagdoll", PhotonTargets.All, false);
         if (Input.GetButtonDown(struggleInput))
         {
             struggling += struggleTime;
@@ -114,7 +114,7 @@ public class ElfController : Player {
     public void KnockedOut()
     {
         if (!isKnockedOut)
-            ToggleRagdoll(true);
+            GetComponent<PhotonView>().RPC("ToggleElfRagdoll", PhotonTargets.All, true);
     }
 
     //Toggle the ragdoll

@@ -21,9 +21,20 @@ public class PlayerNetworking : MonoBehaviour {
 			StartCoroutine ("UpdateData"); //Update the data of the player
 		}
 	}
+    
+    //ToggleTheRagdollOfAnElf
+    [PunRPC]
+    public void ToggleElfRagdoll(bool onOff)
+    {
+        ElfController elf = GetComponent<ElfController>();
+        elf.enabled = true;
+        elf.ToggleRagdoll(onOff);
+        if (!photonView.isMine)
+        {
+            elf.enabled = false;
+        }
 
-
-	
+    }
 
 	IEnumerator UpdateData () {
 		while (true) {

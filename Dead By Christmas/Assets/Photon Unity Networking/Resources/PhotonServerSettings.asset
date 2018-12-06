@@ -41,4 +41,5 @@ MonoBehaviour:
   - CheckReadyPlayers
   - KickPlayer
   - SetHasPlayer
+  - ToggleElfRagdoll
   DisableAutoOpenWizard: 1
