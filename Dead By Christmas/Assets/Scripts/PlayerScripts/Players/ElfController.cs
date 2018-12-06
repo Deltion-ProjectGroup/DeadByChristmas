@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ElfController : Player {
 
-	public enum StruggleState { normal, struggling, knockedOut , Crafting}
+	public enum StruggleState { normal, struggling, KnockedOut , Crafting , BeingDragged}
     [Header("CurrentState")]
     public StruggleState struggleState;
 
@@ -60,7 +60,7 @@ public class ElfController : Player {
                 Struggling();
                 break;
 
-            case StruggleState.knockedOut:
+            case StruggleState.KnockedOut:
                 KnockedOut();
                 break;
             case StruggleState.Crafting:
@@ -75,7 +75,7 @@ public class ElfController : Player {
         PlayerFixedUpdate();
         PlayerUpdate();
         if (isKnockedOut)
-            ToggleRagdoll(false);
+            GetComponent<PhotonView>().RPC("ToggleElfRagdoll", PhotonTargets.All, false);
         CheckForItems();
         if (canCraft && Input.GetButtonDown(craftingInput))
         {
@@ -95,7 +95,7 @@ public class ElfController : Player {
     public void Struggling()
     {
         if (isKnockedOut)
-            ToggleRagdoll(false);
+            GetComponent<PhotonView>().RPC("ToggleElfRagdoll", PhotonTargets.All, false);
         if (Input.GetButtonDown(struggleInput))
         {
             struggling += struggleTime;
@@ -114,7 +114,7 @@ public class ElfController : Player {
     public void KnockedOut()
     {
         if (!isKnockedOut)
-            ToggleRagdoll(true);
+            GetComponent<PhotonView>().RPC("ToggleElfRagdoll", PhotonTargets.All, true);
     }
 
     //Toggle the ragdoll
@@ -125,13 +125,6 @@ public class ElfController : Player {
         foreach (Rigidbody joint in bones)
         {
             joint.isKinematic = !onOrOf;
-        }
-        if (onOrOf)
-        {
-            foreach (Rigidbody joint in bones)
-            {
-                joint.AddExplosionForce(1000,transform.position + transform.forward + Vector3.up * 0.5f,30);
-            }
         }
     }
 
@@ -187,6 +180,6 @@ public class ElfController : Player {
     }
     public override void Death()
     {
-        struggleState = StruggleState.knockedOut;
+        struggleState = StruggleState.KnockedOut;
     }
-}
+}   
