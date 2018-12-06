@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ElfController : Player {
 
-	public enum StruggleState { normal, struggling, knockedOut , Crafting}
+	public enum StruggleState { normal, struggling, KnockedOut , Crafting , BeingDragged}
     [Header("CurrentState")]
     public StruggleState struggleState;
 
@@ -60,7 +60,7 @@ public class ElfController : Player {
                 Struggling();
                 break;
 
-            case StruggleState.knockedOut:
+            case StruggleState.KnockedOut:
                 KnockedOut();
                 break;
             case StruggleState.Crafting:
@@ -180,6 +180,6 @@ public class ElfController : Player {
     }
     public override void Death()
     {
-        struggleState = StruggleState.knockedOut;
+        struggleState = StruggleState.KnockedOut;
     }
 }   
