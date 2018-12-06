@@ -36,10 +36,11 @@ public class Cannon : InteractableObject {
 	}
 
 	void PutPlayerIn () {
+		GetComponent<Collider> ().isTrigger = true;
 		SetHasPlayer (true);
 		interactingPlayer.parent = playerInCannonParent;
 		interactingPlayer.GetComponent<Player> ().enabled = false;
-		interactingPlayer.GetComponent<Rigidbody>().isKinematic = false;
+
 		SetPlayerVars (interactingPlayer, false);
 
 		StartCoroutine ("SetToZero");
@@ -69,10 +70,15 @@ public class Cannon : InteractableObject {
 	}
 
 	void SetPlayerVars (Transform t, bool b) {
-		t.GetComponent<ElfController>().ToggleRagdoll(false);
+		t.GetComponent<ElfController> ().ToggleRagdoll (b);
+		foreach (Rigidbody r in t.GetComponent<ElfController> ().bones) {
+			r.useGravity = b;
+			r.GetComponent<Collider> ().enabled = b;
+			//r.isKinematic = false;
+		}
 		t.GetComponent<Collider> ().enabled = b;
 		t.GetComponent<Rigidbody> ().useGravity = b;
-		t.GetComponent<Animator>().enabled = b;
+
 		t.GetComponent<Player> ().cam.gameObject.SetActive (b);
 		cannonCamera.gameObject.SetActive (!b);
 	}
@@ -110,10 +116,17 @@ public class Cannon : InteractableObject {
 		}
 
 		print ("Found!");
+		StartCoroutine(WaitForStand());
+		yield return null;
+	}
+
+	IEnumerator WaitForStand () {
+		yield return new WaitForSecondsRealtime (2f);
 		shotPlayer.GetComponent<Player> ().enabled = true;
 		hasLanded = true;
 		shotPlayer = null;
 
+		StopCoroutine(WaitForStand());
 		yield return null;
 	}
 

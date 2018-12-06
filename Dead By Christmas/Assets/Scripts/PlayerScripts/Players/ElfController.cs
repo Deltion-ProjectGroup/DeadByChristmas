@@ -126,13 +126,6 @@ public class ElfController : Player {
         {
             joint.isKinematic = !onOrOf;
         }
-        if (onOrOf)
-        {
-            foreach (Rigidbody joint in bones)
-            {
-                joint.AddExplosionForce(1000,transform.position + transform.forward + Vector3.up * 0.5f,30);
-            }
-        }
     }
 
     //the crafting state
@@ -189,4 +182,4 @@ public class ElfController : Player {
     {
         struggleState = StruggleState.knockedOut;
     }
-}
+}   
