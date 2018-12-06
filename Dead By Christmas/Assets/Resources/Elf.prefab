@@ -1205,13 +1205,13 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1164529366153332}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0941001141cbcb54e9b61d8c2ef1a512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   baseSpeed: 3
-  rotateMultiplier: 20
+  rotateMultiplier: 40
   baseHealth: 2
   health: 0
   interactionRange: 4
