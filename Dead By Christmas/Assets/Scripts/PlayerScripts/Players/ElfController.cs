@@ -26,9 +26,23 @@ public class ElfController : Player {
     IEnumerator currentCrafting;
     public float camBackwardsDistance;
 
+    [Header("InventoryInfo")]
+    public Transform InventoryLocation;
+    public bool hasItem;
+    GameObject currentItem;
+    public string ItemName;
+
     [Header("KnockOutInfo")]
     public Rigidbody[] bones;
     public bool isKnockedOut = true;
+
+    [Header("JumpInfo")]
+    public float jumpForce;
+    public bool addForce; // toggle it from at force, to setforce
+    public float groundDetectionRange;
+    public LayerMask groundMask;
+    public bool canJump;
+    public Rigidbody rig;
 
     [Header("ExtraCharacterInfo")]
     public GameObject fillBar;
@@ -45,6 +59,51 @@ public class ElfController : Player {
     public void Update()
     {
         CheckState();
+    }
+
+    public void AddItem()
+    {
+        hasItem = true;
+        currentItem = PhotonNetwork.Instantiate(ItemName, InventoryLocation.position, InventoryLocation.rotation, 0);
+        currentItem.transform.parent = InventoryLocation;
+        currentItem.GetComponent<Rigidbody>().isKinematic = false;
+    }
+
+    public void DropItem()
+    {
+        hasItem = false;
+        currentItem.transform.position = transform.position + Vector3.up * 0.5f + Vector3.forward * 0.5f;
+        currentItem.GetComponent<Rigidbody>().isKinematic = false;
+        currentItem = null;
+    }
+
+    //Call this when you want to jump
+    public void Jump()
+    {
+        if (canJump)
+        {
+            rig = GetComponent<Rigidbody>();
+
+            if (addForce)
+                rig.AddForce(Vector3.up * jumpForce);
+            else
+                rig.velocity = Vector3.up * jumpForce;
+
+            canJump = false;
+        }
+    }
+
+    //Checks if you're standing on something.
+    public void CheckGround()
+    {
+        if (Physics.CheckSphere(transform.position, groundDetectionRange, groundMask))
+        {
+            canJump = true;
+        }
+        else
+        {
+            canJump = false;
+        }
     }
 
     //Checkes the state the elf is in
@@ -72,6 +131,11 @@ public class ElfController : Player {
     //The normal state
     public void Normal()
     {
+        CheckGround();
+        if (Input.GetButtonDown("Jump"))
+        {
+            Jump();
+        }
         PlayerFixedUpdate();
         PlayerUpdate();
         if (isKnockedOut)
@@ -125,7 +189,12 @@ public class ElfController : Player {
         foreach (Rigidbody joint in bones)
         {
             joint.isKinematic = !onOrOf;
+            if (joint.GetComponent<Collider>())
+            {
+                joint.GetComponent<Collider>().enabled = onOrOf;
+            }
         }
+        GetComponent<Collider>().enabled = !onOrOf;
     }
 
     //the crafting state
@@ -175,9 +244,12 @@ public class ElfController : Player {
     //gizmos
     public void OnDrawGizmosSelected()
     {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, groundDetectionRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, itemDetectRange);
     }
+
     public override void Death()
     {
         struggleState = StruggleState.KnockedOut;
