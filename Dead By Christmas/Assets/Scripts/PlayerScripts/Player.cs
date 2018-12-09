@@ -79,7 +79,7 @@ public abstract class Player : MonoBehaviour {
 		}
 	}
 
-	bool CanInteract () {
+	public bool CanInteract () {
 		//Shoot ray
 		if (Physics.Raycast (cam.position, cam.forward, out hit, interactionRange)) {
 

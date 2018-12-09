@@ -42,4 +42,5 @@ MonoBehaviour:
   - KickPlayer
   - SetHasPlayer
   - ToggleElfRagdoll
+  - DestroyThis
   DisableAutoOpenWizard: 1

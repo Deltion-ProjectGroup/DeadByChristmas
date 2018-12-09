@@ -31,10 +31,12 @@ public class ElfController : Player {
     public bool hasItem;
     GameObject currentItem;
     public string ItemName;
+    public string dropInput;
 
     [Header("KnockOutInfo")]
     public Rigidbody[] bones;
     public bool isKnockedOut = true;
+    public float knockedOutTime;
 
     [Header("JumpInfo")]
     public float jumpForce;
@@ -43,6 +45,8 @@ public class ElfController : Player {
     public LayerMask groundMask;
     public bool canJump;
     public Rigidbody rig;
+    public bool downardsVelocityEnabled;
+    public float addDownwardsVelocity;
 
     [Header("ExtraCharacterInfo")]
     public GameObject fillBar;
@@ -66,15 +70,30 @@ public class ElfController : Player {
         hasItem = true;
         currentItem = PhotonNetwork.Instantiate(ItemName, InventoryLocation.position, InventoryLocation.rotation, 0);
         currentItem.transform.parent = InventoryLocation;
-        currentItem.GetComponent<Rigidbody>().isKinematic = false;
+        currentItem.GetComponent<Rigidbody>().isKinematic = true;
+        currentItem.GetComponent<WeaponPart>().pickedUp = true;
+        currentItem.GetComponent<WeaponPart>().hasCollider = false;
+        currentItem.GetComponent<Collider>().enabled = false;
     }
 
     public void DropItem()
     {
         hasItem = false;
-        currentItem.transform.position = transform.position + Vector3.up * 0.5f + Vector3.forward * 0.5f;
+        currentItem.transform.position = transform.position + Vector3.up * 0.5f + transform.forward * 0.5f;
+        currentItem.transform.parent = null;
         currentItem.GetComponent<Rigidbody>().isKinematic = false;
+        currentItem.GetComponent<WeaponPart>().pickedUp = false;
+        currentItem.GetComponent<WeaponPart>().hasCollider = true;
+        currentItem.GetComponent<Collider>().enabled = true;
         currentItem = null;
+    }
+
+    public void ExtraDownwardsVelocity()
+    {
+        if(rig.velocity.y <= 0)
+        {
+            rig.velocity -= addDownwardsVelocity * Time.deltaTime * Vector3.up;
+        }
     }
 
     //Call this when you want to jump
@@ -131,7 +150,12 @@ public class ElfController : Player {
     //The normal state
     public void Normal()
     {
+        CheckInteract();
+        if(Input.GetButtonDown(dropInput) && !CanInteract() && hasItem)
+            DropItem();
         CheckGround();
+        if (downardsVelocityEnabled)
+            ExtraDownwardsVelocity();
         if (Input.GetButtonDown("Jump"))
         {
             Jump();
@@ -178,7 +202,20 @@ public class ElfController : Player {
     public void KnockedOut()
     {
         if (!isKnockedOut)
+        {
             GetComponent<PhotonView>().RPC("ToggleElfRagdoll", PhotonTargets.All, true);
+            currentKnockedOutNumerator = KnockedOutTimer(knockedOutTime);
+            StartCoroutine(currentKnockedOutNumerator);
+        }
+        
+    }
+
+    public IEnumerator currentKnockedOutNumerator;
+
+    public IEnumerator KnockedOutTimer(float time)
+    {
+        yield return new WaitForSeconds(time);
+        struggleState = StruggleState.normal;
     }
 
     //Toggle the ragdoll
@@ -194,7 +231,11 @@ public class ElfController : Player {
                 joint.GetComponent<Collider>().enabled = onOrOf;
             }
         }
+        rig.isKinematic = onOrOf;
         GetComponent<Collider>().enabled = !onOrOf;
+        bones[0].transform.rotation = transform.rotation;
+        bones[0].transform.Rotate(-90, 0, 0);
+        bones[0].transform.position = transform.position;
     }
 
     //the crafting state
@@ -227,7 +268,7 @@ public class ElfController : Player {
         Collider[] itemsInRange = Physics.OverlapSphere(transform.position, itemDetectRange, craftingItemsMask);
         for (int i = 0; i < minimumItemAmount; i++)
         {
-            Destroy(itemsInRange[i].gameObject);
+            itemsInRange[i].GetComponent<PhotonView>().RPC("DestroyThis", PhotonTargets.All);
         }
         struggleState = StruggleState.normal;
         currentCam.position += currentCam.forward * camBackwardsDistance;
