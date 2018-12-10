@@ -10,7 +10,7 @@ public class BaseGun : MonoBehaviour {
 
     public void Fire()
     {
-        PhotonNetwork.Instantiate(projectile, firePosition.position, firePosition.rotation, 0);
+        PhotonNetwork.Instantiate(projectile, firePosition.position, controller.cam.rotation, 0);
         Destroy(gameObject);
         controller.currentState = ElfController.StruggleState.normal;
     }

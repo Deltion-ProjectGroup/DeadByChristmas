@@ -10,6 +10,7 @@ public class WeaponPart : InteractableObject {
     public float smoothing;
     public bool pickedUp;
     public bool hasCollider = true;
+    public bool gun;
 
     public void Awake()
     {
@@ -24,7 +25,11 @@ public class WeaponPart : InteractableObject {
     {
         if (!pickedUp && !interactingPlayer.GetComponent<ElfController>().hasItem)
         {
-            interactingPlayer.GetComponent<ElfController>().AddItem();
+            if (gun)
+                interactingPlayer.GetComponent<ElfController>().Crafted();
+            else
+                interactingPlayer.GetComponent<ElfController>().AddItem();
+
             photonView.RPC("DestroyThis", PhotonTargets.All);
         }
     }

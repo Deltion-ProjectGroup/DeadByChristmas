@@ -87,6 +87,7 @@ public class ElfController : Player {
         currentItem.GetComponent<WeaponPart>().hasCollider = true;
         currentItem.GetComponent<Collider>().enabled = true;
         currentItem = null;
+        currentState = StruggleState.normal;
     }
 
     public void ExtraDownwardsVelocity()
@@ -154,6 +155,8 @@ public class ElfController : Player {
     //The weapon State
     public void Weapon()
     {
+        if (Input.GetButtonDown(dropInput) && !CanInteract() && hasItem)
+            DropItem();
         PlayerFixedUpdate();
         PlayerUpdate();
         if (Input.GetButtonDown("Fire1"))
@@ -296,7 +299,14 @@ public class ElfController : Player {
     //This is called when youre done crafting an item.
     public void Crafted()
     {
-        Debug.Log("Crafted Weapon");
+        hasItem = true;
+        currentItem = PhotonNetwork.Instantiate(gun, InventoryLocation.position, InventoryLocation.rotation, 0);
+        currentItem.transform.parent = InventoryLocation;
+        currentItem.GetComponent<Rigidbody>().isKinematic = true;
+        currentItem.GetComponent<WeaponPart>().pickedUp = true;
+        currentItem.GetComponent<WeaponPart>().hasCollider = false;
+        currentItem.GetComponent<Collider>().enabled = false;
+        currentItem.GetComponent<BaseGun>().controller = this;
         currentState = StruggleState.Weapon;
     }
 
