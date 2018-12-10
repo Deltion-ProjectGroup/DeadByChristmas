@@ -9,6 +9,8 @@ public class GaemManager : MonoBehaviour {
     public GameObject roleText;
     [TextArea]
     public string santaText, elfText;
+    public string santaPrefab, elfPrefab;
+    public Transform[] santaSpawns, elfSpawns;
 	// Use this for initialization
 	void Start () {
         if (PhotonNetwork.isMasterClient)
@@ -50,7 +52,20 @@ public class GaemManager : MonoBehaviour {
             roleText.GetComponent<Animation>().Play();
             yield return new WaitForSeconds(roleText.GetComponent<Animation>().clip.length);
             roleText.SetActive(false);
+            GetComponent<PhotonView>().RPC("SpawnPlayer", PhotonTargets.All);
             TransitionScreen.transitionScreen.FadeOut();
+        }
+    }
+    [PunRPC]
+    public void SpawnPlayer()
+    {
+        if((bool)isSanta[PhotonNetwork.player.NickName] == true)
+        {
+            PhotonNetwork.Instantiate(santaPrefab, santaSpawns[Random.Range(0, santaSpawns.Length)].position, Quaternion.identity, 0);
+        }
+        else
+        {
+            PhotonNetwork.Instantiate(elfPrefab, elfSpawns[Random.Range(0, elfSpawns.Length)].position, Quaternion.identity, 0);
         }
     }
 

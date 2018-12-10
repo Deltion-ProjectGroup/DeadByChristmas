@@ -25,19 +25,25 @@ public class SantaController : Player {
 	
 	// Update is called once per frame
 	void Update () {
-        PlayerUpdate();
-        if (Input.GetButtonDown("Fire1"))
+        if (GetComponent<PhotonView>().isMine)
         {
-            StartCoroutine(Attack());
-        }
-        if (Input.GetButtonDown("Fire2"))
-        {
-            StartCoroutine(SpecialAttack(2));
+            PlayerUpdate();
+            if (Input.GetButtonDown("Fire1"))
+            {
+                StartCoroutine(Attack());
+            }
+            if (Input.GetButtonDown("Fire2"))
+            {
+                StartCoroutine(SpecialAttack(2));
+            }
         }
 	}
     private void FixedUpdate()
     {
-        PlayerFixedUpdate();
+        if (GetComponent<PhotonView>().isMine)
+        {
+            PlayerFixedUpdate();
+        }
     }
     IEnumerator Attack()
     {
