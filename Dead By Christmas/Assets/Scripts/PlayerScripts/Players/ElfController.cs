@@ -25,6 +25,7 @@ public class ElfController : Player {
     public int craftingTime;
     IEnumerator currentCrafting;
     public float camBackwardsDistance;
+    public string gun;
 
     [Header("InventoryInfo")]
     public Transform InventoryLocation;
@@ -155,6 +156,12 @@ public class ElfController : Player {
     {
         PlayerFixedUpdate();
         PlayerUpdate();
+        if (Input.GetButtonDown("Fire1"))
+        {
+            currentItem.GetComponent<BaseGun>().Fire();
+            hasItem = false;
+            currentItem = null;
+        }
     }
 
     //The normal state
