@@ -4,27 +4,22 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GaemManager : MonoBehaviour {
-    public ExitGames.Client.Photon.Hashtable isSanta = new ExitGames.Client.Photon.Hashtable();
+    public ExitGames.Client.Photon.Hashtable isSanta;
     public PhotonPlayer[] allPlayers;
-    public Text roleText;
+    public GameObject roleText;
     [TextArea]
     public string santaText, elfText;
 	// Use this for initialization
 	void Start () {
         if (PhotonNetwork.isMasterClient)
         {
-            StartCoroutine(RandomizePlayers());
             GetComponent<PhotonView>().RPC("ShowRoles", PhotonTargets.All);
         }
 	}
-	
-	// Update is called once per frame
-	void Update () {
 
-	}
-    public IEnumerator RandomizePlayers()
+    public void RandomizePlayers()
     {
-        yield return new WaitForSeconds(1);
+        isSanta = new ExitGames.Client.Photon.Hashtable();
         allPlayers = PhotonNetwork.playerList;
         foreach(PhotonPlayer player in allPlayers)
         {
@@ -32,28 +27,31 @@ public class GaemManager : MonoBehaviour {
         }
         isSanta[allPlayers[Random.Range(0, allPlayers.Length)].NickName] = true;
     }
+
     [PunRPC]
     public IEnumerator ShowRoles()
     {
+        yield return new WaitForSeconds(1);
+        RandomizePlayers();
         yield return new WaitForSeconds(2);
         if (isSanta.ContainsKey(PhotonNetwork.player.NickName))
         {
             if ((bool)isSanta[PhotonNetwork.player.NickName] == true)
             {
-                roleText.color = Color.red;
-                roleText.text = santaText;
+                roleText.GetComponent<Text>().color = Color.red;
+                roleText.GetComponent<Text>().text = santaText;
             }
             else
             {
-                roleText.color = Color.green;
-                roleText.text = elfText;
+                roleText.GetComponent<Text>().color = Color.green;
+                roleText.GetComponent<Text>().text = elfText;
             }
+            roleText.SetActive(true);
+            roleText.GetComponent<Animation>().Play();
+            yield return new WaitForSeconds(roleText.GetComponent<Animation>().clip.length);
+            roleText.SetActive(false);
+            TransitionScreen.transitionScreen.FadeOut();
         }
-        else
-        {
-            print("DOESNT CONTAIN KEY");
-        }
-        yield return new WaitForSeconds(2);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
