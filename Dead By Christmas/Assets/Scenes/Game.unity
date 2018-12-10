@@ -120,6 +120,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 551751799}
     m_Modifications:
+    - target: {fileID: 114635388355849288, guid: 44de08f62d6d4f74c9303f943f7a424b,
+        type: 2}
+      propertyPath: ObservedComponents.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 224240138107854368, guid: 44de08f62d6d4f74c9303f943f7a424b,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -209,6 +214,21 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114635388355849288, guid: 44de08f62d6d4f74c9303f943f7a424b,
+        type: 2}
+      propertyPath: instantiationId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114635388355849288, guid: 44de08f62d6d4f74c9303f943f7a424b,
+        type: 2}
+      propertyPath: viewIdField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 111626707765596958, guid: 44de08f62d6d4f74c9303f943f7a424b,
+        type: 2}
+      propertyPath: m_PlayAutomatically
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44de08f62d6d4f74c9303f943f7a424b, type: 2}

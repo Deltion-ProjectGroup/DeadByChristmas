@@ -43,4 +43,6 @@ MonoBehaviour:
   - SetHasPlayer
   - ToggleElfRagdoll
   - DestroyThis
+  - FadeIn
+  - FadeOut
   DisableAutoOpenWizard: 1

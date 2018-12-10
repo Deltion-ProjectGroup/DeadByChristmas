@@ -22,11 +22,15 @@ public class GameLobby : MonoBehaviour {
     public Text hideText;
 
     //Spawns the player in the lobby 
-    public void OnJoinedRoom()
+    void OnJoinedRoom()
     {
+        print("JOINED");
         localPlayer = PhotonNetwork.Instantiate("LobbyPlayer", Vector3.zero, Quaternion.identity, 0);
-        localPlayer.GetComponent<LobbyPlayer>().readyText.text = neutralText;
-        localPlayer.GetComponent<LobbyPlayer>().userName.text = PhotonNetwork.player.NickName;
+        if (localPlayer != null)
+        {
+            localPlayer.GetComponent<LobbyPlayer>().readyText.text = neutralText;
+            localPlayer.GetComponent<LobbyPlayer>().userName.text = PhotonNetwork.player.NickName;
+        }
         GetComponent<PhotonView>().RPC("AddPlayer", PhotonTargets.All);
         if (PhotonNetwork.isMasterClient)
         {
@@ -155,6 +159,9 @@ public class GameLobby : MonoBehaviour {
         }
         timerText.text = loadText;
         inIntermission = false;
+        TransitionScreen.transitionScreen.GetComponent<PhotonView>().RPC("FadeIn", PhotonTargets.All);
+        yield return new WaitForSeconds(TransitionScreen.transitionScreen.GetComponent<Animation>().GetClip("TransitionFadeIn").length);
+        PhotonNetwork.LoadLevel("Game");
     }
     //Toggles the ready button
     public void ToggleReady(Image readyButton)

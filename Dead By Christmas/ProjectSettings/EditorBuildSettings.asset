@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ThimoScene.unity
     guid: c4421bcf47f5fda43b2717ecde9c091d
+  - enabled: 1
+    path: Assets/Scenes/Game.unity
+    guid: 66676a4a8947d854ab4c7126e9b8a3de
   m_configObjects: {}

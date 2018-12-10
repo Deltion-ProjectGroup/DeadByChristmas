@@ -61,9 +61,6 @@ public class NetworkLobby : Photon.MonoBehaviour {
     {
         if (nameInput.text != "" && roomInput.text != "")
         {
-            PhotonNetwork.player.NickName = nameInput.text;
-            RoomOptions ro = new RoomOptions() { IsVisible = true, MaxPlayers = (byte)playerSlider.value };
-            PhotonNetwork.JoinOrCreateRoom(roomInput.text, ro, TypedLobby.Default);
             StartCoroutine(CreateARoom());
         }
     }
@@ -87,6 +84,9 @@ public class NetworkLobby : Photon.MonoBehaviour {
     {
         TransitionScreen.transitionScreen.FadeIn();
         yield return new WaitForSeconds(TransitionScreen.transitionScreen.GetComponent<Animation>().GetClip("TransitionFadeIn").length);
+        PhotonNetwork.player.NickName = nameInput.text;
+        RoomOptions ro = new RoomOptions() { IsVisible = true, MaxPlayers = (byte)playerSlider.value };
+        PhotonNetwork.JoinOrCreateRoom(roomInput.text, ro, TypedLobby.Default);
         PhotonNetwork.LoadLevel(preGameScene);
     }
 }

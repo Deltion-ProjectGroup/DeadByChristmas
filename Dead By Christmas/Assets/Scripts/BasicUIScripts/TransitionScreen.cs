@@ -9,10 +9,12 @@ public class TransitionScreen : MonoBehaviour {
     {
         transitionScreen = this;
     }
+    [PunRPC]
     public void FadeIn()
     {
         GetComponent<Animation>().Play("TransitionFadeIn");
     }
+    [PunRPC]
     public void FadeOut()
     {
         GetComponent<Animation>().Play("TransitionFadeOut");
