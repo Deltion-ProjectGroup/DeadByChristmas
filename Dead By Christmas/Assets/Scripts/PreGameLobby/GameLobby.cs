@@ -180,6 +180,7 @@ public class GameLobby : MonoBehaviour {
         }
         GetComponent<PhotonView>().RPC("CheckReadyPlayers", PhotonTargets.MasterClient);
     }
+    //Toggles the lock of the room
     public void ToggleLock(Text text)
     {
         if (PhotonNetwork.room.IsOpen)
@@ -198,6 +199,7 @@ public class GameLobby : MonoBehaviour {
             }
         }
     }
+    //Toggles the visibility of the room
     public void ToggleVisible(Text text)
     {
         if (visible)
@@ -225,6 +227,7 @@ public class GameLobby : MonoBehaviour {
             masterOptions.SetActive(true);
         }
     }
+    //Kicks a player
     [PunRPC]
     public void KickPlayer(PhotonPlayer playerToKick)
     {
@@ -233,6 +236,7 @@ public class GameLobby : MonoBehaviour {
             PhotonNetwork.CloseConnection(playerToKick);
         }
     }
+    //When a player leaves
     public void OnLeftRoom()
     {
         PhotonNetwork.LoadLevel("MainMenuScene");

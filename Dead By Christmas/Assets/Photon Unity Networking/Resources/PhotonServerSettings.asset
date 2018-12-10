@@ -45,4 +45,6 @@ MonoBehaviour:
   - DestroyThis
   - FadeIn
   - FadeOut
+  - GetPlayers
+  - ShowRoles
   DisableAutoOpenWizard: 1
