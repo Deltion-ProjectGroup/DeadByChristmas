@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class ElfController : Player {
 
-	public enum StruggleState { normal, struggling, KnockedOut , Crafting , BeingDragged}
+	public enum StruggleState { normal, struggling, KnockedOut , Crafting , BeingDragged, Weapon}
     [Header("CurrentState")]
-    public StruggleState struggleState;
+    public StruggleState currentState;
 
     [Header("StruggleInfo")]
     public string struggleInput;
@@ -128,7 +128,7 @@ public class ElfController : Player {
     //Checkes the state the elf is in
     public void CheckState()
     {
-        switch (struggleState)
+        switch (currentState)
         {
             case StruggleState.normal:
                 Normal();
@@ -144,7 +144,17 @@ public class ElfController : Player {
             case StruggleState.Crafting:
                 Crafting();
                 break;
+            case StruggleState.Weapon:
+                Weapon();
+                break;
         }
+    }
+
+    //The weapon State
+    public void Weapon()
+    {
+        PlayerFixedUpdate();
+        PlayerUpdate();
     }
 
     //The normal state
@@ -215,7 +225,7 @@ public class ElfController : Player {
     public IEnumerator KnockedOutTimer(float time)
     {
         yield return new WaitForSeconds(time);
-        struggleState = StruggleState.normal;
+        currentState = StruggleState.normal;
     }
 
     //Toggle the ragdoll
@@ -243,7 +253,7 @@ public class ElfController : Player {
     {
         if (Input.GetButtonUp(craftingInput))
         {
-            struggleState = StruggleState.normal;
+            currentState = StruggleState.normal;
             StopCoroutine(currentCrafting);
             currentCam.position += currentCam.forward * camBackwardsDistance;
             Destroy(currentFillbar);
@@ -256,7 +266,7 @@ public class ElfController : Player {
         currentFillbar = Instantiate(fillBar, transform.position + -currentCam.forward, Quaternion.identity);
         currentCam.position -= currentCam.forward * camBackwardsDistance;
         currentFillbar.transform.LookAt(currentCam);
-        struggleState = StruggleState.Crafting;
+        currentState = StruggleState.Crafting;
         FillbarValueSet fillBarComponent = currentFillbar.GetComponent<FillbarValueSet>();
         //sets the fillbar value.
         for (float i = 0; i < time; i += 0.05f)
@@ -270,7 +280,7 @@ public class ElfController : Player {
         {
             itemsInRange[i].GetComponent<PhotonView>().RPC("DestroyThis", PhotonTargets.All);
         }
-        struggleState = StruggleState.normal;
+        currentState = StruggleState.normal;
         currentCam.position += currentCam.forward * camBackwardsDistance;
         Destroy(currentFillbar);
         Crafted();
@@ -280,6 +290,7 @@ public class ElfController : Player {
     public void Crafted()
     {
         Debug.Log("Crafted Weapon");
+        currentState = StruggleState.Weapon;
     }
 
     //gizmos
@@ -293,6 +304,6 @@ public class ElfController : Player {
 
     public override void Death()
     {
-        struggleState = StruggleState.KnockedOut;
+        currentState = StruggleState.KnockedOut;
     }
 }   
