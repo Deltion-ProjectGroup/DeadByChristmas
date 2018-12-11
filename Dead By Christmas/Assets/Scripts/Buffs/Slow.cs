@@ -9,7 +9,7 @@ public class Slow : Buff {
     public float smoothModifierDelay;
     public override IEnumerator Effect(float duration)
     {
-        Player player = GetComponent<Player>();
+        Player player = gameObject.GetComponent<Player>();
         float baseBackup = player.baseSpeed;
         if (smooth)
         {

@@ -89,7 +89,7 @@ public class GameLobby : MonoBehaviour {
     //Checks if everyone is ready and changes the readyText if needed
     public IEnumerator CheckReadyPlayers()
     {
-        yield return null;
+        yield return new WaitForSeconds(1);
         if(allPlayers.Count + 1 >= minPlrRequired)
         {
             if (AllReady())
@@ -157,10 +157,13 @@ public class GameLobby : MonoBehaviour {
             remainingTime--;
             timerText.text = remainingTime.ToString();
         }
+        PhotonNetwork.room.IsOpen = false;
+        PhotonNetwork.room.IsVisible = false;
         timerText.text = loadText;
         inIntermission = false;
         TransitionScreen.transitionScreen.GetComponent<PhotonView>().RPC("FadeIn", PhotonTargets.All);
         yield return new WaitForSeconds(TransitionScreen.transitionScreen.GetComponent<Animation>().GetClip("TransitionFadeIn").length);
+        
         PhotonNetwork.LoadLevel("Game");
     }
     //Toggles the ready button

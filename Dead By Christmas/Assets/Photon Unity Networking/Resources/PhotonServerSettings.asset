@@ -48,4 +48,6 @@ MonoBehaviour:
   - GetPlayers
   - ShowRoles
   - SpawnPlayer
+  - ToggleRagdoll
+  - ReceiveDamage
   DisableAutoOpenWizard: 1

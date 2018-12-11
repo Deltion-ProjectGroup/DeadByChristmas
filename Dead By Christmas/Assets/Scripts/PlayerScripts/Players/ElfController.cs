@@ -35,7 +35,6 @@ public class ElfController : Player {
     public string dropInput;
 
     [Header("KnockOutInfo")]
-    public Rigidbody[] bones;
     public bool isKnockedOut = true;
     public float knockedOutTime;
 
@@ -45,7 +44,6 @@ public class ElfController : Player {
     public float groundDetectionRange;
     public LayerMask groundMask;
     public bool canJump;
-    public Rigidbody rig;
     public bool downardsVelocityEnabled;
     public float addDownwardsVelocity;
 
@@ -183,7 +181,7 @@ public class ElfController : Player {
         PlayerFixedUpdate();
         PlayerUpdate();
         if (isKnockedOut)
-            GetComponent<PhotonView>().RPC("ToggleElfRagdoll", PhotonTargets.All, false);
+            GetComponent<PhotonView>().RPC("ToggleRagdoll", PhotonTargets.All, false);
         CheckForItems();
         if (canCraft && Input.GetButtonDown(craftingInput))
         {
@@ -203,7 +201,7 @@ public class ElfController : Player {
     public void Struggling()
     {
         if (isKnockedOut)
-            GetComponent<PhotonView>().RPC("ToggleElfRagdoll", PhotonTargets.All, false);
+            GetComponent<PhotonView>().RPC("ToggleRagdoll", PhotonTargets.All, false);
         if (Input.GetButtonDown(struggleInput))
         {
             struggling += struggleTime;
@@ -223,7 +221,7 @@ public class ElfController : Player {
     {
         if (!isKnockedOut)
         {
-            GetComponent<PhotonView>().RPC("ToggleElfRagdoll", PhotonTargets.All, true);
+            GetComponent<PhotonView>().RPC("ToggleRagdoll", PhotonTargets.All, true);
             currentKnockedOutNumerator = KnockedOutTimer(knockedOutTime);
             StartCoroutine(currentKnockedOutNumerator);
         }
@@ -239,7 +237,8 @@ public class ElfController : Player {
     }
 
     //Toggle the ragdoll
-    public void ToggleRagdoll(bool onOrOf)
+    [PunRPC]
+    public override void ToggleRagdoll(bool onOrOf)
     {
         isKnockedOut = onOrOf;
         GetComponent<Animator>().enabled = !onOrOf;

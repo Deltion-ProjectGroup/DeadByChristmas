@@ -7,6 +7,8 @@ public class GaemManager : MonoBehaviour {
     public ExitGames.Client.Photon.Hashtable isSanta;
     public PhotonPlayer[] allPlayers;
     public GameObject roleText;
+    public GameObject mainCam;
+    public Player localPlayer;
     [TextArea]
     public string santaText, elfText;
     public string santaPrefab, elfPrefab;
@@ -52,11 +54,10 @@ public class GaemManager : MonoBehaviour {
             roleText.GetComponent<Animation>().Play();
             yield return new WaitForSeconds(roleText.GetComponent<Animation>().clip.length);
             roleText.SetActive(false);
-            GetComponent<PhotonView>().RPC("SpawnPlayer", PhotonTargets.All);
+            SpawnPlayer();
             TransitionScreen.transitionScreen.FadeOut();
         }
     }
-    [PunRPC]
     public void SpawnPlayer()
     {
         if((bool)isSanta[PhotonNetwork.player.NickName] == true)

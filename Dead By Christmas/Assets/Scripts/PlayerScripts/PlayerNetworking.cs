@@ -9,7 +9,7 @@ public class PlayerNetworking : MonoBehaviour {
 	public GameObject cam;
 	PhotonView photonView; //PhotonView of player
 	
-	void Start () {
+	void Awake () {
 		photonView = GetComponent<PhotonView>(); //Get the PhotonView of the player
 
 		//Check if the PhotonView is yours
@@ -22,20 +22,6 @@ public class PlayerNetworking : MonoBehaviour {
 		}
 	}
     
-    //ToggleTheRagdollOfAnElf
-    [PunRPC]
-    public void ToggleElfRagdoll(bool onOff)
-    {
-        ElfController elf = GetComponent<ElfController>();
-        elf.enabled = true;
-        elf.ToggleRagdoll(onOff);
-        if (!photonView.isMine)
-        {
-            elf.enabled = false;
-            GetComponent<Animator>().enabled = true;
-        }
-
-    }
 
 	IEnumerator UpdateData () {
 		while (true) {

@@ -57,7 +57,7 @@ public class SantaController : Player {
             {
                 if (hitObj.transform.tag == "Player")
                 {
-                    hitObj.transform.GetComponent<ElfController>().ReceiveDamage(damage);
+                    hitObj.transform.GetComponent<PhotonView>().RPC("ReceiveDamage", PhotonTargets.All, damage);
                     print("COOLDOWN");
                     yield return new WaitForSeconds(2);
                     print("COOLDOWN DONE");
@@ -82,6 +82,9 @@ public class SantaController : Player {
     }
     public override void Death()
     {
-        throw new System.NotImplementedException();
+        foreach(Rigidbody rig in bones)
+        {
+            rig.isKinematic = false;
+        }
     }
 }

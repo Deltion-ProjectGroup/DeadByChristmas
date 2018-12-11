@@ -36,10 +36,13 @@ public abstract class Player : MonoBehaviour {
 	[SerializeField] float maxX; //Maximum clamping of X
 	float rotX; //Current X rot
 	float rotY; //Current Y rot
-
-	//CALL THESE IN THE INHERITING SCRIPTS
-	public void PlayerStart () {
-		//Assign variables
+    [Header ("Bones")]
+    public Rigidbody[] bones;
+    public Rigidbody rig;
+    //CALL THESE IN THE INHERITING SCRIPTS
+    public void PlayerStart () {
+        //Assign variables
+        GetComponent<PhotonView>().RPC("ToggleRagdoll", PhotonTargets.All, false);
 		speed = baseSpeed;
 		health = baseHealth;
 
@@ -103,7 +106,7 @@ public abstract class Player : MonoBehaviour {
 	}
 
 	public abstract void Death ();
-
+    [PunRPC]
 	public void ReceiveDamage (int damageAmount) {
 		//Subtract damage amount to health
 		health -= damageAmount;
@@ -148,4 +151,35 @@ public abstract class Player : MonoBehaviour {
 			return input;
 		}
 	}
+    //Toggle the ragdoll
+    [PunRPC]
+    public virtual void ToggleRagdoll(bool onOrOf)
+    {
+        GetComponent<Animator>().enabled = !onOrOf;
+        foreach (Rigidbody joint in bones)
+        {
+            joint.isKinematic = !onOrOf;
+            if (joint.GetComponent<Collider>())
+            {
+                joint.GetComponent<Collider>().enabled = onOrOf;
+                joint.GetComponent<Rigidbody>().isKinematic = !onOrOf;
+            }
+        }
+        rig.isKinematic = onOrOf;
+        GetComponent<Collider>().enabled = !onOrOf;
+        bones[0].transform.rotation = transform.rotation;
+        bones[0].transform.Rotate(-90, 0, 0);
+        bones[0].transform.position = transform.position;
+    }
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.isWriting)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
 }
