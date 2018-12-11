@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class ElfController : Player {
 
-	public enum StruggleState { normal, struggling, KnockedOut , Crafting , BeingDragged}
+	public enum StruggleState { normal, struggling, KnockedOut , Crafting , BeingDragged, Weapon}
     [Header("CurrentState")]
-    public StruggleState struggleState;
+    public StruggleState currentState;
 
     [Header("StruggleInfo")]
     public string struggleInput;
@@ -25,6 +25,7 @@ public class ElfController : Player {
     public int craftingTime;
     IEnumerator currentCrafting;
     public float camBackwardsDistance;
+    public string gun;
 
     [Header("InventoryInfo")]
     public Transform InventoryLocation;
@@ -86,6 +87,7 @@ public class ElfController : Player {
         currentItem.GetComponent<WeaponPart>().hasCollider = true;
         currentItem.GetComponent<Collider>().enabled = true;
         currentItem = null;
+        currentState = StruggleState.normal;
     }
 
     public void ExtraDownwardsVelocity()
@@ -128,7 +130,7 @@ public class ElfController : Player {
     //Checkes the state the elf is in
     public void CheckState()
     {
-        switch (struggleState)
+        switch (currentState)
         {
             case StruggleState.normal:
                 Normal();
@@ -144,6 +146,24 @@ public class ElfController : Player {
             case StruggleState.Crafting:
                 Crafting();
                 break;
+            case StruggleState.Weapon:
+                Weapon();
+                break;
+        }
+    }
+
+    //The weapon State
+    public void Weapon()
+    {
+        if (Input.GetButtonDown(dropInput) && !CanInteract() && hasItem)
+            DropItem();
+        PlayerFixedUpdate();
+        PlayerUpdate();
+        if (Input.GetButtonDown("Fire1"))
+        {
+            currentItem.GetComponent<BaseGun>().Fire();
+            hasItem = false;
+            currentItem = null;
         }
     }
 
@@ -215,7 +235,7 @@ public class ElfController : Player {
     public IEnumerator KnockedOutTimer(float time)
     {
         yield return new WaitForSeconds(time);
-        struggleState = StruggleState.normal;
+        currentState = StruggleState.normal;
     }
 
     //Toggle the ragdoll
@@ -243,7 +263,7 @@ public class ElfController : Player {
     {
         if (Input.GetButtonUp(craftingInput))
         {
-            struggleState = StruggleState.normal;
+            currentState = StruggleState.normal;
             StopCoroutine(currentCrafting);
             currentCam.position += currentCam.forward * camBackwardsDistance;
             Destroy(currentFillbar);
@@ -256,7 +276,7 @@ public class ElfController : Player {
         currentFillbar = Instantiate(fillBar, transform.position + -currentCam.forward, Quaternion.identity);
         currentCam.position -= currentCam.forward * camBackwardsDistance;
         currentFillbar.transform.LookAt(currentCam);
-        struggleState = StruggleState.Crafting;
+        currentState = StruggleState.Crafting;
         FillbarValueSet fillBarComponent = currentFillbar.GetComponent<FillbarValueSet>();
         //sets the fillbar value.
         for (float i = 0; i < time; i += 0.05f)
@@ -270,7 +290,7 @@ public class ElfController : Player {
         {
             itemsInRange[i].GetComponent<PhotonView>().RPC("DestroyThis", PhotonTargets.All);
         }
-        struggleState = StruggleState.normal;
+        currentState = StruggleState.normal;
         currentCam.position += currentCam.forward * camBackwardsDistance;
         Destroy(currentFillbar);
         Crafted();
@@ -279,7 +299,15 @@ public class ElfController : Player {
     //This is called when youre done crafting an item.
     public void Crafted()
     {
-        Debug.Log("Crafted Weapon");
+        hasItem = true;
+        currentItem = PhotonNetwork.Instantiate(gun, InventoryLocation.position, InventoryLocation.rotation, 0);
+        currentItem.transform.parent = InventoryLocation;
+        currentItem.GetComponent<Rigidbody>().isKinematic = true;
+        currentItem.GetComponent<WeaponPart>().pickedUp = true;
+        currentItem.GetComponent<WeaponPart>().hasCollider = false;
+        currentItem.GetComponent<Collider>().enabled = false;
+        currentItem.GetComponent<BaseGun>().controller = this;
+        currentState = StruggleState.Weapon;
     }
 
     //gizmos
@@ -293,6 +321,6 @@ public class ElfController : Player {
 
     public override void Death()
     {
-        struggleState = StruggleState.KnockedOut;
+        currentState = StruggleState.KnockedOut;
     }
 }   

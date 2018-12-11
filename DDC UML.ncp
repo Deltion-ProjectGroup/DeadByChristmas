@@ -8,7 +8,7 @@
         <Name>GameLobby</Name>
         <Access>Public</Access>
         <Location left="670" top="915" />
-        <Size width="162" height="536" />
+        <Size width="162" height="604" />
         <Collapsed>False</Collapsed>
         <Member type="Field">GameObject localPlayer</Member>
         <Member type="Field">List&lt;GameObject&gt; allPlayer</Member>
@@ -37,6 +37,10 @@
         <Member type="Method">public void ToggleReady()</Member>
         <Member type="Method">public void OnMasterClientSwitched()</Member>
         <Member type="Method">public void OnPhotonSerializeView()</Member>
+        <Member type="Method">public void KickPlayer()</Member>
+        <Member type="Method">public void OnLeftRoom()</Member>
+        <Member type="Method">public void ToggleVisible()</Member>
+        <Member type="Method">public void ToggleLock()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -111,7 +115,7 @@
         <Name>Santa</Name>
         <Access>Public</Access>
         <Location left="1562" top="466" />
-        <Size width="162" height="216" />
+        <Size width="162" height="370" />
         <Collapsed>False</Collapsed>
         <Member type="Field">int attackDamage</Member>
         <Member type="Field">const int baseAttackDamage = 1</Member>
@@ -123,12 +127,61 @@
       <Entity type="Class">
         <Name>Elves</Name>
         <Access>Public</Access>
-        <Location left="1759" top="466" />
-        <Size width="162" height="216" />
+        <Location left="1768" top="481" />
+        <Size width="162" height="961" />
         <Collapsed>False</Collapsed>
-        <Member type="Field">bool canStruggle</Member>
-        <Member type="Method">public void KnockOut()</Member>
-        <Member type="Method">public void Struggle()</Member>
+        <Member type="Field">public StruggleState currentState</Member>
+        <Member type="Field">public string struggleInput</Member>
+        <Member type="Field">public float struggleMoveSpeed</Member>
+        <Member type="Field">public int struggleTime</Member>
+        <Member type="Field">public float pullBackSpeed</Member>
+        <Member type="Field">int struggling</Member>
+        <Member type="Field">public float itemDetectRange</Member>
+        <Member type="Field">public LayerMask craftingItemsMask</Member>
+        <Member type="Field">bool canCrraft</Member>
+        <Member type="Field">public int minimumItemAmount</Member>
+        <Member type="Field">public string craftingInput</Member>
+        <Member type="Field">public int craftingTime</Member>
+        <Member type="Field">IEnumerator currentCrafting</Member>
+        <Member type="Field">public float cambackwardsDistance</Member>
+        <Member type="Field">public string gun</Member>
+        <Member type="Field">public Transform InventoryLocation</Member>
+        <Member type="Field">public bool hasItem</Member>
+        <Member type="Field">GameObject currentItem</Member>
+        <Member type="Field">public string itemName</Member>
+        <Member type="Field">public string dropInput</Member>
+        <Member type="Field">public Rigidbody[] bones</Member>
+        <Member type="Field">public bool isKnockedOut = true</Member>
+        <Member type="Field">public float knockedOutTime</Member>
+        <Member type="Field">public float jumpForce</Member>
+        <Member type="Field">public bool addForce</Member>
+        <Member type="Field">public float groundDetectionRange</Member>
+        <Member type="Field">public LayerMask groundMask</Member>
+        <Member type="Field">public bool canJump</Member>
+        <Member type="Field">public Rigidbody rig</Member>
+        <Member type="Field">public bool downwardsVelocityEnabled</Member>
+        <Member type="Field">public float addDownwardsVelocity</Member>
+        <Member type="Field">public IEnumerator currentKnockeddOutNumerator</Member>
+        <Member type="Method">public void Start()</Member>
+        <Member type="Method">public void Update()</Member>
+        <Member type="Method">public void AddItem()</Member>
+        <Member type="Method">public void DropItem()</Member>
+        <Member type="Method">public void ExtraDownwardsVelocity()</Member>
+        <Member type="Method">public void Jump()</Member>
+        <Member type="Method">public void CheckGround()</Member>
+        <Member type="Method">public void CheckState()</Member>
+        <Member type="Method">public void Weapon()</Member>
+        <Member type="Method">public void Normal()</Member>
+        <Member type="Method">public void CheckForItems()</Member>
+        <Member type="Method">public void Struggling()</Member>
+        <Member type="Method">public void KnockedOut()</Member>
+        <Member type="Method">public void KnockedOutTimer()</Member>
+        <Member type="Method">public void ToggleRagdoll()</Member>
+        <Member type="Method">public void Crafting()</Member>
+        <Member type="Method">public void StartCrafting()</Member>
+        <Member type="Method">public void Crafted()</Member>
+        <Member type="Method">public void OnDrawGizmosSelected()</Member>
+        <Member type="Method">public override void Death()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -143,7 +196,7 @@
       <Entity type="Class">
         <Name>ElveKiller</Name>
         <Access>Public</Access>
-        <Location left="2856" top="447" />
+        <Location left="3013" top="294" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Field">bool isActive</Member>
@@ -166,7 +219,7 @@
       <Entity type="Class">
         <Name>Train</Name>
         <Access>Public</Access>
-        <Location left="2355" top="458" />
+        <Location left="3013" top="751" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Modifier>None</Modifier>
@@ -182,7 +235,7 @@
       <Entity type="Class">
         <Name>KnockedOutElve</Name>
         <Access>Public</Access>
-        <Location left="2639" top="748" />
+        <Location left="3013" top="526" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Modifier>None</Modifier>
@@ -209,6 +262,36 @@
         <Member type="Method">public void OnPhotonSerializeView()</Member>
         <Modifier>None</Modifier>
       </Entity>
+      <Entity type="Class">
+        <Name>WeaponPart</Name>
+        <Access>Public</Access>
+        <Location left="2639" top="526" />
+        <Size width="162" height="247" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public Vector3 position</Member>
+        <Member type="Field">public Quanternion rotation</Member>
+        <Member type="Field">public float smoothing</Member>
+        <Member type="Field">public bool pickedUp</Member>
+        <Member type="Field">public bool hasCollider = true</Member>
+        <Member type="Method">public void Awake()</Member>
+        <Member type="Method">public override void Interact()</Member>
+        <Member type="Method">public void DestroyThis()</Member>
+        <Member type="Method">public IEnumerator UpdateData()</Member>
+        <Member type="Method">public void OnPhotonSerializeView()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>BaseGun</Name>
+        <Access>Public</Access>
+        <Location left="2255" top="756" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public ElfController controller</Member>
+        <Member type="Field">public string projectile</Member>
+        <Member type="Field">public Transform firePosition</Member>
+        <Member type="Method">public void Fire()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
     </Entities>
     <Relationships>
       <Relationship type="Association" first="0" second="1">
@@ -220,8 +303,16 @@
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Generalization" first="6" second="4">
-        <StartOrientation>Vertical</StartOrientation>
+        <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1746</X>
+          <Y>828</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1746</X>
+          <Y>468</Y>
+        </BendPoint>
       </Relationship>
       <Relationship type="Generalization" first="5" second="4">
         <StartOrientation>Vertical</StartOrientation>
@@ -229,10 +320,10 @@
       </Relationship>
       <Relationship type="Generalization" first="8" second="7">
         <StartOrientation>Horizontal</StartOrientation>
-        <EndOrientation>Vertical</EndOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
         <BendPoint relativeToStartShape="False">
-          <X>2720</X>
-          <Y>434</Y>
+          <X>2833</X>
+          <Y>311</Y>
         </BendPoint>
       </Relationship>
       <Relationship type="Association" first="9" second="6">
@@ -245,10 +336,14 @@
       </Relationship>
       <Relationship type="Generalization" first="10" second="7">
         <StartOrientation>Horizontal</StartOrientation>
-        <EndOrientation>Vertical</EndOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
         <BendPoint relativeToStartShape="True">
-          <X>2542</X>
-          <Y>556</Y>
+          <X>2988</X>
+          <Y>860</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>2826</X>
+          <Y>311</Y>
         </BendPoint>
       </Relationship>
       <Relationship type="Association" first="11" second="2">
@@ -268,15 +363,15 @@
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Generalization" first="12" second="7">
-        <StartOrientation>Vertical</StartOrientation>
-        <EndOrientation>Vertical</EndOrientation>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
         <BendPoint relativeToStartShape="True">
-          <X>2721</X>
-          <Y>723</Y>
+          <X>2988</X>
+          <Y>580</Y>
         </BendPoint>
         <BendPoint relativeToStartShape="False">
-          <X>2721</X>
-          <Y>443</Y>
+          <X>2826</X>
+          <Y>311</Y>
         </BendPoint>
       </Relationship>
       <Relationship type="Association" first="13" second="1">
@@ -288,6 +383,26 @@
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="4" second="14">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Generalization" first="15" second="7">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>2851</X>
+          <Y>580</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>2907</X>
+          <Y>311</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Association" first="16" second="6">
+        <Label>
+        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
