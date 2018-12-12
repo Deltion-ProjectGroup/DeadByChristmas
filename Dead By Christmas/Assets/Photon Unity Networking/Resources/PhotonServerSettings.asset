@@ -50,4 +50,5 @@ MonoBehaviour:
   - SpawnPlayer
   - ToggleRagdoll
   - ReceiveDamage
+  - SpawnWeaponParts
   DisableAutoOpenWizard: 1

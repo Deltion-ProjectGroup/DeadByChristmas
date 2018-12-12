@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GaemManager : MonoBehaviour {
+    object[] emptyData;
     public ExitGames.Client.Photon.Hashtable isSanta;
     public PhotonPlayer[] allPlayers;
     public GameObject roleText;
@@ -12,12 +13,15 @@ public class GaemManager : MonoBehaviour {
     [TextArea]
     public string santaText, elfText;
     public string santaPrefab, elfPrefab;
-    public Transform[] santaSpawns, elfSpawns;
+    public Transform[] santaSpawns, elfSpawns, weaponPartSpots;
+    [Range(3, 15)]
+    public int partAmount;
 	// Use this for initialization
 	void Start () {
         if (PhotonNetwork.isMasterClient)
         {
             GetComponent<PhotonView>().RPC("ShowRoles", PhotonTargets.All);
+            GetComponent<PhotonView>().RPC("SpawnWeaponParts", PhotonTargets.MasterClient);
         }
 	}
 
@@ -57,6 +61,22 @@ public class GaemManager : MonoBehaviour {
             SpawnPlayer();
             TransitionScreen.transitionScreen.FadeOut();
         }
+    }
+    [PunRPC]
+    public void SpawnWeaponParts()
+    {
+        List<Transform> availableSpawnSpots = new List<Transform>();
+        foreach(Transform trans in weaponPartSpots)
+        {
+            availableSpawnSpots.Add(trans);
+        }
+        for(int spawnedAmt = 0; spawnedAmt < partAmount; spawnedAmt++)
+        {
+            int randomizer = Random.Range(0, availableSpawnSpots.Count);
+            PhotonNetwork.InstantiateSceneObject("WeaponPart", availableSpawnSpots[randomizer].position, Quaternion.identity, 0, emptyData);
+            availableSpawnSpots.RemoveAt(randomizer);
+        }
+
     }
     public void SpawnPlayer()
     {
