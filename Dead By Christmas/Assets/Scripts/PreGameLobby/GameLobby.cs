@@ -18,8 +18,6 @@ public class GameLobby : MonoBehaviour {
     [Header("CustomProperties")]
     public GameObject masterOptions;
     public bool visible = true;
-    public Text lockedText;
-    public Text hideText;
 
     //Spawns the player in the lobby 
     void OnJoinedRoom()
@@ -89,7 +87,7 @@ public class GameLobby : MonoBehaviour {
     //Checks if everyone is ready and changes the readyText if needed
     public IEnumerator CheckReadyPlayers()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.1f);
         if(allPlayers.Count + 1 >= minPlrRequired)
         {
             if (AllReady())
@@ -184,17 +182,17 @@ public class GameLobby : MonoBehaviour {
         GetComponent<PhotonView>().RPC("CheckReadyPlayers", PhotonTargets.MasterClient);
     }
     //Toggles the lock of the room
-    public void ToggleLock(Text text)
+    public void ToggleLock(GameObject img)
     {
         if (PhotonNetwork.room.IsOpen)
         {
-            text.text = "X";
+            img.SetActive(true);
             PhotonNetwork.room.IsOpen = false;
             PhotonNetwork.room.IsVisible = false;
         }
         else
         {
-            text.text = "";
+            img.SetActive(false);
             PhotonNetwork.room.IsOpen = true;
             if (visible)
             {
@@ -203,18 +201,18 @@ public class GameLobby : MonoBehaviour {
         }
     }
     //Toggles the visibility of the room
-    public void ToggleVisible(Text text)
+    public void ToggleVisible(GameObject img)
     {
         if (visible)
         {
             visible = false;
-            text.text = "X";
+            img.SetActive(true);
             PhotonNetwork.room.IsVisible = false;
         }
         else
         {
             visible = true;
-            text.text = "";
+            img.SetActive(false);
             if (PhotonNetwork.room.IsOpen)
             {
                 PhotonNetwork.room.IsVisible = true;
@@ -249,15 +247,11 @@ public class GameLobby : MonoBehaviour {
         if (stream.isWriting)
         {
             stream.SendNext(timerText.text);
-            stream.SendNext(lockedText.text);
-            stream.SendNext(hideText.text);
             stream.SendNext(visible);
         }
         else
         {
             timerText.text = (string)stream.ReceiveNext();
-            lockedText.text = (string)stream.ReceiveNext();
-            hideText.text = (string)stream.ReceiveNext();
             visible = (bool)stream.ReceiveNext();
         }
     }
