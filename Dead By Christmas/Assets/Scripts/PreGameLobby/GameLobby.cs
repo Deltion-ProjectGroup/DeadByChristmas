@@ -57,7 +57,7 @@ public class GameLobby : MonoBehaviour {
     //If a player left everyone will get the new playerlist
     public IEnumerator RemovePlayer()
     {
-        yield return null;
+        yield return new WaitForSeconds(0.1f);
         GetPlayers();
         GetComponent<PhotonView>().RPC("CheckReadyPlayers", PhotonTargets.MasterClient);
     }
@@ -139,7 +139,8 @@ public class GameLobby : MonoBehaviour {
         while(remainingTime > 0)
         {
             yield return new WaitForSeconds(1);
-            if(allPlayers.Count + 1 < minPlrRequired)
+            GetPlayers();
+            if (allPlayers.Count + 1 < minPlrRequired)
             {
                 timerText.text = waitForPlayerText;
                 StopAllCoroutines();
@@ -151,9 +152,12 @@ public class GameLobby : MonoBehaviour {
                     timerText.text = readyUpText;
                     StopAllCoroutines();
                 }
+                else
+                {
+                    remainingTime--;
+                    timerText.text = remainingTime.ToString();
+                }
             }
-            remainingTime--;
-            timerText.text = remainingTime.ToString();
         }
         PhotonNetwork.room.IsOpen = false;
         PhotonNetwork.room.IsVisible = false;
@@ -241,6 +245,10 @@ public class GameLobby : MonoBehaviour {
     public void OnLeftRoom()
     {
         PhotonNetwork.LoadLevel("MainMenuScene");
+    }
+    public void OnPhotonPlayerDisconnected(PhotonPlayer otherPlayer)
+    {
+        GetPlayers();
     }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

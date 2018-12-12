@@ -17,6 +17,7 @@ public class Slow : Buff {
             {
                 yield return new WaitForSeconds(smoothModifierDelay);
                 player.baseSpeed = Mathf.Lerp(player.baseSpeed, baseBackup - slowAmount, smoothDelay);
+                player.speed = player.baseSpeed;
             }
         }
         else
