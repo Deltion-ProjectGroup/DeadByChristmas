@@ -8,7 +8,7 @@ public class GaemManager : MonoBehaviour {
     public PhotonPlayer[] allPlayers;
     public GameObject roleText;
     public GameObject mainCam;
-    public Player localPlayer;
+    public GameObject localPlayer;
     [TextArea]
     public string santaText, elfText;
     public string santaPrefab, elfPrefab;
@@ -62,11 +62,11 @@ public class GaemManager : MonoBehaviour {
     {
         if((bool)isSanta[PhotonNetwork.player.NickName] == true)
         {
-            PhotonNetwork.Instantiate(santaPrefab, santaSpawns[Random.Range(0, santaSpawns.Length)].position, Quaternion.identity, 0);
+            localPlayer = PhotonNetwork.Instantiate(santaPrefab, santaSpawns[Random.Range(0, santaSpawns.Length)].position, Quaternion.identity, 0);
         }
         else
         {
-            PhotonNetwork.Instantiate(elfPrefab, elfSpawns[Random.Range(0, elfSpawns.Length)].position, Quaternion.identity, 0);
+            localPlayer = PhotonNetwork.Instantiate(elfPrefab, elfSpawns[Random.Range(0, elfSpawns.Length)].position, Quaternion.identity, 0);
         }
     }
 
