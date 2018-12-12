@@ -591,7 +591,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 090fa97b09c922c408f1db58cbf6f43c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5ba5b5fd551b92e4db7865fb980d5c8b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1939,16 +1939,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 111626707765596958, guid: 44de08f62d6d4f74c9303f943f7a424b,
-        type: 2}
-      propertyPath: m_PlayAutomatically
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114200930856677128, guid: 44de08f62d6d4f74c9303f943f7a424b,
-        type: 2}
-      propertyPath: m_RaycastTarget
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 114635388355849288, guid: 44de08f62d6d4f74c9303f943f7a424b,
         type: 2}
       propertyPath: viewIdField
@@ -1958,25 +1948,6 @@ Prefab:
         type: 2}
       propertyPath: instantiationId
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1490434216849184, guid: 44de08f62d6d4f74c9303f943f7a424b, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114200930856677128, guid: 44de08f62d6d4f74c9303f943f7a424b,
-        type: 2}
-      propertyPath: m_Color.r
-      value: 0.112002224
-      objectReference: {fileID: 0}
-    - target: {fileID: 114200930856677128, guid: 44de08f62d6d4f74c9303f943f7a424b,
-        type: 2}
-      propertyPath: m_Color.g
-      value: 0.33962262
-      objectReference: {fileID: 0}
-    - target: {fileID: 114200930856677128, guid: 44de08f62d6d4f74c9303f943f7a424b,
-        type: 2}
-      propertyPath: m_Color.b
-      value: 0.10412958
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44de08f62d6d4f74c9303f943f7a424b, type: 2}

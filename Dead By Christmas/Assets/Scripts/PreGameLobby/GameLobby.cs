@@ -34,6 +34,7 @@ public class GameLobby : MonoBehaviour {
         {
             masterOptions.SetActive(true);
         }
+        TransitionScreen.transitionScreen.FadeOut();
     }
     //The void that makes sure the game starts
     public void StartGame()
