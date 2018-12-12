@@ -242,6 +242,10 @@ public class GameLobby : MonoBehaviour {
     {
         PhotonNetwork.LoadLevel("MainMenuScene");
     }
+    public void OnPhotonPlayerDisconnected(PhotonPlayer otherPlayer)
+    {
+        GetPlayers();
+    }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.isWriting)
