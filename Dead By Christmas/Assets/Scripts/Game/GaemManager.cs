@@ -24,7 +24,7 @@ public class GaemManager : MonoBehaviour {
             GetComponent<PhotonView>().RPC("SpawnWeaponParts", PhotonTargets.MasterClient);
         }
 	}
-
+    [PunRPC]
     public void RandomizePlayers()
     {
         isSanta = new ExitGames.Client.Photon.Hashtable();
@@ -40,7 +40,7 @@ public class GaemManager : MonoBehaviour {
     public IEnumerator ShowRoles()
     {
         yield return new WaitForSeconds(1);
-        RandomizePlayers();
+        GetComponent<PhotonView>().RPC("RandomizePlayers", PhotonTargets.MasterClient);
         yield return new WaitForSeconds(2);
         if (isSanta.ContainsKey(PhotonNetwork.player.NickName))
         {

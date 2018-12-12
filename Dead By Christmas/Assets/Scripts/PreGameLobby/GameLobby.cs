@@ -18,6 +18,7 @@ public class GameLobby : MonoBehaviour {
     [Header("CustomProperties")]
     public GameObject masterOptions;
     public bool visible = true;
+    public bool toggledOpt;
 
     //Spawns the player in the lobby 
     void OnJoinedRoom()
@@ -185,6 +186,23 @@ public class GameLobby : MonoBehaviour {
             localPlayer.GetComponent<LobbyPlayer>().readyText.text = readyText;
         }
         GetComponent<PhotonView>().RPC("CheckReadyPlayers", PhotonTargets.MasterClient);
+    }
+    public void ToggleOptions(RectTransform toggleIcon)
+    {
+        Vector3 newAngle = toggleIcon.transform.localEulerAngles;
+        if (toggledOpt)
+        {
+            toggledOpt = false;
+            masterOptions.GetComponent<Animation>().Play("MasterOptDisappear");
+            newAngle.z -= 180;
+        }
+        else
+        {
+            toggledOpt = true;
+            masterOptions.GetComponent<Animation>().Play("MasterOptAppear");
+            newAngle.z += 180;
+        }
+        toggleIcon.localEulerAngles = newAngle;
     }
     //Toggles the lock of the room
     public void ToggleLock(GameObject img)
