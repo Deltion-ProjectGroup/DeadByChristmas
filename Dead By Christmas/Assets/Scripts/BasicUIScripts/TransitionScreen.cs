@@ -16,14 +16,14 @@ public class TransitionScreen : MonoBehaviour {
     {
         screen.SetActive(true);
         screen.GetComponent<Animation>().Play("TransitionFadeIn");
-        yield return new WaitForSeconds(GetComponent<Animation>().GetClip("TransitionFadeIn").length);
+        yield return new WaitForSeconds(screen.GetComponent<Animation>().GetClip("TransitionFadeIn").length);
     }
     //The fadeout animation
     [PunRPC]
     public IEnumerator FadeOut()
     {
         screen.GetComponent<Animation>().Play("TransitionFadeOut");
-        yield return new WaitForSeconds(GetComponent<Animation>().GetClip("TransitionFadeOut").length);
+        yield return new WaitForSeconds(screen.GetComponent<Animation>().GetClip("TransitionFadeOut").length);
         screen.SetActive(false);
     }
 }
