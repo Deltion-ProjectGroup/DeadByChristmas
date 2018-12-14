@@ -137,7 +137,7 @@ public class GaemManager : MonoBehaviour {
     string CalcRemainingTime()
     {
         int minutes = Mathf.FloorToInt(remainingSeconds / 60);
-        int seconds = ((remainingSeconds / 60) - minutes) * 60;
+        float seconds = ((remainingSeconds / 60) - minutes) * 60;
         return minutes.ToString() + ":" + seconds.ToString();
     }
 }
