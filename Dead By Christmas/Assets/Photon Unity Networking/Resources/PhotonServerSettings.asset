@@ -52,4 +52,5 @@ MonoBehaviour:
   - ReceiveDamage
   - SpawnWeaponParts
   - RandomizePlayers
+  - GetElfs
   DisableAutoOpenWizard: 1
