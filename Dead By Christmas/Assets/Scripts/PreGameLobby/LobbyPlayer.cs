@@ -32,4 +32,8 @@ public class LobbyPlayer : MonoBehaviour {
         PhotonPlayer thisPlayer = new PhotonPlayer(false, GetComponent<PhotonView>().ownerId, "KICKEDPLAYER");
         GameObject.FindGameObjectWithTag("Manager").GetComponent<PhotonView>().RPC("KickPlayer", PhotonTargets.MasterClient, thisPlayer);//PHOTONPLAYER
     }
+    public void SendFriendRequest()
+    {
+        
+    }
 }

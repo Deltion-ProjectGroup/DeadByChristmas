@@ -15,21 +15,31 @@ public class NetworkLobby : Photon.MonoBehaviour {
     public Slider playerSlider;
     [Header("Extra Infomration")]
     public GameObject mainMenu;
+    public GameObject bannedUI;
     public string preGameScene;
 
     //Connects with Photon.
     public void Start()
     {
-        PhotonNetwork.automaticallySyncScene = true;
-        if (PhotonNetwork.connected)
+        SaveDatabase.data.Load();
+        if (!SaveDatabase.data.userData.banned)
         {
-            StartCoroutine(TransitionScreen.transitionScreen.FadeOut());
-            mainMenu.SetActive(true);
-            nameInput.text = PhotonNetwork.player.NickName;
+            PhotonNetwork.player.NickName = SaveDatabase.data.userData.username;
+            PhotonNetwork.automaticallySyncScene = true;
+            if (PhotonNetwork.connected)
+            {
+                StartCoroutine(TransitionScreen.transitionScreen.FadeOut());
+                mainMenu.SetActive(true);
+                nameInput.text = PhotonNetwork.player.NickName;
+            }
+            else
+            {
+                PhotonNetwork.ConnectUsingSettings(version);
+            }
         }
         else
         {
-            PhotonNetwork.ConnectUsingSettings(version);
+            bannedUI.SetActive(true);
         }
     }
 
