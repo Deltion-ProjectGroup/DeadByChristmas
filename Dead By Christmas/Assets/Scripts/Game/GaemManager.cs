@@ -66,7 +66,7 @@ public class GaemManager : MonoBehaviour {
             yield return new WaitForSeconds(roleText.GetComponent<Animation>().clip.length);
             roleText.SetActive(false);
             SpawnPlayer();
-            TransitionScreen.transitionScreen.FadeOut();
+            StartCoroutine(TransitionScreen.transitionScreen.FadeOut());
         }
     }
     //spawns the weapon parts

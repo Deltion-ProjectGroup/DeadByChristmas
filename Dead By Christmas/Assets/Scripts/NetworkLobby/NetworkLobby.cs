@@ -23,7 +23,7 @@ public class NetworkLobby : Photon.MonoBehaviour {
         PhotonNetwork.automaticallySyncScene = true;
         if (PhotonNetwork.connected)
         {
-            TransitionScreen.transitionScreen.FadeOut();
+            StartCoroutine(TransitionScreen.transitionScreen.FadeOut());
             mainMenu.SetActive(true);
             nameInput.text = PhotonNetwork.player.NickName;
         }
@@ -36,7 +36,7 @@ public class NetworkLobby : Photon.MonoBehaviour {
     //Makes the ui visible when you're connected.
     public void OnConnectedToPhoton()
     {
-        TransitionScreen.transitionScreen.FadeOut();
+        StartCoroutine(TransitionScreen.transitionScreen.FadeOut());
         mainMenu.SetActive(true);
     }
 
@@ -76,13 +76,13 @@ public class NetworkLobby : Photon.MonoBehaviour {
     }
     IEnumerator JoinRoom(string name)
     {
-        TransitionScreen.transitionScreen.FadeIn();
+        StartCoroutine(TransitionScreen.transitionScreen.FadeIn());
         yield return new WaitForSeconds(TransitionScreen.transitionScreen.GetComponent<Animation>().GetClip("TransitionFadeIn").length);
         PhotonNetwork.JoinRoom(name);
     }
     IEnumerator CreateARoom()
     {
-        TransitionScreen.transitionScreen.FadeIn();
+        StartCoroutine(TransitionScreen.transitionScreen.FadeIn());
         yield return new WaitForSeconds(TransitionScreen.transitionScreen.GetComponent<Animation>().GetClip("TransitionFadeIn").length);
         PhotonNetwork.player.NickName = nameInput.text;
         RoomOptions ro = new RoomOptions() { IsVisible = true, MaxPlayers = (byte)playerSlider.value };
