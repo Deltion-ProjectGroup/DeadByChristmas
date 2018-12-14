@@ -166,7 +166,7 @@ public class GameLobby : MonoBehaviour {
         timerText.text = loadText;
         inIntermission = false;
         TransitionScreen.transitionScreen.GetComponent<PhotonView>().RPC("FadeIn", PhotonTargets.All);
-        yield return new WaitForSeconds(TransitionScreen.transitionScreen.GetComponent<Animation>().GetClip("TransitionFadeIn").length);
+        yield return new WaitForSeconds(TransitionScreen.transitionScreen.GetComponent<TransitionScreen>().screen.GetComponent<Animation>().GetClip("TransitionFadeIn").length);
         
         PhotonNetwork.LoadLevel("Game");
     }

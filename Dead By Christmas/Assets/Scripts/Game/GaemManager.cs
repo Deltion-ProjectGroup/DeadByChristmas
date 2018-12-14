@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GaemManager : MonoBehaviour {
+    [Header("RoleDistribution")]
     object[] emptyData;
     public ExitGames.Client.Photon.Hashtable isSanta;
     public PhotonPlayer[] allPlayers;
@@ -15,17 +16,15 @@ public class GaemManager : MonoBehaviour {
     public string santaPrefab, elfPrefab;
     public Transform[] santaSpawns, elfSpawns, weaponPartSpots;
     [Range(3, 15)]
+    [Header("Initializers")]
     public int partAmount;
-    public Text timerText;
-    int remainingSeconds;
-    [SerializeField] int roundTime;
+    [Header("GameData")]
+    public GameObject[] allElfs;
 	// Use this for initialization
     //Spawns weapons and showsRoles
 	void Start () {
         if (PhotonNetwork.isMasterClient)
         {
-            remainingSeconds = roundTime;
-            timerText.text = CalcRemainingTime();
             GetComponent<PhotonView>().RPC("ShowRoles", PhotonTargets.All);
             GetComponent<PhotonView>().RPC("SpawnWeaponParts", PhotonTargets.MasterClient);
         }
@@ -86,23 +85,18 @@ public class GaemManager : MonoBehaviour {
         }
 
     }
-    IEnumerator Timer()
+    [PunRPC]
+    public void GetElfs()
     {
-        while(remainingSeconds > 0)
+        allElfs = GameObject.FindGameObjectsWithTag("Elf");
+        if(allElfs.Length == 0)
         {
-            yield return new WaitForSeconds(1);
-            remainingSeconds--;
-            CalcRemainingTime();
+            print("U WON");
         }
-        timerText.text = "GAME DONE";
     }
     //spawns the player
     public void SpawnPlayer()
     {
-        if (PhotonNetwork.isMasterClient)
-        {
-            StartCoroutine(Timer());
-        }
         if((bool)isSanta[PhotonNetwork.player.NickName] == true)
         {
             localPlayer = PhotonNetwork.Instantiate(santaPrefab, santaSpawns[Random.Range(0, santaSpawns.Length)].position, Quaternion.identity, 0);
@@ -112,32 +106,15 @@ public class GaemManager : MonoBehaviour {
             localPlayer = PhotonNetwork.Instantiate(elfPrefab, elfSpawns[Random.Range(0, elfSpawns.Length)].position, Quaternion.identity, 0);
         }
     }
-    public void OnMasterClientSwitched()
-    {
-        if (PhotonNetwork.isMasterClient)
-        {
-            StartCoroutine(Timer());
-        }
-    }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.isWriting)
         {
             stream.SendNext(isSanta);
-            stream.SendNext(remainingSeconds);
-            stream.SendNext(timerText.text);
         }
         else
         {
             isSanta = (ExitGames.Client.Photon.Hashtable)stream.ReceiveNext();
-            remainingSeconds = (int)stream.ReceiveNext();
-            timerText.text = (string)stream.ReceiveNext();
         }
-    }
-    string CalcRemainingTime()
-    {
-        int minutes = Mathf.FloorToInt(remainingSeconds / 60);
-        float seconds = ((remainingSeconds / 60) - minutes) * 60;
-        return minutes.ToString() + ":" + seconds.ToString();
     }
 }

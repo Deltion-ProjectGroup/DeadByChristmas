@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TransitionScreen : MonoBehaviour {
     public static TransitionScreen transitionScreen;
-    [SerializeField]GameObject screen;
+    public GameObject screen;
 
     public void Awake()
     {

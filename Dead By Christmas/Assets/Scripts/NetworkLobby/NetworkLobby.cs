@@ -77,13 +77,13 @@ public class NetworkLobby : Photon.MonoBehaviour {
     IEnumerator JoinRoom(string name)
     {
         StartCoroutine(TransitionScreen.transitionScreen.FadeIn());
-        yield return new WaitForSeconds(TransitionScreen.transitionScreen.GetComponent<Animation>().GetClip("TransitionFadeIn").length);
+        yield return new WaitForSeconds(TransitionScreen.transitionScreen.GetComponent<TransitionScreen>().screen.GetComponent<Animation>().GetClip("TransitionFadeIn").length);
         PhotonNetwork.JoinRoom(name);
     }
     IEnumerator CreateARoom()
     {
         StartCoroutine(TransitionScreen.transitionScreen.FadeIn());
-        yield return new WaitForSeconds(TransitionScreen.transitionScreen.GetComponent<Animation>().GetClip("TransitionFadeIn").length);
+        yield return new WaitForSeconds(TransitionScreen.transitionScreen.GetComponent<TransitionScreen>().screen.GetComponent<Animation>().GetClip("TransitionFadeIn").length);
         PhotonNetwork.player.NickName = nameInput.text;
         RoomOptions ro = new RoomOptions() { IsVisible = true, MaxPlayers = (byte)playerSlider.value };
         PhotonNetwork.JoinOrCreateRoom(roomInput.text, ro, TypedLobby.Default);
