@@ -521,25 +521,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: Elf
---- !u!1 &1393655917 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100002, guid: c00f6e4697dd01446a2df76475438da0,
-    type: 3}
-  m_PrefabInternal: {fileID: 1531126235}
---- !u!114 &1393655919
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1393655917}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2baac60f3139d04d86093d5acc5d18a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  materialToScroll: {fileID: 2100000, guid: 08fb5e535e41ac94aa5a72b5824b8e87, type: 2}
-  uScrollSpeed: 1
-  vScrollSpeed: 0
 --- !u!1 &1530137360
 GameObject:
   m_ObjectHideFlags: 0
@@ -664,6 +645,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: fa785e83b92182a49b81b012965e6d92, type: 2}
+    - target: {fileID: 2300000, guid: c00f6e4697dd01446a2df76475438da0, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c00f6e4697dd01446a2df76475438da0, type: 3}
   m_IsPrefabAsset: 0
