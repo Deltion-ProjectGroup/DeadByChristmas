@@ -18,15 +18,16 @@ public class SaveDatabase : MonoBehaviour {
     public void Save()
     {
         XmlSerializer serializer = new XmlSerializer(typeof(PlayerData));
-        FileStream stream = new FileStream(Application.dataPath + "/Saves/SaveData.xml", FileMode.Create);
+        FileStream stream = new FileStream(Application.dataPath + "/Scripts/Saves/SaveData.xml", FileMode.Create);
         serializer.Serialize(stream, userData);
         stream.Close();
     }
     public void Load()
     {
         XmlSerializer serializer = new XmlSerializer(typeof(PlayerData));
-        FileStream stream = new FileStream(Application.dataPath + "/Saves/SaveData.xml", FileMode.OpenOrCreate);
+        FileStream stream = new FileStream(Application.dataPath + "/Scripts/Saves/SaveData.xml", FileMode.Open);
         userData = (PlayerData)serializer.Deserialize(stream);
+        stream.Close();
     }
     [System.Serializable]
     public struct PlayerData
@@ -45,5 +46,9 @@ public class SaveDatabase : MonoBehaviour {
                 adminPanel.SetActive(true);
             }
         }
+    }
+    public void OnApplicationQuit()
+    {
+        Save();
     }
 }

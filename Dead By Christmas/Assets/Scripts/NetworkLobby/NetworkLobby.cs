@@ -21,7 +21,6 @@ public class NetworkLobby : Photon.MonoBehaviour {
     //Connects with Photon.
     public void Start()
     {
-        SaveDatabase.data.Load();
         if (!SaveDatabase.data.userData.banned)
         {
             PhotonNetwork.player.NickName = SaveDatabase.data.userData.username;
