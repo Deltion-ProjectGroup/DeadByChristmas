@@ -39,6 +39,7 @@ public class NetworkLobby : Photon.MonoBehaviour {
         else
         {
             bannedUI.SetActive(true);
+            StartCoroutine(TransitionScreen.transitionScreen.FadeOut());
         }
     }
 

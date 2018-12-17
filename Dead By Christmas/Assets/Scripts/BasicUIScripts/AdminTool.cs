@@ -39,13 +39,14 @@ public class AdminTool : MonoBehaviour {
         players = PhotonNetwork.playerList;
         foreach(PhotonPlayer player in players)
         {
+            print(userSelectForBan.options[userSelectForBan.value].text);
             if(player.NickName == userSelectForBan.options[userSelectForBan.value].text)
             {
                 banPlayer = player;
+                GetComponent<PhotonView>().RPC("SendBan", banPlayer, banReason.text);
                 break;
             }
         }
-        GetComponent<PhotonView>().RPC("SendBan", banPlayer, banReason.text);
     }
     [PunRPC]
     public void SendBan(string reason)
