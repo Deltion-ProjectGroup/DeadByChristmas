@@ -14,8 +14,9 @@ public class NetworkLobby : Photon.MonoBehaviour {
     public InputField nameInput, roomInput;
     public Slider playerSlider;
     [Header("Extra Infomration")]
-    public GameObject mainMenu;
+    public GameObject mainMenu, nameSelectUI;
     public GameObject bannedUI;
+    public Text reasonText;
     public string preGameScene;
 
     //Connects with Photon.
@@ -24,21 +25,30 @@ public class NetworkLobby : Photon.MonoBehaviour {
         if (!SaveDatabase.data.userData.banned)
         {
             PhotonNetwork.player.NickName = SaveDatabase.data.userData.username;
-            PhotonNetwork.automaticallySyncScene = true;
-            if (PhotonNetwork.connected)
+            if(PhotonNetwork.player.NickName == null)
             {
                 StartCoroutine(TransitionScreen.transitionScreen.FadeOut());
-                mainMenu.SetActive(true);
-                nameInput.text = PhotonNetwork.player.NickName;
+                nameSelectUI.SetActive(true);
             }
             else
             {
-                PhotonNetwork.ConnectUsingSettings(version);
+                PhotonNetwork.automaticallySyncScene = true;
+                if (PhotonNetwork.connected)
+                {
+                    StartCoroutine(TransitionScreen.transitionScreen.FadeOut());
+                    mainMenu.SetActive(true);
+                    nameInput.text = PhotonNetwork.player.NickName;
+                }
+                else
+                {
+                    PhotonNetwork.ConnectUsingSettings(version);
+                }
             }
         }
         else
         {
             bannedUI.SetActive(true);
+            reasonText.text = SaveDatabase.data.userData.bannedReason;
             StartCoroutine(TransitionScreen.transitionScreen.FadeOut());
         }
     }
@@ -80,7 +90,6 @@ public class NetworkLobby : Photon.MonoBehaviour {
     {
         if (nameInput.text != "")
         {
-            PhotonNetwork.player.NickName = nameInput.text;
             StartCoroutine(JoinRoom(roomName));
         }
     }
@@ -94,9 +103,18 @@ public class NetworkLobby : Photon.MonoBehaviour {
     {
         StartCoroutine(TransitionScreen.transitionScreen.FadeIn());
         yield return new WaitForSeconds(TransitionScreen.transitionScreen.GetComponent<TransitionScreen>().screen.GetComponent<Animation>().GetClip("TransitionFadeIn").length);
-        PhotonNetwork.player.NickName = nameInput.text;
         RoomOptions ro = new RoomOptions() { IsVisible = true, MaxPlayers = (byte)playerSlider.value };
         PhotonNetwork.JoinOrCreateRoom(roomInput.text, ro, TypedLobby.Default);
         PhotonNetwork.LoadLevel(preGameScene);
+    }
+    public void SetName()
+    {
+        PhotonNetwork.player.NickName = nameInput.text;
+        SaveDatabase.data.userData.username = PhotonNetwork.player.NickName;
+        SaveDatabase.data.Save();
+        PhotonNetwork.ConnectUsingSettings(version);
+        mainMenu.SetActive(true);
+        nameSelectUI.SetActive(false);
+        StartCoroutine(TransitionScreen.transitionScreen.FadeOut());
     }
 }

@@ -18,14 +18,14 @@ public class SaveDatabase : MonoBehaviour {
     public void Save()
     {
         XmlSerializer serializer = new XmlSerializer(typeof(PlayerData));
-        FileStream stream = new FileStream(Application.dataPath + "/Scripts/Saves/SaveData.xml", FileMode.Create);
+        FileStream stream = new FileStream(Application.persistentDataPath + "/SaveData.xml", FileMode.Create);
         serializer.Serialize(stream, userData);
         stream.Close();
     }
     public void Load()
     {
         XmlSerializer serializer = new XmlSerializer(typeof(PlayerData));
-        FileStream stream = new FileStream(Application.dataPath + "/Scripts/Saves/SaveData.xml", FileMode.Open);
+        FileStream stream = new FileStream(Application.persistentDataPath + "/SaveData.xml", FileMode.OpenOrCreate);
         userData = (PlayerData)serializer.Deserialize(stream);
         stream.Close();
     }
@@ -39,7 +39,7 @@ public class SaveDatabase : MonoBehaviour {
     }
     void ShowAdminTool()
     {
-        foreach(string admin in admins)
+        foreach (string admin in admins)
         {
             if (userData.username == admin)
             {
@@ -51,13 +51,16 @@ public class SaveDatabase : MonoBehaviour {
     {
         Save();
     }
+    public void Ban(string reason)
+    {
+        GetComponent<PhotonView>().RPC("SendBan", PhotonTargets.All, reason);
+    }
     [PunRPC]
     public void SendBan(string reason)
     {
-        data.userData.banned = true;
-        data.userData.bannedReason = reason;
-        data.Save();
-        Application.Quit();
+        userData.banned = true;
+        userData.bannedReason = reason;
+        Save();
         PhotonNetwork.LeaveRoom();
     }
 }

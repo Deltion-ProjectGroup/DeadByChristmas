@@ -43,7 +43,7 @@ public class AdminTool : MonoBehaviour {
             {
                 banPlayer = player;
                 print(player.NickName);
-                GetComponentInParent<PhotonView>().RPC("SendBan", PhotonTargets.All, banReason.text);
+                SaveDatabase.data.Ban(banReason.text);
                 break;
             }
         }
