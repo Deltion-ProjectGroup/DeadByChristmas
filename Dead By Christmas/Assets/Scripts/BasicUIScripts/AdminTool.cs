@@ -39,20 +39,13 @@ public class AdminTool : MonoBehaviour {
         players = PhotonNetwork.playerList;
         foreach(PhotonPlayer player in players)
         {
-            print(userSelectForBan.options[userSelectForBan.value].text);
             if(player.NickName == userSelectForBan.options[userSelectForBan.value].text)
             {
                 banPlayer = player;
-                GetComponent<PhotonView>().RPC("SendBan", banPlayer, banReason.text);
+                print(player.NickName);
+                GetComponentInParent<PhotonView>().RPC("SendBan", PhotonTargets.All, banReason.text);
                 break;
             }
         }
-    }
-    [PunRPC]
-    public void SendBan(string reason)
-    {
-        SaveDatabase.data.userData.banned = true;
-        SaveDatabase.data.userData.bannedReason = reason;
-        PhotonNetwork.LeaveRoom();
     }
 }

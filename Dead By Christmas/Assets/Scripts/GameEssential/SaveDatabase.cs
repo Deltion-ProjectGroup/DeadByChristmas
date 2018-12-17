@@ -51,4 +51,13 @@ public class SaveDatabase : MonoBehaviour {
     {
         Save();
     }
+    [PunRPC]
+    public void SendBan(string reason)
+    {
+        data.userData.banned = true;
+        data.userData.bannedReason = reason;
+        data.Save();
+        Application.Quit();
+        PhotonNetwork.LeaveRoom();
+    }
 }
