@@ -8,27 +8,18 @@ public class AdminTool : MonoBehaviour {
     public InputField banReason;
     PhotonPlayer banPlayer;
 
-    public void Start()
-    {
-        RefreshPlayerList();
-    }
-    public void OnLeftRoom()
-    {
-        RefreshPlayerList();
-    }
-    public void OnJoinedRoom()
-    {
-        RefreshPlayerList();
-    }
     public void RefreshPlayerList()
     {
         userSelectForBan.ClearOptions();
         foreach(PhotonPlayer player in PhotonNetwork.playerList)
         {
             List<string> names = new List<string>();
-            if(player != PhotonNetwork.player)
+            foreach (string admin in SaveDatabase.data.admins)
             {
-                names.Add(player.NickName);
+                if(player.NickName != admin)
+                {
+                    names.Add(player.NickName);
+                }
             }
             userSelectForBan.AddOptions(names);
         }
@@ -43,7 +34,7 @@ public class AdminTool : MonoBehaviour {
             {
                 banPlayer = player;
                 print(player.NickName);
-                SaveDatabase.data.Ban(banReason.text);
+                SaveDatabase.data.Ban(banReason.text, player);
                 break;
             }
         }

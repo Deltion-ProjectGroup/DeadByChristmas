@@ -88,7 +88,7 @@ public class NetworkLobby : Photon.MonoBehaviour {
     //Creates a new room if the room doest excist, or it joins an already excisting one.
     public void CreateRoom()
     {
-        if (PhotonNetwork.player.NickName != "" && roomInput.text != "")
+        if (roomInput.text != "")
         {
             StartCoroutine(CreateARoom());
         }
@@ -97,10 +97,7 @@ public class NetworkLobby : Photon.MonoBehaviour {
     //Joins an certain room.
     public void JoinCertainRoom(string roomName)
     {
-        if (nameInput.text != "")
-        {
-            StartCoroutine(JoinRoom(roomName));
-        }
+        StartCoroutine(JoinRoom(roomName));
     }
     IEnumerator JoinRoom(string name)
     {

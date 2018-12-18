@@ -1532,16 +1532,6 @@ Prefab:
       propertyPath: m_Name
       value: SaveDatabase
       objectReference: {fileID: 0}
-    - target: {fileID: 114332648637136988, guid: 2a5db123d9e84af478d94563158b8649,
-        type: 2}
-      propertyPath: viewIdField
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114332648637136988, guid: 2a5db123d9e84af478d94563158b8649,
-        type: 2}
-      propertyPath: instantiationId
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 114496919535928810, guid: 2a5db123d9e84af478d94563158b8649,
         type: 2}
       propertyPath: viewIdField
@@ -1552,9 +1542,14 @@ Prefab:
       propertyPath: instantiationId
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 1043876688255428, guid: 2a5db123d9e84af478d94563158b8649, type: 2}
+    - target: {fileID: 1313842839437152, guid: 2a5db123d9e84af478d94563158b8649, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224675257141803970, guid: 2a5db123d9e84af478d94563158b8649,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 75.9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a5db123d9e84af478d94563158b8649, type: 2}

@@ -6,14 +6,21 @@ using System.IO;
 
 public class SaveDatabase : MonoBehaviour {
     public static SaveDatabase data;
-    [SerializeField] string[] admins; 
+    public string[] admins;
+    bool panelToggled;
     [SerializeField] GameObject adminPanel;
     public PlayerData userData;
     private void Awake()
     {
         data = this;
         Load();
-        ShowAdminTool();
+    }
+    public void Update()
+    {
+        if (Input.GetButtonDown("ToggleAdminPanel"))
+        {
+            ToggleAdmin();
+        }
     }
     public void Save()
     {
@@ -21,6 +28,25 @@ public class SaveDatabase : MonoBehaviour {
         FileStream stream = new FileStream(Application.persistentDataPath + "/SaveData.xml", FileMode.Create);
         serializer.Serialize(stream, userData);
         stream.Close();
+    }
+    public void ToggleAdmin()
+    {
+        foreach(string admin in admins)
+        {
+            if(admin == PhotonNetwork.player.NickName)
+            {
+                if (panelToggled)
+                {
+                    panelToggled = false;
+                    adminPanel.SetActive(false);
+                }
+                else
+                {
+                    panelToggled = true;
+                    adminPanel.SetActive(true);
+                }
+            }
+        }
     }
     public void Load()
     {
@@ -37,23 +63,13 @@ public class SaveDatabase : MonoBehaviour {
         public string bannedReason;
         public List<string> friends;
     }
-    void ShowAdminTool()
-    {
-        foreach (string admin in admins)
-        {
-            if (userData.username == admin)
-            {
-                adminPanel.SetActive(true);
-            }
-        }
-    }
     public void OnApplicationQuit()
     {
         Save();
     }
-    public void Ban(string reason)
+    public void Ban(string reason, PhotonPlayer banPlayer)
     {
-        GetComponent<PhotonView>().RPC("SendBan", PhotonTargets.All, reason);
+        GetComponent<PhotonView>().RPC("SendBan", banPlayer, reason);
     }
     [PunRPC]
     public void SendBan(string reason)
