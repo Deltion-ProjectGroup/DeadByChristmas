@@ -11,15 +11,21 @@ public class AdminTool : MonoBehaviour {
     public void RefreshPlayerList()
     {
         userSelectForBan.ClearOptions();
-        foreach(PhotonPlayer player in PhotonNetwork.playerList)
+        foreach(PhotonPlayer player in PhotonNetwork.otherPlayers)
         {
             List<string> names = new List<string>();
+            bool isAdmin = false;
             foreach (string admin in SaveDatabase.data.admins)
             {
-                if(player.NickName != admin)
+                if(player.NickName == admin)
                 {
-                    names.Add(player.NickName);
+                    isAdmin = true;
+                    break;
                 }
+            }
+            if (!isAdmin)
+            {
+                names.Add(player.NickName);
             }
             userSelectForBan.AddOptions(names);
         }

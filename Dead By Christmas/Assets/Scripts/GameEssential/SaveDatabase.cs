@@ -44,6 +44,7 @@ public class SaveDatabase : MonoBehaviour {
                 {
                     panelToggled = true;
                     adminPanel.SetActive(true);
+                    adminPanel.GetComponent<AdminTool>().RefreshPlayerList();
                 }
             }
         }
