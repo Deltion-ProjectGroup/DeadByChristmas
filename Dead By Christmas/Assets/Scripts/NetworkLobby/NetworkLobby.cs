@@ -18,7 +18,13 @@ public class NetworkLobby : Photon.MonoBehaviour {
     public GameObject bannedUI;
     public Text reasonText;
     public string preGameScene;
+    public Text pathText;
 
+
+    public void Update()
+    {
+        pathText.text = Application.persistentDataPath;
+    }
     //Connects with Photon.
     public void Start()
     {

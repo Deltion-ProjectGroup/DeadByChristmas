@@ -25,7 +25,7 @@ public class SaveDatabase : MonoBehaviour {
     public void Load()
     {
         XmlSerializer serializer = new XmlSerializer(typeof(PlayerData));
-        FileStream stream = new FileStream(Application.persistentDataPath + "/SaveData.xml", FileMode.OpenOrCreate);
+        FileStream stream = new FileStream(Application.persistentDataPath + "/SaveData.xml", FileMode.Open);
         userData = (PlayerData)serializer.Deserialize(stream);
         stream.Close();
     }
