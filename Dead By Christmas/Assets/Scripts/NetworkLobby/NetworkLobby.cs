@@ -12,6 +12,8 @@ public class NetworkLobby : Photon.MonoBehaviour {
     public Transform roomHolder;
     public GameObject roomButton;
     public InputField nameInput, roomInput;
+    public Text welcomeText;
+    public string welcomeMessage;
     public Slider playerSlider;
     [Header("Extra Infomration")]
     public GameObject mainMenu, nameSelectUI;
@@ -39,6 +41,7 @@ public class NetworkLobby : Photon.MonoBehaviour {
             else
             {
                 PhotonNetwork.automaticallySyncScene = true;
+                welcomeText.text = welcomeMessage + PhotonNetwork.player.NickName;
                 if (PhotonNetwork.connected)
                 {
                     StartCoroutine(TransitionScreen.transitionScreen.FadeOut());
@@ -85,7 +88,7 @@ public class NetworkLobby : Photon.MonoBehaviour {
     //Creates a new room if the room doest excist, or it joins an already excisting one.
     public void CreateRoom()
     {
-        if (nameInput.text != "" && roomInput.text != "")
+        if (PhotonNetwork.player.NickName != "" && roomInput.text != "")
         {
             StartCoroutine(CreateARoom());
         }
@@ -118,6 +121,7 @@ public class NetworkLobby : Photon.MonoBehaviour {
         PhotonNetwork.player.NickName = nameInput.text;
         SaveDatabase.data.userData.username = PhotonNetwork.player.NickName;
         SaveDatabase.data.Save();
+        welcomeText.text = welcomeMessage + PhotonNetwork.player.NickName;
         PhotonNetwork.ConnectUsingSettings(version);
         mainMenu.SetActive(true);
         nameSelectUI.SetActive(false);
