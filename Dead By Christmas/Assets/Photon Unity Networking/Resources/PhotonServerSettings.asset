@@ -54,4 +54,7 @@ MonoBehaviour:
   - RandomizePlayers
   - GetElfs
   - SendBan
+  - Request
+  - ReceiveFriendRequest
+  - SendRequestAnswerBack
   DisableAutoOpenWizard: 1

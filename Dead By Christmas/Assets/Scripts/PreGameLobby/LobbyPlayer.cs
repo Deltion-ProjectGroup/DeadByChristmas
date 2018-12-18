@@ -8,6 +8,7 @@ public class LobbyPlayer : MonoBehaviour {
     public Text userName;
     public Text readyText;
     public GameObject kickButton;
+    public GameObject friendButton;
     public bool isReady;
 
 
@@ -34,6 +35,8 @@ public class LobbyPlayer : MonoBehaviour {
     }
     public void SendFriendRequest()
     {
-        
+        PhotonPlayer target = GetComponent<PhotonView>().owner;
+        GameObject.FindGameObjectWithTag("Manager").GetComponent<PhotonView>().RPC("ReceiveFriendRequest", target, PhotonNetwork.player);
+        friendButton.SetActive(false);
     }
 }

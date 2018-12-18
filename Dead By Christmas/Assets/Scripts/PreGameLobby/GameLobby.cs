@@ -19,12 +19,21 @@ public class GameLobby : MonoBehaviour {
     public GameObject masterOptions;
     public bool visible = true;
     public bool toggledOpt;
+    [Header("Friending")]
+    public GameObject friendRequest;
+    public Text requesterName;
+    public List<PhotonPlayer> remaingRequests = new List<PhotonPlayer>();
 
+    public GameObject friendRequestAnswer;
+    public Text receiverName;
+    public Text receiveMessageText;
+    public List<PhotonPlayer> remaingReceives = new List<PhotonPlayer>();
     //Spawns the player in the lobby 
     void OnJoinedRoom()
     {
         print("JOINED");
         localPlayer = PhotonNetwork.Instantiate("LobbyPlayer", Vector3.zero, Quaternion.identity, 0);
+        localPlayer.GetComponent<LobbyPlayer>().friendButton.SetActive(false);
         if (localPlayer != null)
         {
             localPlayer.GetComponent<LobbyPlayer>().readyText.text = neutralText;
@@ -281,5 +290,77 @@ public class GameLobby : MonoBehaviour {
             timerText.text = (string)stream.ReceiveNext();
             visible = (bool)stream.ReceiveNext();
         }
+    }
+    [PunRPC]
+    public void ReceiveFriendRequest(PhotonPlayer requester)
+    {
+        remaingRequests.Add(requester);
+        if(remaingRequests.Count == 1)
+        {
+            StartCoroutine(ShowFriendRequest());
+        }
+    }
+    [PunRPC]
+    public void SendRequestAnswerBack(bool accepted, PhotonPlayer receiver, bool timedOut = true)
+    {
+
+        friendRequestAnswer.SetActive(true);
+        receiverName.text = receiver.NickName;
+        if (accepted)
+        {
+            SaveDatabase.data.userData.friends.Add(receiver.NickName);
+            receiveMessageText.text = "Has accepted your request";
+        }
+        else
+        {
+            if (timedOut)
+            {
+                receiveMessageText.text = "Didn't respond in time";
+            }
+            else
+            {
+                receiveMessageText.text = "Has denied your request";
+            }
+            GameObject[] targets = GameObject.FindGameObjectsWithTag("Player");
+            foreach(GameObject target in targets)
+            {
+                if(target.GetComponent<LobbyPlayer>().userName.text == receiver.NickName)
+                {
+                    target.GetComponent<LobbyPlayer>().friendButton.SetActive(true);
+                }
+            }
+        }
+    }
+    public void FriendRequestDecision(bool accepted)
+    {
+        if (accepted)
+        {
+            SaveDatabase.data.userData.friends.Add(remaingRequests[0].NickName);
+            GetComponent<PhotonView>().RPC("SendRequestAnswerBack", remaingRequests[0], true);
+            StopCoroutine("ShowFriendRequest");
+            friendRequest.SetActive(false);
+        }
+        else
+        {
+            GetComponent<PhotonView>().RPC("SendRequestAnswerBack", remaingRequests[0], false, false);
+            StopCoroutine("ShowFriendRequest");
+            friendRequest.SetActive(false);
+        }
+        remaingRequests.RemoveAt(0);
+        if(remaingRequests.Count > 0)
+        {
+            StartCoroutine(ShowFriendRequest());
+        }
+    }
+    public IEnumerator ShowFriendRequest()
+    {
+        friendRequest.SetActive(true);
+        while(remaingRequests.Count > 0)
+        {
+            yield return new WaitForSeconds(5);
+            GetComponent<PhotonView>().RPC("SendRequestAnswerBack", remaingRequests[0], false);
+            remaingRequests.RemoveAt(0);
+        }
+        friendRequest.SetActive(false);
     }
 }
