@@ -336,13 +336,13 @@ public class GameLobby : MonoBehaviour {
         if (accepted)
         {
             SaveDatabase.data.userData.friends.Add(remaingRequests[0].NickName);
-            GetComponent<PhotonView>().RPC("SendRequestAnswerBack", remaingRequests[0], true);
+            GetComponent<PhotonView>().RPC("SendRequestAnswerBack", remaingRequests[0], true, PhotonNetwork.player, false);
             StopCoroutine("ShowFriendRequest");
             friendRequest.SetActive(false);
         }
         else
         {
-            GetComponent<PhotonView>().RPC("SendRequestAnswerBack", remaingRequests[0], false, false);
+            GetComponent<PhotonView>().RPC("SendRequestAnswerBack", remaingRequests[0], false, PhotonNetwork.player, false);
             StopCoroutine("ShowFriendRequest");
             friendRequest.SetActive(false);
         }
@@ -358,7 +358,7 @@ public class GameLobby : MonoBehaviour {
         while(remaingRequests.Count > 0)
         {
             yield return new WaitForSeconds(5);
-            GetComponent<PhotonView>().RPC("SendRequestAnswerBack", remaingRequests[0], false);
+            GetComponent<PhotonView>().RPC("SendRequestAnswerBack", remaingRequests[0], false, PhotonNetwork.player, true);
             remaingRequests.RemoveAt(0);
         }
         friendRequest.SetActive(false);
