@@ -32,8 +32,8 @@ public class NetworkLobby : Photon.MonoBehaviour {
     {
         if (!SaveDatabase.data.userData.banned)
         {
-            PhotonNetwork.player.NickName = SaveDatabase.data.userData.username;
-            if(PhotonNetwork.player.NickName == null)
+            PhotonNetwork.playerName = SaveDatabase.data.userData.username;
+            if (PhotonNetwork.player.NickName == null || PhotonNetwork.player.NickName == "")
             {
                 StartCoroutine(TransitionScreen.transitionScreen.FadeOut());
                 nameSelectUI.SetActive(true);
@@ -67,6 +67,13 @@ public class NetworkLobby : Photon.MonoBehaviour {
     {
         StartCoroutine(TransitionScreen.transitionScreen.FadeOut());
         mainMenu.SetActive(true);
+    }
+    public void OnJoinedLobby()
+    {
+        if(SaveDatabase.data.userData.friends.Count > 0)
+        {
+            PhotonNetwork.FindFriends(SaveDatabase.data.userData.friends.ToArray());
+        }
     }
 
     public void OnReceivedRoomListUpdate()
@@ -115,7 +122,7 @@ public class NetworkLobby : Photon.MonoBehaviour {
     }
     public void SetName()
     {
-        PhotonNetwork.player.NickName = nameInput.text;
+        PhotonNetwork.playerName = nameInput.text;
         SaveDatabase.data.userData.username = PhotonNetwork.player.NickName;
         SaveDatabase.data.Save();
         welcomeText.text = welcomeMessage + PhotonNetwork.player.NickName;
@@ -123,5 +130,10 @@ public class NetworkLobby : Photon.MonoBehaviour {
         mainMenu.SetActive(true);
         nameSelectUI.SetActive(false);
         StartCoroutine(TransitionScreen.transitionScreen.FadeOut());
+    }
+    public void OnUpdatedFriendList()
+    {
+        print(PhotonNetwork.Friends.Count);
+        print(PhotonNetwork.Friends[0].IsOnline);
     }
 }

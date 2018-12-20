@@ -36,13 +36,12 @@ public abstract class Player : MonoBehaviour {
 	[SerializeField] float maxX; //Maximum clamping of X
 	float rotX; //Current X rot
 	float rotY; //Current Y rot
-    [Header ("Bones")]
-    public Rigidbody[] bones;
+    [Header ("Body")]
     public Rigidbody rig;
+    public Animator animator;
     //CALL THESE IN THE INHERITING SCRIPTS
     public void PlayerStart () {
         //Assign variables
-        GetComponent<PhotonView>().RPC("ToggleRagdoll", PhotonTargets.All, false);
 		speed = baseSpeed;
 		health = baseHealth;
 
@@ -63,12 +62,20 @@ public abstract class Player : MonoBehaviour {
 	void Walk () {
 		//Make multiplier
 		float multiplier = speed * Time.deltaTime;
-		Vector3 verticalAxis = Input.GetAxis ("Vertical") * Vector3.forward * multiplier;
-		Vector3 horizontalAxis = Input.GetAxis ("Horizontal") * Vector3.right * multiplier;
+        Vector3 movePos = new Vector3();
+		movePos.z = Input.GetAxis ("Vertical") * 1 * multiplier;
+		movePos.x = Input.GetAxis ("Horizontal") * 1 * multiplier;
 
 		//Translate the movement axis
-		transform.Translate (verticalAxis); //Vertical axis
-		transform.Translate (horizontalAxis); //Horizontal axis
+        if(movePos.x == 0 && movePos.z == 0)
+        {
+            animator.SetBool("Walking", false);
+        }
+        else
+        {
+            animator.SetBool("Walking", true);
+            transform.Translate(movePos); //Vertical axis
+        }
 	}
 
 	//RaycastHit of camera
@@ -105,7 +112,10 @@ public abstract class Player : MonoBehaviour {
 		}
 	}
 
-	public abstract void Death ();
+	public virtual void Death()
+    {
+        animator.SetTrigger("Death");
+    }
     [PunRPC]
 	public void ReceiveDamage (int damageAmount) {
 		//Subtract damage amount to health
@@ -151,26 +161,7 @@ public abstract class Player : MonoBehaviour {
 			return input;
 		}
 	}
-    //Toggle the ragdoll
-    [PunRPC]
-    public virtual void ToggleRagdoll(bool onOrOf)
-    {
-        GetComponent<Animator>().enabled = !onOrOf;
-        foreach (Rigidbody joint in bones)
-        {
-            joint.isKinematic = !onOrOf;
-            if (joint.GetComponent<Collider>())
-            {
-                joint.GetComponent<Collider>().enabled = onOrOf;
-                joint.GetComponent<Rigidbody>().isKinematic = !onOrOf;
-            }
-        }
-        rig.isKinematic = onOrOf;
-        GetComponent<Collider>().enabled = !onOrOf;
-        bones[0].transform.rotation = transform.rotation;
-        bones[0].transform.Rotate(-90, 0, 0);
-        bones[0].transform.position = transform.position;
-    }
+
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.isWriting)

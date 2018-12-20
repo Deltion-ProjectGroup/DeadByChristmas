@@ -37,6 +37,7 @@ public class ElfController : Player {
     [Header("KnockOutInfo")]
     public bool isKnockedOut = true;
     public float knockedOutTime;
+    public Rigidbody[] bones;
 
     [Header("JumpInfo")]
     public float jumpForce;
@@ -55,6 +56,7 @@ public class ElfController : Player {
     //StartFunction
     public void Start()
     {
+        GetComponent<PhotonView>().RPC("ToggleRagdoll", PhotonTargets.All, false);
         PlayerStart();
     }
 
@@ -74,7 +76,6 @@ public class ElfController : Player {
         currentItem.GetComponent<WeaponPart>().hasCollider = false;
         currentItem.GetComponent<Collider>().enabled = false;
     }
-
     public void DropItem()
     {
         hasItem = false;
@@ -238,7 +239,7 @@ public class ElfController : Player {
 
     //Toggle the ragdoll
     [PunRPC]
-    public override void ToggleRagdoll(bool onOrOf)
+    public void ToggleRagdoll(bool onOrOf)
     {
         isKnockedOut = onOrOf;
         GetComponent<Animator>().enabled = !onOrOf;

@@ -50,7 +50,7 @@ public class SantaController : Player {
         if (canAttack)
         {
             canAttack = false;
-            yield return null;
+            animator.SetTrigger("Attack");
             Ray shootRay = cam.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition, Camera.MonoOrStereoscopicEye.Mono);
             RaycastHit hitObj;
             if (Physics.Raycast(shootRay, out hitObj, attackRange, damageableObjects, QueryTriggerInteraction.Ignore))
@@ -58,15 +58,11 @@ public class SantaController : Player {
                 if (hitObj.transform.tag == "Player")
                 {
                     hitObj.transform.GetComponent<PhotonView>().RPC("ReceiveDamage", PhotonTargets.All, damage);
-                    print("COOLDOWN");
-                    yield return new WaitForSeconds(2);
-                    print("COOLDOWN DONE");
                 }
             }
-            else
-            {
-                print("NOTHING");
-            }
+            print("COOLDOWN");
+            yield return new WaitForSeconds(attackCooldown);
+            print("COOLDOWN DONE");
             canAttack = true;
         }
     }
@@ -82,9 +78,6 @@ public class SantaController : Player {
     }
     public override void Death()
     {
-        foreach(Rigidbody rig in bones)
-        {
-            rig.isKinematic = false;
-        }
+        base.Death();
     }
 }
