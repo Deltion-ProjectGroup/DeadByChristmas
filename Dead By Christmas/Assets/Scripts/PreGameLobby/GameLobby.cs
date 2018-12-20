@@ -299,7 +299,7 @@ public class GameLobby : MonoBehaviour {
         if(remaingRequests.Count == 1)
         {
             currentFriendRoutine = ShowFriendRequest();
-            StartCoroutine(ShowFriendRequest());
+            StartCoroutine(currentFriendRoutine);
         }
     }
     [PunRPC]
@@ -352,7 +352,7 @@ public class GameLobby : MonoBehaviour {
         if(remaingRequests.Count > 0)
         {
             currentFriendRoutine = ShowFriendRequest();
-            StartCoroutine(ShowFriendRequest());
+            StartCoroutine(currentFriendRoutine);
         }
     }
     public IEnumerator ShowFriendRequest()
