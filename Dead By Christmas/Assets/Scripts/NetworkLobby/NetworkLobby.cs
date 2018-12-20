@@ -124,8 +124,8 @@ public class NetworkLobby : Photon.MonoBehaviour {
     {
         PhotonNetwork.playerName = nameInput.text;
         SaveDatabase.data.userData.username = PhotonNetwork.player.NickName;
-        SaveDatabase.data.Save();
         welcomeText.text = welcomeMessage + PhotonNetwork.player.NickName;
+        SaveDatabase.data.Save();
         PhotonNetwork.ConnectUsingSettings(version);
         mainMenu.SetActive(true);
         nameSelectUI.SetActive(false);

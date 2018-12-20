@@ -52,9 +52,20 @@ public class SaveDatabase : MonoBehaviour {
     public void Load()
     {
         XmlSerializer serializer = new XmlSerializer(typeof(PlayerData));
-        FileStream stream = new FileStream(Application.persistentDataPath + "/SaveData.xml", FileMode.Open);
-        userData = (PlayerData)serializer.Deserialize(stream);
-        stream.Close();
+        if (File.Exists(Application.persistentDataPath + "/SaveData.xml"))
+        {
+            print("Yes");
+            FileStream stream = new FileStream(Application.persistentDataPath + "/SaveData.xml", FileMode.Open);
+            userData = (PlayerData)serializer.Deserialize(stream);
+            stream.Close();
+        }
+        else
+        {
+            print("NOPE");
+            FileStream stream = new FileStream(Application.persistentDataPath + "/SaveData.xml", FileMode.Create);
+            serializer.Serialize(stream, userData);
+            stream.Close();
+        }
     }
     [System.Serializable]
     public struct PlayerData

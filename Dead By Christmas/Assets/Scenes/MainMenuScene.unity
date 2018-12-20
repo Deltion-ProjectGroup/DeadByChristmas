@@ -3850,12 +3850,12 @@ Prefab:
     - target: {fileID: 114983777871107374, guid: 14e8999c5faa99141b137d9f057856a5,
         type: 2}
       propertyPath: viewIdField
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114983777871107374, guid: 14e8999c5faa99141b137d9f057856a5,
         type: 2}
       propertyPath: instantiationId
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114057993532173074, guid: 14e8999c5faa99141b137d9f057856a5,
         type: 2}
@@ -5311,12 +5311,12 @@ Prefab:
     - target: {fileID: 114496919535928810, guid: 2a5db123d9e84af478d94563158b8649,
         type: 2}
       propertyPath: viewIdField
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114496919535928810, guid: 2a5db123d9e84af478d94563158b8649,
         type: 2}
       propertyPath: instantiationId
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a5db123d9e84af478d94563158b8649, type: 2}
