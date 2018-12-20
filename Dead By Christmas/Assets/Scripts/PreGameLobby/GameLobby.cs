@@ -20,6 +20,7 @@ public class GameLobby : MonoBehaviour {
     public bool visible = true;
     public bool toggledOpt;
     [Header("Friending")]
+    IEnumerator currentFriendRoutine;
     public GameObject friendRequest;
     public Text requesterName;
     public List<PhotonPlayer> remaingRequests = new List<PhotonPlayer>();
@@ -297,8 +298,8 @@ public class GameLobby : MonoBehaviour {
         remaingRequests.Add(requester);
         if(remaingRequests.Count == 1)
         {
-            currentCoroutine = ShowFriendRequest(1);
-            StartCoroutine(currentCoroutine);
+            currentFriendRoutine = ShowFriendRequest();
+            StartCoroutine(ShowFriendRequest());
         }
     }
     [PunRPC]
@@ -338,24 +339,23 @@ public class GameLobby : MonoBehaviour {
         {
             SaveDatabase.data.userData.friends.Add(remaingRequests[0].NickName);
             GetComponent<PhotonView>().RPC("SendRequestAnswerBack", remaingRequests[0], true, PhotonNetwork.player, false);
-            StopCoroutine("ShowFriendRequest");
+            StopCoroutine(currentFriendRoutine);
             friendRequest.SetActive(false);
         }
         else
         {
             GetComponent<PhotonView>().RPC("SendRequestAnswerBack", remaingRequests[0], false, PhotonNetwork.player, false);
-            StopCoroutine(currentCoroutine);
+            StopCoroutine(currentFriendRoutine);
             friendRequest.SetActive(false);
         }
         remaingRequests.RemoveAt(0);
         if(remaingRequests.Count > 0)
         {
-            currentCoroutine = ShowFriendRequest(1);
-            StartCoroutine(currentCoroutine);
+            currentFriendRoutine = ShowFriendRequest();
+            StartCoroutine(ShowFriendRequest());
         }
     }
-    IEnumerator currentCoroutine;
-    public IEnumerator ShowFriendRequest(int version)
+    public IEnumerator ShowFriendRequest()
     {
         friendRequest.SetActive(true);
         while(remaingRequests.Count > 0)
