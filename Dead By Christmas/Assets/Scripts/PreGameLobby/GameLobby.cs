@@ -297,7 +297,8 @@ public class GameLobby : MonoBehaviour {
         remaingRequests.Add(requester);
         if(remaingRequests.Count == 1)
         {
-            StartCoroutine(ShowFriendRequest());
+            currentCoroutine = ShowFriendRequest(1);
+            StartCoroutine(currentCoroutine);
         }
     }
     [PunRPC]
@@ -343,16 +344,18 @@ public class GameLobby : MonoBehaviour {
         else
         {
             GetComponent<PhotonView>().RPC("SendRequestAnswerBack", remaingRequests[0], false, PhotonNetwork.player, false);
-            StopCoroutine("ShowFriendRequest");
+            StopCoroutine(currentCoroutine);
             friendRequest.SetActive(false);
         }
         remaingRequests.RemoveAt(0);
         if(remaingRequests.Count > 0)
         {
-            StartCoroutine(ShowFriendRequest());
+            currentCoroutine = ShowFriendRequest(1);
+            StartCoroutine(currentCoroutine);
         }
     }
-    public IEnumerator ShowFriendRequest()
+    IEnumerator currentCoroutine;
+    public IEnumerator ShowFriendRequest(int version)
     {
         friendRequest.SetActive(true);
         while(remaingRequests.Count > 0)
