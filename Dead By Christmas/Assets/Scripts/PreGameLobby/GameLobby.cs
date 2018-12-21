@@ -347,9 +347,9 @@ public class GameLobby : MonoBehaviour {
     }
     public void FriendRequestDecision(bool accepted)
     {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         if (accepted)
         {
-            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
             foreach(GameObject player in players)
             {
                 if(player.GetComponent<LobbyPlayer>().userName.text == remaingRequests[0].NickName)
@@ -369,7 +369,6 @@ public class GameLobby : MonoBehaviour {
             StopCoroutine(currentFriendRoutine);
             friendRequest.SetActive(false);
         }
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players)
         {
             if (player.GetComponent<LobbyPlayer>().userName.text == remaingRequests[0].NickName)
