@@ -59,13 +59,6 @@ public class SaveDatabase : MonoBehaviour {
             userData = (PlayerData)serializer.Deserialize(stream);
             stream.Close();
         }
-        else
-        {
-            print("NOPE");
-            FileStream stream = new FileStream(Application.persistentDataPath + "/SaveData.xml", FileMode.Create);
-            serializer.Serialize(stream, userData);
-            stream.Close();
-        }
     }
     [System.Serializable]
     public struct PlayerData

@@ -303,7 +303,7 @@ public class GameLobby : MonoBehaviour {
         }
     }
     [PunRPC]
-    public void SendRequestAnswerBack(bool accepted, PhotonPlayer receiver, bool timedOut = true)
+    public IEnumerator SendRequestAnswerBack(bool accepted, PhotonPlayer receiver, bool timedOut = true)
     {
 
         friendRequestAnswer.SetActive(true);
@@ -332,6 +332,8 @@ public class GameLobby : MonoBehaviour {
                 }
             }
         }
+        yield return new WaitForSeconds(3);
+        friendRequestAnswer.SetActive(false);
     }
     public void FriendRequestDecision(bool accepted)
     {

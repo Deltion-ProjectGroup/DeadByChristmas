@@ -21,6 +21,9 @@ public class NetworkLobby : Photon.MonoBehaviour {
     public Text reasonText;
     public string preGameScene;
     public Text pathText;
+    [Header("Friends")]
+    public GameObject friendPanel;
+    public Transform friendHolder;
 
 
     public void Update()
@@ -33,6 +36,7 @@ public class NetworkLobby : Photon.MonoBehaviour {
         if (!SaveDatabase.data.userData.banned)
         {
             PhotonNetwork.playerName = SaveDatabase.data.userData.username;
+            PhotonNetwork.automaticallySyncScene = true;
             if (PhotonNetwork.player.NickName == null || PhotonNetwork.player.NickName == "")
             {
                 StartCoroutine(TransitionScreen.transitionScreen.FadeOut());
@@ -40,7 +44,6 @@ public class NetworkLobby : Photon.MonoBehaviour {
             }
             else
             {
-                PhotonNetwork.automaticallySyncScene = true;
                 welcomeText.text = welcomeMessage + PhotonNetwork.player.NickName;
                 if (PhotonNetwork.connected)
                 {
@@ -135,5 +138,18 @@ public class NetworkLobby : Photon.MonoBehaviour {
     {
         print(PhotonNetwork.Friends.Count);
         print(PhotonNetwork.Friends[0].IsOnline);
+        foreach(Transform t in friendHolder)
+        {
+            Destroy(t.gameObject);
+        }
+        foreach(FriendInfo friend in PhotonNetwork.Friends)
+        {
+            if (friend.IsInRoom)
+            {
+                GameObject data = Instantiate(friendPanel, friendHolder);
+                data.GetComponent<FriendButton>().roomName = friend.Room;
+                data.GetComponentInChildren<Text>().text = friend.Name;
+            }
+        }
     }
 }
