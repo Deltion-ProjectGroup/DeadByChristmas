@@ -296,7 +296,16 @@ public class GameLobby : MonoBehaviour {
     public void ReceiveFriendRequest(PhotonPlayer requester)
     {
         remaingRequests.Add(requester);
-        if(remaingRequests.Count == 1)
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players)
+        {
+            if (player.GetComponent<LobbyPlayer>().userName.text == remaingRequests[0].NickName)
+            {
+                player.GetComponent<LobbyPlayer>().friendButton.SetActive(false);
+                break;
+            }
+        }
+        if (remaingRequests.Count == 1)
         {
             currentFriendRoutine = ShowFriendRequest();
             StartCoroutine(currentFriendRoutine);
@@ -329,6 +338,7 @@ public class GameLobby : MonoBehaviour {
                 if(target.GetComponent<LobbyPlayer>().userName.text == receiver.NickName)
                 {
                     target.GetComponent<LobbyPlayer>().friendButton.SetActive(true);
+                    break;
                 }
             }
         }
@@ -339,6 +349,15 @@ public class GameLobby : MonoBehaviour {
     {
         if (accepted)
         {
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+            foreach(GameObject player in players)
+            {
+                if(player.GetComponent<LobbyPlayer>().userName.text == remaingRequests[0].NickName)
+                {
+                    player.GetComponent<LobbyPlayer>().friendButton.SetActive(false);
+                    break;
+                }
+            }
             SaveDatabase.data.userData.friends.Add(remaingRequests[0].NickName);
             GetComponent<PhotonView>().RPC("SendRequestAnswerBack", remaingRequests[0], true, PhotonNetwork.player, false);
             StopCoroutine(currentFriendRoutine);
@@ -349,6 +368,15 @@ public class GameLobby : MonoBehaviour {
             GetComponent<PhotonView>().RPC("SendRequestAnswerBack", remaingRequests[0], false, PhotonNetwork.player, false);
             StopCoroutine(currentFriendRoutine);
             friendRequest.SetActive(false);
+        }
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players)
+        {
+            if (player.GetComponent<LobbyPlayer>().userName.text == remaingRequests[0].NickName)
+            {
+                player.GetComponent<LobbyPlayer>().friendButton.SetActive(true);
+                break;
+            }
         }
         remaingRequests.RemoveAt(0);
         if(remaingRequests.Count > 0)
