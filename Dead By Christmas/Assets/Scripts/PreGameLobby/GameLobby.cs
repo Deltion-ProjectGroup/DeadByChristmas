@@ -360,15 +360,13 @@ public class GameLobby : MonoBehaviour {
             }
             SaveDatabase.data.userData.friends.Add(remaingRequests[0].NickName);
             GetComponent<PhotonView>().RPC("SendRequestAnswerBack", remaingRequests[0], true, PhotonNetwork.player, false);
-            StopCoroutine(currentFriendRoutine);
-            friendRequest.SetActive(false);
         }
         else
         {
             GetComponent<PhotonView>().RPC("SendRequestAnswerBack", remaingRequests[0], false, PhotonNetwork.player, false);
-            StopCoroutine(currentFriendRoutine);
-            friendRequest.SetActive(false);
         }
+        StopCoroutine(currentFriendRoutine);
+        friendRequest.SetActive(false);
         foreach (GameObject player in players)
         {
             if (player.GetComponent<LobbyPlayer>().userName.text == remaingRequests[0].NickName)
@@ -389,6 +387,7 @@ public class GameLobby : MonoBehaviour {
         friendRequest.SetActive(true);
         while(remaingRequests.Count > 0)
         {
+            requesterName.text = remaingRequests[0].NickName;
             yield return new WaitForSeconds(5);
             GetComponent<PhotonView>().RPC("SendRequestAnswerBack", remaingRequests[0], false, PhotonNetwork.player, true);
             remaingRequests.RemoveAt(0);

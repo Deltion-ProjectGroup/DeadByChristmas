@@ -24,6 +24,7 @@ public class NetworkLobby : Photon.MonoBehaviour {
     [Header("Friends")]
     public GameObject friendPanel;
     public Transform friendHolder;
+    public string ingameStatus, lobbyStatus;
 
 
     public void Update()
@@ -144,11 +145,20 @@ public class NetworkLobby : Photon.MonoBehaviour {
         }
         foreach(FriendInfo friend in PhotonNetwork.Friends)
         {
-            if (friend.IsInRoom)
+            if (friend.IsOnline)
             {
                 GameObject data = Instantiate(friendPanel, friendHolder);
-                data.GetComponent<FriendButton>().roomName = friend.Room;
                 data.GetComponentInChildren<Text>().text = friend.Name;
+                if (friend.IsInRoom)
+                {
+                    data.GetComponent<FriendButton>().roomName = friend.Room;
+                    data.GetComponent<FriendButton>().gameStatus.text = ingameStatus;
+                    data.GetComponent<FriendButton>().inGame = true;
+                }
+                else
+                {
+                    data.GetComponent<FriendButton>().gameStatus.text = lobbyStatus;
+                }
             }
         }
     }
