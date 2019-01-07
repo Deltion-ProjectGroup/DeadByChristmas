@@ -9,18 +9,10 @@ public class Cannon : InteractableObject {
 	[SerializeField] Transform cannonCamera;
 	public bool hasPlayer;
 
-	Material cannonMat;
-
 	void Start () {
-		cannonMat = GetComponent<Renderer> ().material;
 	}
 
 	void Update () {
-		if (hasPlayer) {
-			cannonMat.color = Color.red;
-		} else {
-			cannonMat.color = Color.green;
-		}
 	}
 
 	public override void Interact () {
@@ -36,7 +28,7 @@ public class Cannon : InteractableObject {
 	}
 
 	void PutPlayerIn () {
-		GetComponent<Collider> ().isTrigger = true;
+		//GetComponent<Collider> ().enabled = false;
 		SetHasPlayer (true);
 		interactingPlayer.parent = playerInCannonParent;
 		interactingPlayer.GetComponent<Player> ().enabled = false;
@@ -52,7 +44,7 @@ public class Cannon : InteractableObject {
 	IEnumerator SetToZero () {
 		while (interactingPlayer.localRotation != Quaternion.Euler (Vector3.zero)) {
 			interactingPlayer.localPosition = Vector3.zero;
-			interactingPlayer.localRotation = Quaternion.Euler (Vector3.zero);
+			interactingPlayer.localRotation = Quaternion.Euler (90f, 0f, 0f);
 
 			yield return null;
 		}
@@ -74,7 +66,6 @@ public class Cannon : InteractableObject {
 		foreach (Rigidbody r in t.GetComponent<ElfController> ().bones) {
 			r.useGravity = b;
 			r.GetComponent<Collider> ().enabled = b;
-			//r.isKinematic = false;
 		}
 		t.GetComponent<Collider> ().enabled = b;
 		t.GetComponent<Rigidbody> ().useGravity = b;
@@ -97,19 +88,31 @@ public class Cannon : InteractableObject {
 			print ("Pew");
 			shotPlayer.SetParent (null);
 			SetPlayerVars (shotPlayer, true);
-			shotPlayer.GetComponent<Rigidbody> ().AddForce (shotPlayer.up * force);
+			 shotPlayer.GetComponent<Rigidbody> ().AddForce (shotPlayer.up * force);
 
 			StartCoroutine ("CheckIfLanded");
+			StartCoroutine ("WaitFor");
 
 			SetHasPlayer (false);
 		}
+	}
+
+	IEnumerator WaitFor() {
+		Rigidbody[] playerColider = shotPlayer.GetComponent<ElfController>().bones;
+		foreach(Rigidbody rig in playerColider){
+			rig.GetComponent<Collider>().isTrigger = true;
+		}
+		yield return new WaitForSeconds(0.5f);
+		foreach(Rigidbody rig in playerColider){
+			rig.GetComponent<Collider>().isTrigger = false;
+		}
+		
 	}
 
 	bool hasLanded;
 	[SerializeField] LayerMask mask;
 
 	IEnumerator CheckIfLanded () {
-
 		yield return new WaitForSecondsRealtime (2f);
 		while (!Physics.CheckSphere (shotPlayer.position, 0.5f, mask)) {
 			yield return null;

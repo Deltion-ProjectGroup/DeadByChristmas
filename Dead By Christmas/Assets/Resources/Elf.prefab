@@ -1269,19 +1269,8 @@ MonoBehaviour:
   headBone: {fileID: 4278571979125394}
   minX: -90
   maxX: 90
-  bones:
-  - {fileID: 54397947744996992}
-  - {fileID: 54911721518793850}
-  - {fileID: 54784100109239396}
-  - {fileID: 54567770956805680}
-  - {fileID: 54748244501630382}
-  - {fileID: 54474512887024362}
-  - {fileID: 54213773780042452}
-  - {fileID: 54745297479817440}
-  - {fileID: 54859283710446074}
-  - {fileID: 54132527492529996}
-  - {fileID: 54555657655153464}
   rig: {fileID: 54493557662846788}
+  animator: {fileID: 95052632935093526}
   currentState: 0
   struggleInput: Jump
   struggleMoveSpeed: 3
@@ -1302,6 +1291,18 @@ MonoBehaviour:
   dropInput: Use
   isKnockedOut: 1
   knockedOutTime: 10
+  bones:
+  - {fileID: 54397947744996992}
+  - {fileID: 54911721518793850}
+  - {fileID: 54784100109239396}
+  - {fileID: 54567770956805680}
+  - {fileID: 54748244501630382}
+  - {fileID: 54474512887024362}
+  - {fileID: 54213773780042452}
+  - {fileID: 54745297479817440}
+  - {fileID: 54859283710446074}
+  - {fileID: 54132527492529996}
+  - {fileID: 54555657655153464}
   jumpForce: 4
   addForce: 0
   groundDetectionRange: 0.18

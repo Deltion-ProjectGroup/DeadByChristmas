@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PreGameLobbyScene.unity
     guid: bdaed007fc137d5469ffeba05d28dd5c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ThimoScene.unity
     guid: c4421bcf47f5fda43b2717ecde9c091d
   - enabled: 1
