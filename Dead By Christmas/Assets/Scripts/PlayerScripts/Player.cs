@@ -69,11 +69,11 @@ public abstract class Player : MonoBehaviour {
 		//Translate the movement axis
         if(movePos.x == 0 && movePos.z == 0)
         {
-            animator.SetBool("Walking", false);
+            //animator.SetBool("Walking", false);
         }
         else
         {
-            animator.SetBool("Walking", true);
+            //animator.SetBool("Walking", true);
             transform.Translate(movePos); //Vertical axis
         }
 	}

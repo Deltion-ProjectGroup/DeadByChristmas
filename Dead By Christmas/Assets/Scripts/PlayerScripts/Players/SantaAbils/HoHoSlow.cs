@@ -13,15 +13,20 @@ public class HoHoSlow : Ability {
         Collider[] availableTargets = Physics.OverlapSphere(thisTransform.position, range, targets, QueryTriggerInteraction.Ignore);
         foreach(Collider col in availableTargets)
         {
-            Slow slow = col.gameObject.AddComponent<Slow>();
-            slow.duration = duration;
-            slow.smooth = true;
-            slow.slowAmount = slowAmount;
-            slow.smoothDelay = 1;
+            GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().localPlayer.GetComponent<PhotonView>().RPC("AddEffect", col.GetComponent<PhotonView>().owner);
         }
     }
     public override IEnumerator IEAttack(Transform thisTrans)
     {
         throw new System.NotImplementedException();
+    }
+    [PunRPC]
+    public void AddEffect()
+    {
+        Slow slow = GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().localPlayer.AddComponent<Slow>();
+        slow.duration = duration;
+        slow.smooth = true;
+        slow.slowAmount = slowAmount;
+        slow.smoothDelay = 1;
     }
 }
