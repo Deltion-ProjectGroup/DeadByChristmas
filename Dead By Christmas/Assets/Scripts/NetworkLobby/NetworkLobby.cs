@@ -30,6 +30,13 @@ public class NetworkLobby : Photon.MonoBehaviour {
     public void Update()
     {
         pathText.text = Application.persistentDataPath;
+        if (PhotonNetwork.connectedAndReady)
+        {
+            if (SaveDatabase.data.userData.friends.Count > 0)
+            {
+                PhotonNetwork.FindFriends(SaveDatabase.data.userData.friends.ToArray());
+            }
+        }
     }
     //Connects with Photon.
     public void Start()
@@ -71,13 +78,6 @@ public class NetworkLobby : Photon.MonoBehaviour {
     {
         StartCoroutine(TransitionScreen.transitionScreen.FadeOut());
         mainMenu.SetActive(true);
-    }
-    public void OnJoinedLobby()
-    {
-        if(SaveDatabase.data.userData.friends.Count > 0)
-        {
-            PhotonNetwork.FindFriends(SaveDatabase.data.userData.friends.ToArray());
-        }
     }
 
     public void OnReceivedRoomListUpdate()
@@ -161,5 +161,9 @@ public class NetworkLobby : Photon.MonoBehaviour {
                 }
             }
         }
+    }
+    public void OnPhotonJoinRoomFailed()
+    {
+        StartCoroutine(TransitionScreen.transitionScreen.FadeOut());
     }
 }

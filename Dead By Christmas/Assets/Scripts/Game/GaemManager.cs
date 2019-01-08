@@ -93,6 +93,7 @@ public class GaemManager : MonoBehaviour {
     [PunRPC]
     public void GetElfs()
     {
+        print("FINDING ELFS");
         allElfs = GameObject.FindGameObjectsWithTag("Elf");
         if(allElfs.Length == 0)
         {
@@ -102,11 +103,13 @@ public class GaemManager : MonoBehaviour {
     [PunRPC]
     public void GetSanta()
     {
+        print("FINDING SANTA");
         santa = GameObject.FindGameObjectWithTag("Santa");
     }
     [PunRPC]
     public void GetInGamePlayers()
     {
+        print("FINDING PLAYERS");
         inGamePlayers = new List<GameObject>();
         GetElfs();
         GetSanta();
