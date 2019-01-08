@@ -340,6 +340,7 @@ public class GameLobby : MonoBehaviour {
         if (accepted)
         {
             SaveDatabase.data.userData.friends.Add(receiver.NickName);
+            SaveDatabase.data.Save();
             receiveMessageText.text = "Has accepted your request";
         }
         else
@@ -379,6 +380,7 @@ public class GameLobby : MonoBehaviour {
                 }
             }
             SaveDatabase.data.userData.friends.Add(remaingRequests[0].NickName);
+            SaveDatabase.data.Save();
             GetComponent<PhotonView>().RPC("SendRequestAnswerBack", remaingRequests[0], true, PhotonNetwork.player, false);
         }
         else
@@ -413,7 +415,7 @@ public class GameLobby : MonoBehaviour {
             GameObject[] targets = GameObject.FindGameObjectsWithTag("Player");
             foreach (GameObject target in targets)
             {
-                if (target.GetComponent<LobbyPlayer>().userName.text == remaingReceives[0].NickName)
+                if (target.GetComponent<LobbyPlayer>().userName.text == remaingRequests[0].NickName)
                 {
                     target.GetComponent<LobbyPlayer>().friendButton.SetActive(true);
                     break;
