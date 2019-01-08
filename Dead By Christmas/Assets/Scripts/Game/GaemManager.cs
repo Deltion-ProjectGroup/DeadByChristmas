@@ -48,7 +48,10 @@ public class GaemManager : MonoBehaviour {
     public IEnumerator ShowRoles()
     {
         yield return new WaitForSeconds(1);
-        GetComponent<PhotonView>().RPC("RandomizePlayers", PhotonTargets.MasterClient);
+        if (PhotonNetwork.isMasterClient)
+        {
+            GetComponent<PhotonView>().RPC("RandomizePlayers", PhotonTargets.MasterClient);
+        }
         yield return new WaitForSeconds(2);
         if (isSanta.ContainsKey(PhotonNetwork.player.NickName))
         {
@@ -123,7 +126,7 @@ public class GaemManager : MonoBehaviour {
         {
             localPlayer = PhotonNetwork.Instantiate(elfPrefab, elfSpawns[Random.Range(0, elfSpawns.Length)].position, Quaternion.identity, 0);
         }
-        GetInGamePlayers();
+        GetComponent<PhotonView>().RPC("GetInGamePlayers", PhotonTargets.All);
     }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
