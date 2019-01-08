@@ -410,6 +410,15 @@ public class GameLobby : MonoBehaviour {
             requesterName.text = remaingRequests[0].NickName;
             yield return new WaitForSeconds(5);
             GetComponent<PhotonView>().RPC("SendRequestAnswerBack", remaingRequests[0], false, PhotonNetwork.player, true);
+            GameObject[] targets = GameObject.FindGameObjectsWithTag("Player");
+            foreach (GameObject target in targets)
+            {
+                if (target.GetComponent<LobbyPlayer>().userName.text == receiver.NickName)
+                {
+                    target.GetComponent<LobbyPlayer>().friendButton.SetActive(true);
+                    break;
+                }
+            }
             remaingRequests.RemoveAt(0);
         }
         friendRequest.SetActive(false);
