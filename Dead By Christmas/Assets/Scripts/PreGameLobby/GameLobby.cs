@@ -34,7 +34,6 @@ public class GameLobby : MonoBehaviour {
     {
         print("JOINED");
         localPlayer = PhotonNetwork.Instantiate("LobbyPlayer", Vector3.zero, Quaternion.identity, 0);
-        localPlayer.GetComponent<LobbyPlayer>().friendButton.SetActive(false);
         if (localPlayer != null)
         {
             localPlayer.GetComponent<LobbyPlayer>().readyText.text = neutralText;
@@ -63,6 +62,17 @@ public class GameLobby : MonoBehaviour {
         yield return new WaitForSeconds(0.1f);
         GetPlayers();
         ReSort();
+        foreach(GameObject player in allPlayers)
+        {
+            foreach(string friend in SaveDatabase.data.userData.friends)
+            {
+                if (player.GetComponent<PhotonView>().owner.NickName == friend)
+                {
+                    player.GetComponent<LobbyPlayer>().friendButton.SetActive(false);
+                    break;
+                }
+            }
+        }
         GetComponent<PhotonView>().RPC("CheckReadyPlayers", PhotonTargets.MasterClient);
     }
     [PunRPC]
@@ -363,18 +373,18 @@ public class GameLobby : MonoBehaviour {
         }
         else
         {
+            foreach (GameObject player in players)
+            {
+                if (player.GetComponent<LobbyPlayer>().userName.text == remaingRequests[0].NickName)
+                {
+                    player.GetComponent<LobbyPlayer>().friendButton.SetActive(true);
+                    break;
+                }
+            }
             GetComponent<PhotonView>().RPC("SendRequestAnswerBack", remaingRequests[0], false, PhotonNetwork.player, false);
         }
         StopCoroutine(currentFriendRoutine);
         friendRequest.SetActive(false);
-        foreach (GameObject player in players)
-        {
-            if (player.GetComponent<LobbyPlayer>().userName.text == remaingRequests[0].NickName)
-            {
-                player.GetComponent<LobbyPlayer>().friendButton.SetActive(true);
-                break;
-            }
-        }
         remaingRequests.RemoveAt(0);
         if(remaingRequests.Count > 0)
         {
