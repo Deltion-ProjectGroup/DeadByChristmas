@@ -57,6 +57,4 @@ MonoBehaviour:
   - Request
   - ReceiveFriendRequest
   - SendRequestAnswerBack
-  - GetInGamePlayers
-  - GetSanta
   DisableAutoOpenWizard: 1

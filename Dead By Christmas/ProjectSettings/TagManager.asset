@@ -7,8 +7,6 @@ TagManager:
   - Manager
   - Jumpable
   - Interactable
-  - Santa
-  - Elf
   layers:
   - Default
   - TransparentFX

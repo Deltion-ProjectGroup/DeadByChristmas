@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 136953027561782088}
   m_Layer: 9
   m_Name: Elf
-  m_TagString: Elf
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
