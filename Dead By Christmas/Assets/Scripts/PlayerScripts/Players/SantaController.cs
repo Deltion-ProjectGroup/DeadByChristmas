@@ -21,6 +21,7 @@ public class SantaController : Player {
 	void Start () {
         damage = baseDamage;
         PlayerStart();
+        PhotonNetwork.OnEventCall += OnEvent;
 	}
 	
 	// Update is called once per frame
@@ -55,7 +56,7 @@ public class SantaController : Player {
             RaycastHit hitObj;
             if (Physics.Raycast(shootRay, out hitObj, attackRange, damageableObjects, QueryTriggerInteraction.Ignore))
             {
-                if (hitObj.transform.tag == "Player")
+                if (hitObj.transform.tag == "Elf")
                 {
                     hitObj.transform.GetComponent<PhotonView>().RPC("ReceiveDamage", PhotonTargets.All, damage);
                 }
@@ -79,5 +80,27 @@ public class SantaController : Player {
     public override void Death()
     {
         base.Death();
+    }
+    public void OnEvent(byte eventCode, object content, int senderId)
+    {
+        object[] data = (object[])content;
+        switch (eventCode)
+        {
+            case 0://AbilityCast
+                List<GameObject> targets = new List<GameObject>();
+                for(int i = 1; i < data.Length; i++)
+                {
+                    for(int possibilities = 0; possibilities < GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().inGamePlayers.Count; possibilities++)
+                    {
+                        if(GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().inGamePlayers[possibilities].GetComponent<PhotonView>().ownerId == (int)data[i])
+                        {
+                            targets.Add(GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().inGamePlayers[possibilities]);
+                            break;
+                        }
+                    }
+                }
+                abilities[(int)data[0]].AddEffect(targets.ToArray());
+                break;
+        }
     }
 }

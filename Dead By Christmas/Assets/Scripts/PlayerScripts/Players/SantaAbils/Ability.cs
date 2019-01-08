@@ -10,4 +10,5 @@ public abstract class Ability : ScriptableObject {
 
     public abstract void Attack(Transform thisTransform);
     public abstract IEnumerator IEAttack(Transform thisTrans);
+    public abstract void AddEffect(GameObject[] targets);
 }

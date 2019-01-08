@@ -20,6 +20,8 @@ public class GaemManager : MonoBehaviour {
     public int partAmount;
     [Header("GameData")]
     public GameObject[] allElfs;
+    public GameObject santa;
+    public List<GameObject> inGamePlayers = new List<GameObject>();
 	// Use this for initialization
     //Spawns weapons and showsRoles
 	void Start () {
@@ -94,6 +96,22 @@ public class GaemManager : MonoBehaviour {
             print("U WON");
         }
     }
+    [PunRPC]
+    public void GetSanta()
+    {
+        santa = GameObject.FindGameObjectWithTag("Santa");
+    }
+    [PunRPC]
+    public void GetInGamePlayers()
+    {
+        GetElfs();
+        GetSanta();
+        inGamePlayers.Add(santa);
+        for(int elf = 0; elf < allElfs.Length; elf++)
+        {
+            inGamePlayers.Add(allElfs[elf]);
+        }
+    }
     //spawns the player
     public void SpawnPlayer()
     {
@@ -105,6 +123,7 @@ public class GaemManager : MonoBehaviour {
         {
             localPlayer = PhotonNetwork.Instantiate(elfPrefab, elfSpawns[Random.Range(0, elfSpawns.Length)].position, Quaternion.identity, 0);
         }
+        GetInGamePlayers();
     }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

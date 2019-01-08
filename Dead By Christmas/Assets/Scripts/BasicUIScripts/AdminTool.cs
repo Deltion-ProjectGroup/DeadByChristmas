@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class AdminTool : MonoBehaviour {
     public Dropdown userSelectForBan;
     public InputField banReason;
-    PhotonPlayer banPlayer;
+    PhotonPlayer banPlayer = null;
 
     public void RefreshPlayerList()
     {

@@ -109,7 +109,7 @@ public class Cannon : InteractableObject {
 		
 	}
 
-	bool hasLanded;
+	bool hasLanded = false;
 	[SerializeField] LayerMask mask;
 
 	IEnumerator CheckIfLanded () {
