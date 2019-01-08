@@ -69,7 +69,7 @@ public class GaemManager : MonoBehaviour {
             roleText.GetComponent<Animation>().Play();
             yield return new WaitForSeconds(roleText.GetComponent<Animation>().clip.length);
             roleText.SetActive(false);
-            SpawnPlayer();
+            StartCoroutine(SpawnPlayer());
             StartCoroutine(TransitionScreen.transitionScreen.FadeOut());
         }
     }
@@ -107,6 +107,7 @@ public class GaemManager : MonoBehaviour {
     [PunRPC]
     public void GetInGamePlayers()
     {
+        inGamePlayers = new List<GameObject>();
         GetElfs();
         GetSanta();
         inGamePlayers.Add(santa);
@@ -116,7 +117,7 @@ public class GaemManager : MonoBehaviour {
         }
     }
     //spawns the player
-    public void SpawnPlayer()
+    public IEnumerator SpawnPlayer()
     {
         if((bool)isSanta[PhotonNetwork.player.NickName] == true)
         {
@@ -126,7 +127,8 @@ public class GaemManager : MonoBehaviour {
         {
             localPlayer = PhotonNetwork.Instantiate(elfPrefab, elfSpawns[Random.Range(0, elfSpawns.Length)].position, Quaternion.identity, 0);
         }
-        GetComponent<PhotonView>().RPC("GetInGamePlayers", PhotonTargets.All);
+        yield return null;
+        GetInGamePlayers();
     }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
