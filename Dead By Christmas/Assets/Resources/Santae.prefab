@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 114803702440335028}
   m_Layer: 0
   m_Name: Santae
-  m_TagString: Untagged
+  m_TagString: Santa
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1226,6 +1226,7 @@ MonoBehaviour:
   minX: -90
   maxX: 90
   rig: {fileID: 54687975102562732}
+  animator: {fileID: 0}
   damage: 0
   baseDamage: 1
   attackCooldown: 2
