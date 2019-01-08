@@ -64,12 +64,19 @@ public class GameLobby : MonoBehaviour {
         ReSort();
         foreach(GameObject player in allPlayers)
         {
-            foreach(string friend in SaveDatabase.data.userData.friends)
+            if(player == localPlayer)
             {
-                if (player.GetComponent<PhotonView>().owner.NickName == friend)
+                player.GetComponent<LobbyPlayer>().friendButton.SetActive(false);
+            }
+            else
+            {
+                foreach (string friend in SaveDatabase.data.userData.friends)
                 {
-                    player.GetComponent<LobbyPlayer>().friendButton.SetActive(false);
-                    break;
+                    if (player.GetComponent<PhotonView>().owner.NickName == friend)
+                    {
+                        player.GetComponent<LobbyPlayer>().friendButton.SetActive(false);
+                        break;
+                    }
                 }
             }
         }
