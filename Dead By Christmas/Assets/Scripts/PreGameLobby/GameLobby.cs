@@ -55,8 +55,8 @@ public class GameLobby : MonoBehaviour {
     {
 
     }
-    [PunRPC]
     //If the player joins it gets all the players and resorts them
+    [PunRPC]
     public IEnumerator AddPlayer()
     {
         yield return new WaitForSeconds(0.1f);
