@@ -38,7 +38,7 @@ public class HoHoSlow : Ability {
         {
             Slow slow = target.AddComponent<Slow>();
             slow.duration = duration;
-            slow.smooth = true;
+            slow.smooth = false;
             slow.slowAmount = slowAmount;
             slow.smoothDelay = 1;
         }

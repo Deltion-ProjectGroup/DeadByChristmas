@@ -25,9 +25,9 @@ public class Slow : Buff {
             player.baseSpeed = baseBackup - slowAmount;
             player.speed = player.baseSpeed;
         }
+        yield return new WaitForSeconds(duration);
         if (smooth)
         {
-            yield return new WaitForSeconds(duration);
             while (player.baseSpeed != baseBackup)
             {
                 yield return new WaitForSeconds(smoothModifierDelay);
@@ -36,7 +36,6 @@ public class Slow : Buff {
         }
         else
         {
-            yield return new WaitForSeconds(duration);
             player.baseSpeed = baseBackup;
             player.speed = player.baseSpeed;
         }
