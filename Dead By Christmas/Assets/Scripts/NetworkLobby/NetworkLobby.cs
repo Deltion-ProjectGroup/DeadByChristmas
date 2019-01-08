@@ -25,20 +25,18 @@ public class NetworkLobby : Photon.MonoBehaviour {
     public GameObject friendPanel;
     public Transform friendHolder;
     public string ingameStatus, lobbyStatus;
+    public float refreshDelay;
 
 
     public void Update()
     {
         pathText.text = Application.persistentDataPath;
-        if (PhotonNetwork.connectedAndReady)
-        {
-            if (SaveDatabase.data.userData.friends.Count > 0)
-            {
-                PhotonNetwork.FindFriends(SaveDatabase.data.userData.friends.ToArray());
-            }
-        }
     }
     //Connects with Photon.
+    public void OnJoinedLobby()
+    {
+        StartCoroutine(Refresher());
+    }
     public void Start()
     {
         if (!SaveDatabase.data.userData.banned)
@@ -160,6 +158,14 @@ public class NetworkLobby : Photon.MonoBehaviour {
                     data.GetComponent<FriendButton>().gameStatus.text = lobbyStatus;
                 }
             }
+        }
+    }
+    public IEnumerator Refresher()
+    {
+        yield return new WaitForSecondsRealtime(refreshDelay);
+        if (SaveDatabase.data.userData.friends.Count > 0)
+        {
+            PhotonNetwork.FindFriends(SaveDatabase.data.userData.friends.ToArray());
         }
     }
     public void OnPhotonJoinRoomFailed()
