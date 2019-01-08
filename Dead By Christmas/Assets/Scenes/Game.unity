@@ -3326,6 +3326,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 111450563075576252, guid: 14e8999c5faa99141b137d9f057856a5,
+        type: 2}
+      propertyPath: m_PlayAutomatically
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14e8999c5faa99141b137d9f057856a5, type: 2}
   m_IsPrefabAsset: 0
@@ -14330,6 +14335,8 @@ MonoBehaviour:
   - {fileID: 937934769}
   partAmount: 4
   allElfs: []
+  santa: {fileID: 0}
+  inGamePlayers: []
 --- !u!4 &1417475955
 Transform:
   m_ObjectHideFlags: 0
