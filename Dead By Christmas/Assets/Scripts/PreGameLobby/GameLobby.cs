@@ -413,7 +413,7 @@ public class GameLobby : MonoBehaviour {
             GameObject[] targets = GameObject.FindGameObjectsWithTag("Player");
             foreach (GameObject target in targets)
             {
-                if (target.GetComponent<LobbyPlayer>().userName.text == receiver.NickName)
+                if (target.GetComponent<LobbyPlayer>().userName.text == remaingReceives[0].NickName)
                 {
                     target.GetComponent<LobbyPlayer>().friendButton.SetActive(true);
                     break;
