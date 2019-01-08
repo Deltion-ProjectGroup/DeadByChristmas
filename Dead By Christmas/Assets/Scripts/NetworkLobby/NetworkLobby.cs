@@ -162,10 +162,13 @@ public class NetworkLobby : Photon.MonoBehaviour {
     }
     public IEnumerator Refresher()
     {
-        yield return new WaitForSecondsRealtime(refreshDelay);
-        if (SaveDatabase.data.userData.friends.Count > 0)
+        while (true)
         {
-            PhotonNetwork.FindFriends(SaveDatabase.data.userData.friends.ToArray());
+            yield return new WaitForSecondsRealtime(refreshDelay);
+            if (SaveDatabase.data.userData.friends.Count > 0)
+            {
+                PhotonNetwork.FindFriends(SaveDatabase.data.userData.friends.ToArray());
+            }
         }
     }
     public void OnPhotonJoinRoomFailed()
