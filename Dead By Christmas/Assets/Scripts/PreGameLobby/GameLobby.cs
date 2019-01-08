@@ -36,6 +36,7 @@ public class GameLobby : MonoBehaviour {
         localPlayer = PhotonNetwork.Instantiate("LobbyPlayer", Vector3.zero, Quaternion.identity, 0);
         if (localPlayer != null)
         {
+            localPlayer.GetComponent<LobbyPlayer>().friendButton.SetActive(false);
             localPlayer.GetComponent<LobbyPlayer>().readyText.text = neutralText;
             localPlayer.GetComponent<LobbyPlayer>().userName.text = PhotonNetwork.player.NickName;
         }
@@ -66,6 +67,7 @@ public class GameLobby : MonoBehaviour {
         {
             if(player == localPlayer)
             {
+                print("NONONO U");
                 player.GetComponent<LobbyPlayer>().friendButton.SetActive(false);
             }
             else
@@ -74,6 +76,7 @@ public class GameLobby : MonoBehaviour {
                 {
                     if (player.GetComponent<PhotonView>().owner.NickName == friend)
                     {
+                        print("NONONO YES");
                         player.GetComponent<LobbyPlayer>().friendButton.SetActive(false);
                         break;
                     }
