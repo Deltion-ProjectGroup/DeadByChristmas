@@ -38,6 +38,7 @@ public abstract class Player : MonoBehaviour {
 	float rotY; //Current Y rot
     [Header ("Body")]
     public Rigidbody rig;
+    public SkinnedMeshRenderer bodyRenderer;
     public Animator animator;
     //CALL THESE IN THE INHERITING SCRIPTS
     public void PlayerStart () {
@@ -69,11 +70,11 @@ public abstract class Player : MonoBehaviour {
 		//Translate the movement axis
         if(movePos.x == 0 && movePos.z == 0)
         {
-            //animator.SetBool("Walking", false);
+            animator.SetBool("Walking", false);
         }
         else
         {
-            //animator.SetBool("Walking", true);
+            animator.SetBool("Walking", true);
             transform.Translate(movePos); //Vertical axis
         }
 	}
@@ -114,6 +115,7 @@ public abstract class Player : MonoBehaviour {
 
 	public virtual void Death()
     {
+        bodyRenderer.enabled = true;
         animator.SetTrigger("Death");
     }
     [PunRPC]

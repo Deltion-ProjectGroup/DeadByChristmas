@@ -21,6 +21,7 @@ public class SantaController : Player {
 	void Start () {
         damage = baseDamage;
         PlayerStart();
+        bodyRenderer.enabled = false;
 	}
 	
 	// Update is called once per frame
