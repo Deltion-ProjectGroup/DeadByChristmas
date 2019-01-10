@@ -14323,7 +14323,7 @@ MonoBehaviour:
   elfText: 'THEE ARE ELF
 
     -KILL SANTA'
-  santaPrefab: Santa
+  santaPrefab: Santa Claus
   elfPrefab: Elf
   santaSpawns:
   - {fileID: 1691115572}
