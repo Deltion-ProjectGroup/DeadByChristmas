@@ -43,6 +43,7 @@ public abstract class Player : MonoBehaviour {
     //CALL THESE IN THE INHERITING SCRIPTS
     public void PlayerStart () {
         //Assign variables
+        Cursor.lockState = CursorLockMode.Locked;
 		speed = baseSpeed;
 		health = baseHealth;
 
