@@ -125,7 +125,7 @@ public abstract class Player : MonoBehaviour {
         {
             renderer.enabled = false;
         }
-        animator.SetTrigger("Death");
+        animator.SetBool("Death", true);
     }
     [PunRPC]
 	public void ReceiveDamage (int damageAmount) {
@@ -173,15 +173,17 @@ public abstract class Player : MonoBehaviour {
 		}
 	}
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.isWriting)
         {
             stream.SendNext(animator.GetBool("Walking"));
+            stream.SendNext(animator.GetBool("Death"));
         }
         else
         {
             animator.SetBool("Walking", (bool)stream.ReceiveNext());
+            animator.SetBool("Death", (bool)stream.ReceiveNext());
         }
     }
 }

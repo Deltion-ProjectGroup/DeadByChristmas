@@ -50,7 +50,7 @@ public class SantaController : Player {
         if (canAttack)
         {
             canAttack = false;
-            animator.SetTrigger("Attack");
+            animator.SetBool("Attack", true);
             Ray shootRay = cam.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition, Camera.MonoOrStereoscopicEye.Mono);
             RaycastHit hitObj;
             if (Physics.Raycast(shootRay, out hitObj, attackRange, damageableObjects, QueryTriggerInteraction.Ignore))
@@ -61,6 +61,7 @@ public class SantaController : Player {
                 }
             }
             print("COOLDOWN");
+            animator.SetBool("Attack", false);
             yield return new WaitForSeconds(attackCooldown);
             print("COOLDOWN DONE");
             canAttack = true;
@@ -79,5 +80,20 @@ public class SantaController : Player {
     public override void Death()
     {
         base.Death();
+    }
+    public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.isWriting)
+        {
+            stream.SendNext(animator.GetBool("Walking"));
+            stream.SendNext(animator.GetBool("Death"));
+            stream.SendNext(animator.GetBool("Attack"));
+        }
+        else
+        {
+            animator.SetBool("Walking", (bool)stream.ReceiveNext());
+            animator.SetBool("Death", (bool)stream.ReceiveNext());
+            animator.SetBool("Attack", (bool)stream.ReceiveNext());
+        }
     }
 }
