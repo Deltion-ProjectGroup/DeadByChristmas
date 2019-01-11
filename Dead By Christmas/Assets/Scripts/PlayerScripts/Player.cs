@@ -140,7 +140,7 @@ public abstract class Player : MonoBehaviour {
 		rotX = Clamped (rotX, minX, maxX);
 
 		//Set X rotation
-		cam.localRotation = Quaternion.Euler (rotX, 0.0f, 0.0f);
+		headBone.localRotation = Quaternion.Euler (rotX, 0.0f, 0.0f);
 
 		//Make Y rotation
 		float yToAdd = Input.GetAxis ("Mouse X") * multiplier;
