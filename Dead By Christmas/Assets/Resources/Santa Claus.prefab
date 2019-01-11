@@ -6742,7 +6742,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1280004928091840}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 108.666855, y: 41.618805, z: 87.6875}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4435298100472412}
@@ -9349,10 +9349,10 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114711403990916104}
   - {fileID: 114410452345855098}
-  - {fileID: 95002762194909586}
+  - {fileID: 4901156166752414}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 3
+  instantiationId: 3
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114410452345855098
@@ -9378,7 +9378,9 @@ MonoBehaviour:
   minX: -90
   maxX: 90
   rig: {fileID: 54571263961645068}
-  bodyRenderer: {fileID: 137494454478737898}
+  bodyRenderer:
+  - {fileID: 137494454478737898}
+  - {fileID: 137762499420575320}
   animator: {fileID: 95002762194909586}
   damage: 0
   baseDamage: 1

@@ -38,7 +38,7 @@ public abstract class Player : MonoBehaviour {
 	float rotY; //Current Y rot
     [Header ("Body")]
     public Rigidbody rig;
-    public SkinnedMeshRenderer bodyRenderer;
+    public SkinnedMeshRenderer[] bodyRenderer;
     public Animator animator;
     //CALL THESE IN THE INHERITING SCRIPTS
     public void PlayerStart () {
@@ -49,6 +49,11 @@ public abstract class Player : MonoBehaviour {
 
 		rotX = headBone.rotation.x;
 		rotY = transform.rotation.y;
+
+        foreach(SkinnedMeshRenderer renderer in bodyRenderer)
+        {
+            renderer.enabled = false;
+        }
 	}
 
 	public void PlayerUpdate () {
@@ -116,7 +121,10 @@ public abstract class Player : MonoBehaviour {
 
 	public virtual void Death()
     {
-        bodyRenderer.enabled = true;
+        foreach (SkinnedMeshRenderer renderer in bodyRenderer)
+        {
+            renderer.enabled = false;
+        }
         animator.SetTrigger("Death");
     }
     [PunRPC]
