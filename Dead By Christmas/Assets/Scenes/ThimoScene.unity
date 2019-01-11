@@ -601,7 +601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6373fa1327cf19740a374fb063e17bbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerName: Elf
+  playerName: Santa Claus
 --- !u!1 &1290292112
 GameObject:
   m_ObjectHideFlags: 0

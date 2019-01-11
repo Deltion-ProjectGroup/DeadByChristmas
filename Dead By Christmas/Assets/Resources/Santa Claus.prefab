@@ -3668,6 +3668,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1769849752653458
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4561519574619394}
+  m_Layer: 11
+  m_Name: HeadBone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1774535465549444
 GameObject:
   m_ObjectHideFlags: 0
@@ -5902,13 +5917,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1467936165308304}
-  m_LocalRotation: {x: -0.09371181, y: 0.00008672926, z: 0.00000816348, w: 0.9955994}
-  m_LocalPosition: {x: 2.5011104e-12, y: 0.079320304, z: 0}
+  m_LocalRotation: {x: -0.093711786, y: 0.000086729255, z: 0.00000816348, w: 0.9955994}
+  m_LocalPosition: {x: 0, y: 0.07932008, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4617990540201246}
   - {fileID: 4183125654817282}
-  m_Father: {fileID: 4602575172349926}
+  m_Father: {fileID: 4561519574619394}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4228201408427554
@@ -7279,6 +7294,20 @@ Transform:
   m_Father: {fileID: 4675555878272730}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4561519574619394
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1769849752653458}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4223172011058254}
+  m_Father: {fileID: 4602575172349926}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4562534203575138
 Transform:
   m_ObjectHideFlags: 1
@@ -7346,7 +7375,7 @@ Transform:
   m_LocalPosition: {x: -1.1011428e-20, y: 0.08369973, z: 0}
   m_LocalScale: {x: 1.0000007, y: 0.9999989, z: 1.0000006}
   m_Children:
-  - {fileID: 4223172011058254}
+  - {fileID: 4561519574619394}
   m_Father: {fileID: 4608669976692156}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9375,7 +9404,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smoothing: 10
   cam: {fileID: 1520567919994600}
-  headBone: {fileID: 1467936165308304}
+  headBone: {fileID: 1769849752653458}
 --- !u!114 &114782186689934302
 MonoBehaviour:
   m_ObjectHideFlags: 1
