@@ -177,11 +177,11 @@ public abstract class Player : MonoBehaviour {
     {
         if (stream.isWriting)
         {
-
+            stream.SendNext(animator.GetBool("Walking"));
         }
         else
         {
-
+            animator.SetBool("Walking", (bool)stream.ReceiveNext());
         }
     }
 }
