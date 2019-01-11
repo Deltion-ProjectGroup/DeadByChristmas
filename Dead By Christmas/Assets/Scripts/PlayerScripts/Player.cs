@@ -10,6 +10,7 @@ public abstract class Player : MonoBehaviour {
 	//Walking
 	public float baseSpeed; //The base speed
     [HideInInspector] public float speed; //New speed (with multipliers etc.)
+    [HideInInspector] public float extraMovmentMultiplier;
 
 	//Rotating
 	[SerializeField] float rotateMultiplier; //Sensitivity of camera
@@ -17,7 +18,7 @@ public abstract class Player : MonoBehaviour {
 	//HEADER HEALTH
 	//Health vars
 	[Header ("Health")]
-	[SerializeField] float baseHealth; //The base health
+	public float baseHealth; //The base health
 	public float health; //Current health
 
 	//HEADER INTERACCTION
@@ -68,7 +69,7 @@ public abstract class Player : MonoBehaviour {
 
 	void Walk () {
 		//Make multiplier
-		float multiplier = speed * Time.deltaTime;
+		float multiplier = speed * Time.deltaTime * extraMovmentMultiplier;
         Vector3 movePos = new Vector3();
 		movePos.z = Input.GetAxis ("Vertical") * 1 * multiplier;
 		movePos.x = Input.GetAxis ("Horizontal") * 1 * multiplier;
