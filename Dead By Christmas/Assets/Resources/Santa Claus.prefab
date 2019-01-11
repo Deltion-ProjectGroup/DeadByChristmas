@@ -9374,7 +9374,7 @@ MonoBehaviour:
   interactionRange: 10
   interactTag: Interactable
   cam: {fileID: 4183125654817282}
-  headBone: {fileID: 4223172011058254}
+  headBone: {fileID: 4561519574619394}
   minX: -90
   maxX: 90
   rig: {fileID: 54571263961645068}
