@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Slow : Buff {
-    public float slowAmount;
+public class Speed : Buff {
+    public float speedChangeAmt;
     public bool smooth;
     public float smoothModifier = 0.1f;
-    public float smoothDelay = 1;
+    public float smoothDelay = 0.125f;
     public float smoothModifierDelay;
     public override IEnumerator Effect(float duration)
     {
@@ -13,16 +13,16 @@ public class Slow : Buff {
         float baseBackup = player.baseSpeed;
         if (smooth)
         {
-            while (player.baseSpeed != baseBackup - slowAmount)
+            while (player.baseSpeed != baseBackup + speedChangeAmt)
             {
                 yield return new WaitForSeconds(smoothModifierDelay);
-                player.baseSpeed = Mathf.Lerp(player.baseSpeed, baseBackup - slowAmount, smoothDelay);
+                player.baseSpeed = Mathf.Lerp(player.baseSpeed, baseBackup + speedChangeAmt, smoothDelay);
                 player.speed = player.baseSpeed;
             }
         }
         else
         {
-            player.baseSpeed = baseBackup - slowAmount;
+            player.baseSpeed = baseBackup + speedChangeAmt;
             player.speed = player.baseSpeed;
         }
         yield return new WaitForSeconds(duration);

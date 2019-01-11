@@ -36,10 +36,10 @@ public class HoHoSlow : Ability {
     {
         foreach(GameObject target in targets)
         {
-            Slow slow = target.AddComponent<Slow>();
+            Speed slow = target.AddComponent<Speed>();
             slow.duration = duration;
             slow.smooth = false;
-            slow.slowAmount = slowAmount;
+            slow.speedChangeAmt = slowAmount;
             slow.smoothDelay = 1;
         }
     }

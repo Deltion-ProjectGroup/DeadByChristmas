@@ -8,13 +8,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac753cfbe486b7d40b32a2375568ffa4, type: 3}
-  m_Name: HoHoSlow
+  m_Script: {fileID: 11500000, guid: f0138a881d7dd7645b12c5e88ac171ee, type: 3}
+  m_Name: SpiritRush
   m_EditorClassIdentifier: 
   cooldown: 0
-  duration: 5
-  slowAmount: -2.7
-  range: 100
+  duration: 0
+  slowAmount: 0
+  range: 0
   targets:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
