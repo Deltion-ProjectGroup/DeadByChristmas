@@ -25,11 +25,11 @@ public class GaemManager : MonoBehaviour {
 	// Use this for initialization
     //Spawns weapons and showsRoles
 	void Start () {
-        if (PhotonNetwork.isMasterClient)
+        /*if (PhotonNetwork.isMasterClient)
         {
             GetComponent<PhotonView>().RPC("ShowRoles", PhotonTargets.All);
             GetComponent<PhotonView>().RPC("SpawnWeaponParts", PhotonTargets.MasterClient);
-        }
+        }*/
 	}
     //Randomizes the roles
     [PunRPC]
@@ -53,6 +53,7 @@ public class GaemManager : MonoBehaviour {
             GetComponent<PhotonView>().RPC("RandomizePlayers", PhotonTargets.MasterClient);
         }
         yield return new WaitForSeconds(2);
+        GetComponent<GameUIManager>().CreateElfStatuses();
         if (isSanta.ContainsKey(PhotonNetwork.player.NickName))
         {
             if ((bool)isSanta[PhotonNetwork.player.NickName] == true)
@@ -142,6 +143,14 @@ public class GaemManager : MonoBehaviour {
         else
         {
             isSanta = (ExitGames.Client.Photon.Hashtable)stream.ReceiveNext();
+        }
+    }
+    public void OnJoinedRoom()
+    {
+        if(PhotonNetwork.room.ExpectedUsers.Length - 1 == PhotonNetwork.room.PlayerCount)
+        {
+            GetComponent<PhotonView>().RPC("ShowRoles", PhotonTargets.All);
+            GetComponent<PhotonView>().RPC("SpawnWeaponParts", PhotonTargets.MasterClient);
         }
     }
 }
