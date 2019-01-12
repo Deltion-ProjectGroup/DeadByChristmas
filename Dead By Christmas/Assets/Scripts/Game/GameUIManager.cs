@@ -60,4 +60,15 @@ public class GameUIManager : MonoBehaviour {
             }
         }
     }
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.isWriting)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
 }
