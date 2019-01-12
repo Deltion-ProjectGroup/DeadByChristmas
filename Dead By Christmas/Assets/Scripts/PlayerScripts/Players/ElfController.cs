@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ElfController : Player {
 
@@ -214,6 +213,8 @@ public class ElfController : Player {
     {
         if (!isKnockedOut)
         {
+            GameUIManager uiManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<GameUIManager>();
+            uiManager.ChangeStatusIcon(PhotonNetwork.player.NickName, GameUIManager.ElfStatus.Knocked);
             currentKnockedOutNumerator = KnockedOutTimer(knockedOutTime);
             StartCoroutine(currentKnockedOutNumerator);
         }
@@ -228,6 +229,8 @@ public class ElfController : Player {
         yield return new WaitForSeconds(time);
         currentState = StruggleState.normal;
         isKnockedOut = false;
+        GameUIManager uiManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<GameUIManager>();
+        uiManager.ChangeStatusIcon(PhotonNetwork.player.NickName, GameUIManager.ElfStatus.Alive);
         health = baseHealth;
     }
 
