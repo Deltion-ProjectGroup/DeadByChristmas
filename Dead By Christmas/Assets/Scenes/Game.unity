@@ -14452,7 +14452,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c49662b336b83c04cbdc7908a1f1b6ac, type: 3}
   - {fileID: 21300000, guid: 10c4cf7f875710d4c97b391a07c5dc7f, type: 3}
   - {fileID: 21300000, guid: 10c4cf7f875710d4c97b391a07c5dc7f, type: 3}
-  elfStatusHolder: {fileID: 1728552407}
+  elfStatusHolder: {fileID: 1935494774586162, guid: 8ce8db576b961ef4a8400091a0454006,
+    type: 2}
   elfStatuses: {fileID: 1728552408}
 --- !u!1001 &1443629426
 Prefab:
