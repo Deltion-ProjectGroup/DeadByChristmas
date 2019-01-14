@@ -25,6 +25,7 @@ public class GaemManager : MonoBehaviour {
 	// Use this for initialization
     //Spawns weapons and showsRoles
 	void Start () {
+        GetComponent<GameUIManager>().CreateElfStatuses();
         if (PhotonNetwork.isMasterClient)
         {
             GetComponent<PhotonView>().RPC("ShowRoles", PhotonTargets.All);
@@ -41,7 +42,9 @@ public class GaemManager : MonoBehaviour {
         {
             isSanta.Add(player.NickName, false);
         }
-        isSanta[allPlayers[Random.Range(0, allPlayers.Length)].NickName] = true;
+        string santaUserName = allPlayers[Random.Range(0, allPlayers.Length)].NickName;
+        isSanta[santaUserName] = true;
+        GetComponent<PhotonView>().RPC("RemoveSanta", PhotonTargets.All, santaUserName);
     }
     //shows the roles
     [PunRPC]
@@ -142,6 +145,24 @@ public class GaemManager : MonoBehaviour {
         else
         {
             isSanta = (ExitGames.Client.Photon.Hashtable)stream.ReceiveNext();
+        }
+    }
+    public void OnPhotonPlayerDisconnected(PhotonPlayer otherPlayer)
+    {
+        if (isSanta.ContainsKey(otherPlayer.NickName))
+        {
+            if ((bool)isSanta[otherPlayer.NickName])
+            {
+                print("SANTA LEFT");
+            }
+            else
+            {
+                GetComponent<GameUIManager>().ChangeStatusIcon(otherPlayer.NickName, GameUIManager.ElfStatus.Disconnected);
+            }
+        }
+        else
+        {
+            GetComponent<GameUIManager>().ChangeStatusIcon(otherPlayer.NickName, GameUIManager.ElfStatus.Disconnected);
         }
     }
 }

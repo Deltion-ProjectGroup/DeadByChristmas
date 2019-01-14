@@ -59,4 +59,7 @@ MonoBehaviour:
   - SendRequestAnswerBack
   - GetSanta
   - GetInGamePlayers
+  - ChangeStatusIcon
+  - CreateElfStatuses
+  - RemoveSanta
   DisableAutoOpenWizard: 1

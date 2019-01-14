@@ -7,6 +7,8 @@ public class PlayerNetworking : MonoBehaviour {
 	Quaternion rotation; //Player rotation for the network
 	[SerializeField] float smoothing; //Lerp smoothing of position and rotation
 	public GameObject cam;
+	public GameObject headBone;
+	Quaternion headRotation;
 	PhotonView photonView; //PhotonView of player
 	
 	void Awake () {
@@ -27,6 +29,7 @@ public class PlayerNetworking : MonoBehaviour {
 		while (true) {
 			transform.position = Vector3.Lerp (transform.position, position, Time.deltaTime * smoothing);
 			transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * smoothing);
+			headBone.transform.rotation = Quaternion.Lerp(headBone.transform.rotation, headRotation, Time.deltaTime * smoothing);
 			yield return null;
 		}
 	}
@@ -36,9 +39,11 @@ public class PlayerNetworking : MonoBehaviour {
 		if (stream.isWriting) {
 			stream.SendNext (transform.position);
 			stream.SendNext(transform.rotation);
+			stream.SendNext(headBone.transform.rotation);
 		} else {
 			position = (Vector3) stream.ReceiveNext ();
 			rotation = (Quaternion) stream.ReceiveNext();
+			headRotation = (Quaternion) stream.ReceiveNext();
 		}
 	}
 

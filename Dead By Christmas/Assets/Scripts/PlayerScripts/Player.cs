@@ -10,6 +10,7 @@ public abstract class Player : MonoBehaviour {
 	//Walking
 	public float baseSpeed; //The base speed
     [HideInInspector] public float speed; //New speed (with multipliers etc.)
+    [HideInInspector] public float extraMovmentMultiplier = 1;
 
 	//Rotating
 	[SerializeField] float rotateMultiplier; //Sensitivity of camera
@@ -17,7 +18,7 @@ public abstract class Player : MonoBehaviour {
 	//HEADER HEALTH
 	//Health vars
 	[Header ("Health")]
-	[SerializeField] float baseHealth; //The base health
+	public float baseHealth; //The base health
 	public float health; //Current health
 
 	//HEADER INTERACCTION
@@ -38,7 +39,7 @@ public abstract class Player : MonoBehaviour {
 	float rotY; //Current Y rot
     [Header ("Body")]
     public Rigidbody rig;
-    public SkinnedMeshRenderer bodyRenderer;
+    public SkinnedMeshRenderer[] bodyRenderer;
     public Animator animator;
     //CALL THESE IN THE INHERITING SCRIPTS
     public void PlayerStart () {
@@ -49,6 +50,11 @@ public abstract class Player : MonoBehaviour {
 
 		rotX = headBone.rotation.x;
 		rotY = transform.rotation.y;
+
+        foreach(SkinnedMeshRenderer renderer in bodyRenderer)
+        {
+            renderer.enabled = false;
+        }
 	}
 
 	public void PlayerUpdate () {
@@ -63,7 +69,7 @@ public abstract class Player : MonoBehaviour {
 
 	void Walk () {
 		//Make multiplier
-		float multiplier = speed * Time.deltaTime;
+		float multiplier = speed * Time.deltaTime * extraMovmentMultiplier;
         Vector3 movePos = new Vector3();
 		movePos.z = Input.GetAxis ("Vertical") * 1 * multiplier;
 		movePos.x = Input.GetAxis ("Horizontal") * 1 * multiplier;
@@ -116,8 +122,11 @@ public abstract class Player : MonoBehaviour {
 
 	public virtual void Death()
     {
-        bodyRenderer.enabled = true;
-        animator.SetTrigger("Death");
+        foreach (SkinnedMeshRenderer renderer in bodyRenderer)
+        {
+            renderer.enabled = false;
+        }
+        animator.SetBool("Death", true);
     }
     [PunRPC]
 	public void ReceiveDamage (int damageAmount) {
@@ -140,7 +149,7 @@ public abstract class Player : MonoBehaviour {
 		rotX = Clamped (rotX, minX, maxX);
 
 		//Set X rotation
-		cam.localRotation = Quaternion.Euler (rotX, 0.0f, 0.0f);
+		headBone.localRotation = Quaternion.Euler (rotX, 0.0f, 0.0f);
 
 		//Make Y rotation
 		float yToAdd = Input.GetAxis ("Mouse X") * multiplier;
@@ -165,15 +174,17 @@ public abstract class Player : MonoBehaviour {
 		}
 	}
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.isWriting)
         {
-
+            stream.SendNext(animator.GetBool("Walking"));
+            stream.SendNext(animator.GetBool("Death"));
         }
         else
         {
-
+            animator.SetBool("Walking", (bool)stream.ReceiveNext());
+            animator.SetBool("Death", (bool)stream.ReceiveNext());
         }
     }
 }

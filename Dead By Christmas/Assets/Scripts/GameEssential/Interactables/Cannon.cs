@@ -62,11 +62,11 @@ public class Cannon : InteractableObject {
 	}
 
 	void SetPlayerVars (Transform t, bool b) {
-		t.GetComponent<ElfController> ().ToggleRagdoll (b);
+		/*t.GetComponent<ElfController> ().ToggleRagdoll (b);
 		foreach (Rigidbody r in t.GetComponent<ElfController> ().bones) {
 			r.useGravity = b;
 			r.GetComponent<Collider> ().enabled = b;
-		}
+		}*/
 		t.GetComponent<Collider> ().enabled = b;
 		t.GetComponent<Rigidbody> ().useGravity = b;
 
@@ -98,14 +98,14 @@ public class Cannon : InteractableObject {
 	}
 
 	IEnumerator WaitFor() {
-		Rigidbody[] playerColider = shotPlayer.GetComponent<ElfController>().bones;
+		/*Rigidbody[] playerColider = shotPlayer.GetComponent<ElfController>().bones;
 		foreach(Rigidbody rig in playerColider){
 			rig.GetComponent<Collider>().isTrigger = true;
-		}
+		}*/
 		yield return new WaitForSeconds(0.5f);
-		foreach(Rigidbody rig in playerColider){
+		/*foreach(Rigidbody rig in playerColider){
 			rig.GetComponent<Collider>().isTrigger = false;
-		}
+		}*/
 		
 	}
 

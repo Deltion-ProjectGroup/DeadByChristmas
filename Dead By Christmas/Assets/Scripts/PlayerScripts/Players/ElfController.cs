@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ElfController : Player {
 
@@ -37,7 +36,6 @@ public class ElfController : Player {
     [Header("KnockOutInfo")]
     public bool isKnockedOut = true;
     public float knockedOutTime;
-    public Rigidbody[] bones;
 
     [Header("JumpInfo")]
     public float jumpForce;
@@ -52,12 +50,14 @@ public class ElfController : Player {
     public GameObject fillBar;
     GameObject currentFillbar;
     [SerializeField] Transform currentCam;
+    public float runMultiplier;
+    public string runInput;
 
     //StartFunction
     public void Start()
     {
-        GetComponent<PhotonView>().RPC("ToggleRagdoll", PhotonTargets.All, false);
         PlayerStart();
+        isKnockedOut = false;
     }
 
     //Update Function
@@ -117,13 +117,9 @@ public class ElfController : Player {
     public void CheckGround()
     {
         if (Physics.CheckSphere(transform.position, groundDetectionRange, groundMask))
-        {
             canJump = true;
-        }
         else
-        {
             canJump = false;
-        }
     }
 
     //Checkes the state the elf is in
@@ -169,6 +165,7 @@ public class ElfController : Player {
     //The normal state
     public void Normal()
     {
+        extraMovmentMultiplier = (Input.GetButton(runInput)) ? runMultiplier : 1;
         CheckInteract();
         if(Input.GetButtonDown(dropInput) && !CanInteract() && hasItem)
             DropItem();
@@ -176,13 +173,10 @@ public class ElfController : Player {
         if (downardsVelocityEnabled)
             ExtraDownwardsVelocity();
         if (Input.GetButtonDown("Jump"))
-        {
             Jump();
-        }
+
         PlayerFixedUpdate();
         PlayerUpdate();
-        if (isKnockedOut)
-            GetComponent<PhotonView>().RPC("ToggleRagdoll", PhotonTargets.All, false);
         CheckForItems();
         if (canCraft && Input.GetButtonDown(craftingInput))
         {
@@ -201,8 +195,6 @@ public class ElfController : Player {
     //The struggle state
     public void Struggling()
     {
-        if (isKnockedOut)
-            GetComponent<PhotonView>().RPC("ToggleRagdoll", PhotonTargets.All, false);
         if (Input.GetButtonDown(struggleInput))
         {
             struggling += struggleTime;
@@ -222,9 +214,13 @@ public class ElfController : Player {
     {
         if (!isKnockedOut)
         {
-            GetComponent<PhotonView>().RPC("ToggleRagdoll", PhotonTargets.All, true);
+            PhotonView view = GameObject.FindGameObjectWithTag("Manager").GetComponent<PhotonView>();
+            List<object> overloads = new List<object>();
+            overloads.Add(PhotonNetwork.player.NickName);
+            overloads.Add(1);
+            view.RPC("ChangeStatusIcon", PhotonTargets.All, overloads.ToArray());
             currentKnockedOutNumerator = KnockedOutTimer(knockedOutTime);
-            StartCoroutine(currentKnockedOutNumerator);
+            StartCoroutine(KnockedOutTimer(knockedOutTime));
         }
         
     }
@@ -233,29 +229,18 @@ public class ElfController : Player {
 
     public IEnumerator KnockedOutTimer(float time)
     {
+        print("COUNTDING DOWN");
+        isKnockedOut = true;
         yield return new WaitForSeconds(time);
+        PhotonView view = GameObject.FindGameObjectWithTag("Manager").GetComponent<PhotonView>();
+        List<object> overloads = new List<object>();
+        overloads.Add(PhotonNetwork.player.NickName);
+        overloads.Add(0);
+        view.RPC("ChangeStatusIcon", PhotonTargets.All, overloads.ToArray());
+        print("RETURNED TO NORMAL");
         currentState = StruggleState.normal;
-    }
-
-    //Toggle the ragdoll
-    [PunRPC]
-    public void ToggleRagdoll(bool onOrOf)
-    {
-        isKnockedOut = onOrOf;
-        GetComponent<Animator>().enabled = !onOrOf;
-        foreach (Rigidbody joint in bones)
-        {
-            joint.isKinematic = !onOrOf;
-            if (joint.GetComponent<Collider>())
-            {
-                joint.GetComponent<Collider>().enabled = onOrOf;
-            }
-        }
-        rig.isKinematic = onOrOf;
-        GetComponent<Collider>().enabled = !onOrOf;
-        bones[0].transform.rotation = transform.rotation;
-        bones[0].transform.Rotate(-90, 0, 0);
-        bones[0].transform.position = transform.position;
+        isKnockedOut = false;
+        health = baseHealth;
     }
 
     //the crafting state
@@ -267,6 +252,10 @@ public class ElfController : Player {
             StopCoroutine(currentCrafting);
             currentCam.position += currentCam.forward * camBackwardsDistance;
             Destroy(currentFillbar);
+            foreach (SkinnedMeshRenderer renderer in bodyRenderer)
+            {
+                renderer.enabled = false;
+            }
         }
     }
 
@@ -278,6 +267,10 @@ public class ElfController : Player {
         currentFillbar.transform.LookAt(currentCam);
         currentState = StruggleState.Crafting;
         FillbarValueSet fillBarComponent = currentFillbar.GetComponent<FillbarValueSet>();
+        foreach (SkinnedMeshRenderer renderer in bodyRenderer)
+        {
+            renderer.enabled = true;
+        }
         //sets the fillbar value.
         for (float i = 0; i < time; i += 0.05f)
         {
@@ -294,6 +287,10 @@ public class ElfController : Player {
         currentCam.position += currentCam.forward * camBackwardsDistance;
         Destroy(currentFillbar);
         Crafted();
+        foreach (SkinnedMeshRenderer renderer in bodyRenderer)
+        {
+            renderer.enabled = false;
+        }
     }
 
     //This is called when youre done crafting an item.
