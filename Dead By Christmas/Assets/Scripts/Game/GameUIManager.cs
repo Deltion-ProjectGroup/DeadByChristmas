@@ -68,6 +68,7 @@ public class GameUIManager : MonoBehaviour {
         {
             if(icon.GetComponentInChildren<Text>().text == username)
             {
+                icons.Remove(icon);
                 Destroy(icon);
                 break;
             }

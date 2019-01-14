@@ -11,7 +11,7 @@ public class SantaController : Player {
     [Header("Attack")]
     [SerializeField] float attackRange;
     [SerializeField] LayerMask damageableObjects;
-    bool canAttack = true;
+    public bool canAttack = true;
     [Header("Abilities")]
     public Ability[] abilities;
     public bool canSpecial = true;
@@ -19,6 +19,7 @@ public class SantaController : Player {
 
 	// Use this for initialization
 	void Start () {
+        extraMovmentMultiplier = 1;
         damage = baseDamage;
         PlayerStart();
 	}
