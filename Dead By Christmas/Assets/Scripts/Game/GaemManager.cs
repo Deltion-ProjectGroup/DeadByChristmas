@@ -149,16 +149,9 @@ public class GaemManager : MonoBehaviour {
     }
     public void OnPhotonPlayerDisconnected(PhotonPlayer otherPlayer)
     {
-        if(isSanta.Count > 0)
+        if (isSanta.ContainsKey(otherPlayer.NickName))
         {
-            if ((bool)isSanta[otherPlayer.NickName])
-            {
-                //SANTA LEFT THE GAME;
-            }
-            else
-            {
-                GetComponent<GameUIManager>().ChangeStatusIcon(otherPlayer.NickName, GameUIManager.ElfStatus.Disconnected);
-            }
+            print("SANTA LEFT");
         }
         else
         {

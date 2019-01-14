@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameUIManager : MonoBehaviour {
     public Sprite[] elfStatusIcons;
-    public ExitGames.Client.Photon.Hashtable icons;
+    public List<GameObject> icons = new List<GameObject>();
     public GameObject elfStatusHolder;
     public Transform elfStatuses;
 	// Use this for initialization
@@ -18,7 +18,15 @@ public class GameUIManager : MonoBehaviour {
     [PunRPC]
     public void ChangeStatusIcon(string username, ElfStatus newStatus)
     {
-        GameObject target = (GameObject)icons[username];
+        GameObject target = null;
+        foreach (GameObject icon in icons)
+        {
+            if (icon.GetComponentInChildren<Text>().text == username)
+            {
+                target = icon;
+                break;
+            }
+        }
         switch (newStatus)
         {
             case ElfStatus.Alive:
@@ -47,13 +55,20 @@ public class GameUIManager : MonoBehaviour {
         {
             GameObject elfStatus = Instantiate(elfStatusHolder, elfStatuses);
             elfStatus.GetComponentInChildren<Text>().text = PhotonNetwork.playerList[key].NickName;
-            icons.Add(PhotonNetwork.playerList[key].NickName, elfStatus);
+            icons.Add(elfStatus);
         }
     }
     [PunRPC]
     public void RemoveSanta(string username)
     {
-        Destroy((GameObject)icons[username]);
+        foreach(GameObject icon in icons)
+        {
+            if(icon.GetComponentInChildren<Text>().text == username)
+            {
+                Destroy(icon);
+                break;
+            }
+        }
     }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
