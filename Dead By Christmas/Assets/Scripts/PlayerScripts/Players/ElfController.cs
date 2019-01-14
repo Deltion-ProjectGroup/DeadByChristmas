@@ -229,8 +229,10 @@ public class ElfController : Player {
 
     public IEnumerator KnockedOutTimer(float time)
     {
+        print("COUNTDING DOWN");
         isKnockedOut = true;
         yield return new WaitForSeconds(time);
+        print("RETURNED TO NORMAL");
         currentState = StruggleState.normal;
         isKnockedOut = false;
         health = baseHealth;
