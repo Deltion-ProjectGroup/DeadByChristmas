@@ -151,7 +151,14 @@ public class GaemManager : MonoBehaviour {
     {
         if (isSanta.ContainsKey(otherPlayer.NickName))
         {
-            print("SANTA LEFT");
+            if ((bool)isSanta[otherPlayer.NickName])
+            {
+                print("SANTA LEFT");
+            }
+            else
+            {
+                GetComponent<GameUIManager>().ChangeStatusIcon(otherPlayer.NickName, GameUIManager.ElfStatus.Disconnected);
+            }
         }
         else
         {

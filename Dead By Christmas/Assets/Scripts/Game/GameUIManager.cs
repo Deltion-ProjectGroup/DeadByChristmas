@@ -8,9 +8,12 @@ public class GameUIManager : MonoBehaviour {
     public List<GameObject> icons = new List<GameObject>();
     public GameObject elfStatusHolder;
     public Transform elfStatuses;
-	// Use this for initialization
-	
+    // Use this for initialization
 
+    private void Awake()
+    {
+        //Instantiate(elfStatusHolder, elfStatuses);
+    }
     public enum ElfStatus
     {
         Alive, Knocked, Incinerator, Dead, Disconnected

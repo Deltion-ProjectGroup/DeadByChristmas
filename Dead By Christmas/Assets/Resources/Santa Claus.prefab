@@ -6742,7 +6742,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1280004928091840}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 33.656693, y: 11.489557, z: 55.37568}
+  m_LocalPosition: {x: 1615.8435, y: 893.6469, z: 1011.96136}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4435298100472412}
@@ -9350,8 +9350,8 @@ MonoBehaviour:
   - {fileID: 114711403990916104}
   - {fileID: 114410452345855098}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 3
+  instantiationId: 3
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114410452345855098
@@ -9367,6 +9367,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseSpeed: 20
   speed: 0
+  extraMovmentMultiplier: 0
   rotateMultiplier: 20
   baseHealth: 100
   health: 0
@@ -9433,7 +9434,7 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100002, guid: 51186d5c7a4085e4cbc9bd4eacdc0c9d, type: 3}
+  - {fileID: 2100000, guid: f2bc0447c8e05dd4c82716be593e9a9e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9697,7 +9698,7 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 51186d5c7a4085e4cbc9bd4eacdc0c9d, type: 3}
+  - {fileID: 2100000, guid: ce2a4597f9d0d724cb0354f6bbe51171, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

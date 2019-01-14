@@ -10,7 +10,7 @@ public abstract class Player : MonoBehaviour {
 	//Walking
 	public float baseSpeed; //The base speed
     [HideInInspector] public float speed; //New speed (with multipliers etc.)
-    [HideInInspector] public float extraMovmentMultiplier;
+    [HideInInspector] public float extraMovmentMultiplier = 1;
 
 	//Rotating
 	[SerializeField] float rotateMultiplier; //Sensitivity of camera
