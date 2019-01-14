@@ -213,8 +213,11 @@ public class ElfController : Player {
     {
         if (!isKnockedOut)
         {
-            GameUIManager uiManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<GameUIManager>();
-            uiManager.ChangeStatusIcon(PhotonNetwork.player.NickName, GameUIManager.ElfStatus.Knocked);
+            PhotonView view = GameObject.FindGameObjectWithTag("Manager").GetComponent<PhotonView>();
+            List<object> overloads = new List<object>();
+            overloads.Add(PhotonNetwork.player.NickName);
+            overloads.Add(GameUIManager.ElfStatus.Knocked);
+            view.RPC("ChangeStatusIcon", PhotonTargets.All, overloads);
             currentKnockedOutNumerator = KnockedOutTimer(knockedOutTime);
             StartCoroutine(currentKnockedOutNumerator);
         }
@@ -229,8 +232,11 @@ public class ElfController : Player {
         yield return new WaitForSeconds(time);
         currentState = StruggleState.normal;
         isKnockedOut = false;
-        GameUIManager uiManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<GameUIManager>();
-        uiManager.ChangeStatusIcon(PhotonNetwork.player.NickName, GameUIManager.ElfStatus.Alive);
+        PhotonView view = GameObject.FindGameObjectWithTag("Manager").GetComponent<PhotonView>();
+        List<object> overloads = new List<object>();
+        overloads.Add(PhotonNetwork.player.NickName);
+        overloads.Add(GameUIManager.ElfStatus.Knocked);
+        view.RPC("ChangeStatusIcon", PhotonTargets.All, overloads);
         health = baseHealth;
     }
 
