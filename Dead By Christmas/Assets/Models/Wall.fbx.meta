@@ -1,35 +1,14 @@
 fileFormatVersion: 2
-guid: 340eb7d0160a0694aaff26627377cb0a
+guid: bf65dc5948271964eb1536bdb4764f72
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: Door1
-    100002: Door2
-    100004: //RootNode
-    100006: Wall_Door
-    100008: Wall_DoorFrame
-    400000: Door1
-    400002: Door2
-    400004: //RootNode
-    400006: Wall_Door
-    400008: Wall_DoorFrame
-    2100000: Wall
-    2100002: Door1
-    2100004: Door2
-    2100006: DoorFrame
-    2100008: Glass
-    2300000: Door1
-    2300002: Door2
-    2300004: Wall_Door
-    2300006: Wall_DoorFrame
-    3300000: Door1
-    3300002: Door2
-    3300004: Wall_Door
-    3300006: Wall_DoorFrame
-    4300000: Wall_Door
-    4300002: Door1
-    4300004: Door2
-    4300006: Wall_DoorFrame
+    100000: //RootNode
+    400000: //RootNode
+    2100000: Wall_Beam
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Wall_Beam
   externalObjects: {}
   materials:
     importMaterials: 1
