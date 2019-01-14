@@ -220,7 +220,7 @@ public class ElfController : Player {
             overloads.Add(GameUIManager.ElfStatus.Knocked);
             view.RPC("ChangeStatusIcon", PhotonTargets.All, overloads);
             currentKnockedOutNumerator = KnockedOutTimer(knockedOutTime);
-            StartCoroutine(currentKnockedOutNumerator);
+            StartCoroutine(KnockedOutTimer(knockedOutTime));
         }
         
     }
