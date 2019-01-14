@@ -39,12 +39,17 @@ public class SaveDatabase : MonoBehaviour {
                 {
                     panelToggled = false;
                     adminPanel.SetActive(false);
+                    if(GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>() != null)
+                    {
+                        Cursor.lockState = CursorLockMode.Confined;
+                    }
                 }
                 else
                 {
                     panelToggled = true;
                     adminPanel.SetActive(true);
                     adminPanel.GetComponent<AdminTool>().RefreshPlayerList();
+                    Cursor.lockState = CursorLockMode.None;
                 }
             }
         }
