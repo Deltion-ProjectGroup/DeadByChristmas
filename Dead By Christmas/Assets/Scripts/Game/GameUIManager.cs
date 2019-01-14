@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameUIManager : MonoBehaviour {
     public Sprite[] elfStatusIcons;
-    public Hashtable icons;
+    public ExitGames.Client.Photon.Hashtable icons;
     public GameObject elfStatusHolder;
     public Transform elfStatuses;
 	// Use this for initialization
