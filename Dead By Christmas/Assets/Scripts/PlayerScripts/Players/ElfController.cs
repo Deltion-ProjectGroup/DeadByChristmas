@@ -57,6 +57,7 @@ public class ElfController : Player {
     public void Start()
     {
         PlayerStart();
+        isKnockedOut = false;
     }
 
     //Update Function
@@ -232,11 +233,6 @@ public class ElfController : Player {
         yield return new WaitForSeconds(time);
         currentState = StruggleState.normal;
         isKnockedOut = false;
-        PhotonView view = GameObject.FindGameObjectWithTag("Manager").GetComponent<PhotonView>();
-        List<object> overloads = new List<object>();
-        overloads.Add(PhotonNetwork.player.NickName);
-        overloads.Add(GameUIManager.ElfStatus.Knocked);
-        view.RPC("ChangeStatusIcon", PhotonTargets.All, overloads);
         health = baseHealth;
     }
 

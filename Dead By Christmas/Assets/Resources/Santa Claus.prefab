@@ -9350,8 +9350,8 @@ MonoBehaviour:
   - {fileID: 114711403990916104}
   - {fileID: 114410452345855098}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 3
-  instantiationId: 3
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114410452345855098
@@ -9389,6 +9389,7 @@ MonoBehaviour:
   damageableObjects:
     serializedVersion: 2
     m_Bits: 512
+  canAttack: 1
   abilities:
   - {fileID: 11400000, guid: a2f4bdf8d049fe1488d2b419a9a4b0c7, type: 2}
   canSpecial: 1
