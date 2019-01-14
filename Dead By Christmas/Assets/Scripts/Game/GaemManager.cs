@@ -25,11 +25,12 @@ public class GaemManager : MonoBehaviour {
 	// Use this for initialization
     //Spawns weapons and showsRoles
 	void Start () {
-        /*if (PhotonNetwork.isMasterClient)
+        GetComponent<GameUIManager>().CreateElfStatuses();
+        if (PhotonNetwork.isMasterClient)
         {
             GetComponent<PhotonView>().RPC("ShowRoles", PhotonTargets.All);
             GetComponent<PhotonView>().RPC("SpawnWeaponParts", PhotonTargets.MasterClient);
-        }*/
+        }
 	}
     //Randomizes the roles
     [PunRPC]
@@ -41,7 +42,9 @@ public class GaemManager : MonoBehaviour {
         {
             isSanta.Add(player.NickName, false);
         }
-        isSanta[allPlayers[Random.Range(0, allPlayers.Length)].NickName] = true;
+        string santaUserName = allPlayers[Random.Range(0, allPlayers.Length)].NickName;
+        isSanta[santaUserName] = true;
+        GetComponent<PhotonView>().RPC("RemoveSanta", PhotonTargets.All, santaUserName);
     }
     //shows the roles
     [PunRPC]
@@ -53,7 +56,6 @@ public class GaemManager : MonoBehaviour {
             GetComponent<PhotonView>().RPC("RandomizePlayers", PhotonTargets.MasterClient);
         }
         yield return new WaitForSeconds(2);
-        GetComponent<GameUIManager>().CreateElfStatuses();
         if (isSanta.ContainsKey(PhotonNetwork.player.NickName))
         {
             if ((bool)isSanta[PhotonNetwork.player.NickName] == true)
@@ -145,12 +147,22 @@ public class GaemManager : MonoBehaviour {
             isSanta = (ExitGames.Client.Photon.Hashtable)stream.ReceiveNext();
         }
     }
-    public void OnJoinedRoom()
+    public void OnPhotonPlayerDisconnected(PhotonPlayer otherPlayer)
     {
-        if(PhotonNetwork.room.ExpectedUsers.Length - 1 == PhotonNetwork.room.PlayerCount)
+        if(isSanta.Count > 0)
         {
-            GetComponent<PhotonView>().RPC("ShowRoles", PhotonTargets.All);
-            GetComponent<PhotonView>().RPC("SpawnWeaponParts", PhotonTargets.MasterClient);
+            if ((bool)isSanta[otherPlayer.NickName])
+            {
+                //SANTA LEFT THE GAME;
+            }
+            else
+            {
+                GetComponent<GameUIManager>().ChangeStatusIcon(otherPlayer.NickName, GameUIManager.ElfStatus.Disconnected);
+            }
+        }
+        else
+        {
+            GetComponent<GameUIManager>().ChangeStatusIcon(otherPlayer.NickName, GameUIManager.ElfStatus.Disconnected);
         }
     }
 }
