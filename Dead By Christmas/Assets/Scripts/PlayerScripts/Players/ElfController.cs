@@ -217,8 +217,8 @@ public class ElfController : Player {
             PhotonView view = GameObject.FindGameObjectWithTag("Manager").GetComponent<PhotonView>();
             List<object> overloads = new List<object>();
             overloads.Add(PhotonNetwork.player.NickName);
-            overloads.Add(GameUIManager.ElfStatus.Knocked);
-            view.RPC("ChangeStatusIcon", PhotonTargets.All, overloads);
+            overloads.Add(1);
+            view.RPC("ChangeStatusIcon", PhotonTargets.All, overloads.ToArray());
             currentKnockedOutNumerator = KnockedOutTimer(knockedOutTime);
             StartCoroutine(KnockedOutTimer(knockedOutTime));
         }
@@ -232,6 +232,11 @@ public class ElfController : Player {
         print("COUNTDING DOWN");
         isKnockedOut = true;
         yield return new WaitForSeconds(time);
+        PhotonView view = GameObject.FindGameObjectWithTag("Manager").GetComponent<PhotonView>();
+        List<object> overloads = new List<object>();
+        overloads.Add(PhotonNetwork.player.NickName);
+        overloads.Add(0);
+        view.RPC("ChangeStatusIcon", PhotonTargets.All, overloads.ToArray());
         print("RETURNED TO NORMAL");
         currentState = StruggleState.normal;
         isKnockedOut = false;

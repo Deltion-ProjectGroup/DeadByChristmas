@@ -19,7 +19,7 @@ public class GameUIManager : MonoBehaviour {
         Alive, Knocked, Incinerator, Dead, Disconnected
     }
     [PunRPC]
-    public void ChangeStatusIcon(string username, ElfStatus newStatus)
+    public void ChangeStatusIcon(string username, int newStatus)
     {
         GameObject target = null;
         foreach (GameObject icon in icons)
@@ -32,19 +32,19 @@ public class GameUIManager : MonoBehaviour {
         }
         switch (newStatus)
         {
-            case ElfStatus.Alive:
+            case 0:
                 target.GetComponentInChildren<Image>().sprite = elfStatusIcons[0];
                 break;
-            case ElfStatus.Knocked:
+            case 1:
                 target.GetComponentInChildren<Image>().sprite = elfStatusIcons[1];
                 break;
-            case ElfStatus.Incinerator:
+            case 2:
                 target.GetComponentInChildren<Image>().sprite = elfStatusIcons[2];
                 break;
-            case ElfStatus.Dead:
+            case 3:
                 target.GetComponentInChildren<Image>().sprite = elfStatusIcons[3];
                 break;
-            case ElfStatus.Disconnected:
+            case 4:
                 target.GetComponentInChildren<Image>().sprite = elfStatusIcons[4];
                 break;
         }
