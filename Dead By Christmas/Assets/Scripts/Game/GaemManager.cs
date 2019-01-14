@@ -157,12 +157,12 @@ public class GaemManager : MonoBehaviour {
             }
             else
             {
-                GetComponent<GameUIManager>().ChangeStatusIcon(otherPlayer.NickName, GameUIManager.ElfStatus.Disconnected);
+                GetComponent<GameUIManager>().ChangeStatusIcon(otherPlayer.NickName, 4);
             }
         }
         else
         {
-            GetComponent<GameUIManager>().ChangeStatusIcon(otherPlayer.NickName, GameUIManager.ElfStatus.Disconnected);
+            GetComponent<GameUIManager>().ChangeStatusIcon(otherPlayer.NickName, 4);
         }
     }
 }
