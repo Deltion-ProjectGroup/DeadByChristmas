@@ -41,11 +41,13 @@ public class Cannon : InteractableObject {
 
 	IEnumerator SetToZero () {
 		if (interactingPlayer != null) {
-			while (interactingPlayer.localRotation != Quaternion.Euler (Vector3.zero)) {
-				interactingPlayer.localPosition = Vector3.zero;
-				interactingPlayer.localRotation = Quaternion.Euler (90f, 0f, 0f);
+			if (interactingPlayer.parent != null) {
+				while (interactingPlayer.localRotation != Quaternion.Euler (Vector3.zero)) {
+					interactingPlayer.localPosition = Vector3.zero;
+					interactingPlayer.localRotation = Quaternion.Euler (90f, 0f, 0f);
 
-				yield return null;
+					yield return null;
+				}
 			}
 		}
 
