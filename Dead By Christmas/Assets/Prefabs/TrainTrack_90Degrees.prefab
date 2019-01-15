@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4219186814041950}
   - component: {fileID: 33480527586204688}
   - component: {fileID: 23841900343100220}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TrainTrack_90Degrees
   m_TagString: Untagged
   m_Icon: {fileID: 0}

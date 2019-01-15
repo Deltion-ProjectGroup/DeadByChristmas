@@ -40,12 +40,13 @@ public class Cannon : InteractableObject {
 	}
 
 	IEnumerator SetToZero () {
+		if (interactingPlayer != null) {
+			while (interactingPlayer.localRotation != Quaternion.Euler (Vector3.zero)) {
+				interactingPlayer.localPosition = Vector3.zero;
+				interactingPlayer.localRotation = Quaternion.Euler (90f, 0f, 0f);
 
-		while (interactingPlayer.localRotation != Quaternion.Euler (Vector3.zero)) {
-			interactingPlayer.localPosition = Vector3.zero;
-			interactingPlayer.localRotation = Quaternion.Euler (90f, 0f, 0f);
-
-			yield return null;
+				yield return null;
+			}
 		}
 
 		StopCoroutine ("SetToZero");
@@ -76,7 +77,7 @@ public class Cannon : InteractableObject {
 			interactingPlayer = null;
 
 			print ("Pew");
-			
+
 			shotPlayer.SetParent (null);
 			SetPlayerVars (shotPlayer, true);
 			shotPlayer.GetComponent<Rigidbody> ().AddForce (shotPlayer.up * force);
