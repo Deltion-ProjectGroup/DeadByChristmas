@@ -9,11 +9,9 @@ public class Cannon : InteractableObject {
 	[SerializeField] Transform cannonCamera;
 	public bool hasPlayer;
 
-	void Start () {
-	}
+	void Start () { }
 
-	void Update () {
-	}
+	void Update () { }
 
 	public override void Interact () {
 		base.Interact ();
@@ -42,11 +40,15 @@ public class Cannon : InteractableObject {
 	}
 
 	IEnumerator SetToZero () {
-		while (interactingPlayer.localRotation != Quaternion.Euler (Vector3.zero)) {
-			interactingPlayer.localPosition = Vector3.zero;
-			interactingPlayer.localRotation = Quaternion.Euler (90f, 0f, 0f);
+		if (interactingPlayer != null) {
+			if (interactingPlayer.parent != null) {
+				while (interactingPlayer.localRotation != Quaternion.Euler (Vector3.zero)) {
+					interactingPlayer.localPosition = Vector3.zero;
+					interactingPlayer.localRotation = Quaternion.Euler (90f, 0f, 0f);
 
-			yield return null;
+					yield return null;
+				}
+			}
 		}
 
 		StopCoroutine ("SetToZero");
@@ -62,20 +64,11 @@ public class Cannon : InteractableObject {
 	}
 
 	void SetPlayerVars (Transform t, bool b) {
-		/*t.GetComponent<ElfController> ().ToggleRagdoll (b);
-		foreach (Rigidbody r in t.GetComponent<ElfController> ().bones) {
-			r.useGravity = b;
-			r.GetComponent<Collider> ().enabled = b;
-		}*/
 		t.GetComponent<Collider> ().enabled = b;
 		t.GetComponent<Rigidbody> ().useGravity = b;
 
 		t.GetComponent<Player> ().cam.gameObject.SetActive (b);
 		cannonCamera.gameObject.SetActive (!b);
-	}
-
-	void Aim () {
-
 	}
 
 	Transform shotPlayer;
@@ -86,9 +79,10 @@ public class Cannon : InteractableObject {
 			interactingPlayer = null;
 
 			print ("Pew");
+
 			shotPlayer.SetParent (null);
 			SetPlayerVars (shotPlayer, true);
-			 shotPlayer.GetComponent<Rigidbody> ().AddForce (shotPlayer.up * force);
+			shotPlayer.GetComponent<Rigidbody> ().AddForce (shotPlayer.up * force);
 
 			StartCoroutine ("CheckIfLanded");
 			StartCoroutine ("WaitFor");
@@ -97,16 +91,16 @@ public class Cannon : InteractableObject {
 		}
 	}
 
-	IEnumerator WaitFor() {
+	IEnumerator WaitFor () {
 		/*Rigidbody[] playerColider = shotPlayer.GetComponent<ElfController>().bones;
 		foreach(Rigidbody rig in playerColider){
 			rig.GetComponent<Collider>().isTrigger = true;
 		}*/
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds (0.5f);
 		/*foreach(Rigidbody rig in playerColider){
 			rig.GetComponent<Collider>().isTrigger = false;
 		}*/
-		
+
 	}
 
 	bool hasLanded = false;
@@ -119,7 +113,7 @@ public class Cannon : InteractableObject {
 		}
 
 		print ("Found!");
-		StartCoroutine(WaitForStand());
+		StartCoroutine (WaitForStand ());
 		yield return null;
 	}
 
@@ -129,7 +123,7 @@ public class Cannon : InteractableObject {
 		hasLanded = true;
 		shotPlayer = null;
 
-		StopCoroutine(WaitForStand());
+		StopCoroutine (WaitForStand ());
 		yield return null;
 	}
 
