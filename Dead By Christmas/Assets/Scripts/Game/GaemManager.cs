@@ -135,6 +135,17 @@ public class GaemManager : MonoBehaviour {
         }
         yield return null;
         GetInGamePlayers();
+        if (santa.GetComponent<PhotonView>().isMine)
+        {
+            List<object> overloads = new List<object>();
+            List<object> send = new List<object>();
+            foreach(int id in SaveDatabase.data.userData.equippedAbilities)
+            {
+                overloads.Add(id);
+            }
+            send.Add(overloads.ToArray());
+            GetComponent<PhotonView>().RPC("LoadSantaAbilities", PhotonTargets.All, send.ToArray());
+        }
     }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
@@ -163,6 +174,22 @@ public class GaemManager : MonoBehaviour {
         else
         {
             GetComponent<GameUIManager>().ChangeStatusIcon(otherPlayer.NickName, 4);
+        }
+    }
+    [PunRPC]
+    public void LoadSantaAbilities(int[] abilityIDs)
+    {
+        SaveDatabase database = GameObject.FindGameObjectWithTag("Database").GetComponent<SaveDatabase>();
+        for(int id = 0; id < abilityIDs.Length; id++)
+        {
+            for(int ability = 0; ability < database.abilities.Length; ability++)
+            {
+                if(abilityIDs[id] == database.abilities[ability].abilityID)
+                {
+                    santa.GetComponent<SantaController>().abilities[id] = database.abilities[ability];
+                    break;
+                }
+            }
         }
     }
 }

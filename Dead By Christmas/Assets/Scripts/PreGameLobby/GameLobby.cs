@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GameLobby : MonoBehaviour {
+    public GameObject inventory;
+    bool inventoryToggled;
+    bool canToggle = true;
     [Header("PlayerData")]
     public GameObject localPlayer;
     public List<GameObject> allPlayers = new List<GameObject>();
@@ -46,11 +49,6 @@ public class GameLobby : MonoBehaviour {
             masterOptions.SetActive(true);
         }
         StartCoroutine(TransitionScreen.transitionScreen.FadeOut());
-    }
-    //The void that makes sure the game starts
-    public void StartGame()
-    {
-
     }
     public void Leave()
     {
@@ -424,5 +422,26 @@ public class GameLobby : MonoBehaviour {
             remaingRequests.RemoveAt(0);
         }
         friendRequest.SetActive(false);
+    }
+    public void ToggleInventory()
+    {
+        if (canToggle)
+        {
+            StartCoroutine(Inventory());
+        }
+    }
+    public IEnumerator Inventory()
+    {
+        yield return null;  
+        canToggle = false;
+        if (inventoryToggled)
+        {
+            inventory.SetActive(false);
+        }
+        else
+        {
+            inventory.SetActive(true);
+        }
+        canToggle = true;
     }
 }

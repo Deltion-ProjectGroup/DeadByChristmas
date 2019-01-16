@@ -9,6 +9,8 @@ TagManager:
   - Interactable
   - Elf
   - Santa
+  - Inventory
+  - Database
   layers:
   - Default
   - TransparentFX

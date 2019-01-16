@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Xml.Serialization;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class SaveDatabase : MonoBehaviour {
     public static SaveDatabase data;
@@ -10,6 +11,7 @@ public class SaveDatabase : MonoBehaviour {
     bool panelToggled;
     [SerializeField] GameObject adminPanel;
     public PlayerData userData;
+    public Ability[] abilities;
     private void Awake()
     {
         data = this;
@@ -72,6 +74,7 @@ public class SaveDatabase : MonoBehaviour {
         public bool banned;
         public string bannedReason;
         public List<string> friends;
+        public int[] equippedAbilities;
     }
     public void OnApplicationQuit()
     {
@@ -88,5 +91,6 @@ public class SaveDatabase : MonoBehaviour {
         userData.bannedReason = reason;
         Save();
         PhotonNetwork.LeaveRoom();
+        SceneManager.LoadScene("MainMenuScene");
     }
 }

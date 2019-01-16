@@ -9392,6 +9392,8 @@ MonoBehaviour:
   canAttack: 1
   abilities:
   - {fileID: 11400000, guid: a2f4bdf8d049fe1488d2b419a9a4b0c7, type: 2}
+  - {fileID: 11400000, guid: a2f4bdf8d049fe1488d2b419a9a4b0c7, type: 2}
+  - {fileID: 11400000, guid: a2f4bdf8d049fe1488d2b419a9a4b0c7, type: 2}
   canSpecial: 1
   specialCooldown: 0
 --- !u!114 &114711403990916104

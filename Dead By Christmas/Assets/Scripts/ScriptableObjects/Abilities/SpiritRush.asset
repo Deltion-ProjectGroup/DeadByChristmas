@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Name: SpiritRush
   m_EditorClassIdentifier: 
   cooldown: 0
+  description: Boosts the movementspeed of the santa with a small amount.
+  abilityID: 1
   duration: 0
   slowAmount: 0
-  range: 0
-  targets:
-    serializedVersion: 2
-    m_Bits: 0

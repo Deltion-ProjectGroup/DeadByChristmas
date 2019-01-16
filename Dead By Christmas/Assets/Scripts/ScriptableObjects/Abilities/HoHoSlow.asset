@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Name: HoHoSlow
   m_EditorClassIdentifier: 
   cooldown: 0
+  description: 'Applies a slow to all the elfs in a small radius near the santa.
+
+'
+  abilityID: 0
   duration: 5
   slowAmount: -2.7
   range: 100

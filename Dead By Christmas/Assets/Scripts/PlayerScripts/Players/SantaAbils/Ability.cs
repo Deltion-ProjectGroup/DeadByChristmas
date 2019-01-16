@@ -5,6 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Ability", menuName = "New Ability")]
 public abstract class Ability : ScriptableObject {
     public float cooldown;
+    [TextArea(1, 2)]
+    public string description;
+    public int abilityID;
 
 
 

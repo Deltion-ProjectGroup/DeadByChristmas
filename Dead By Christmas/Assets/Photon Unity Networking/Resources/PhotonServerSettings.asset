@@ -62,4 +62,5 @@ MonoBehaviour:
   - ChangeStatusIcon
   - CreateElfStatuses
   - RemoveSanta
+  - LoadSantaAbilities
   DisableAutoOpenWizard: 1
