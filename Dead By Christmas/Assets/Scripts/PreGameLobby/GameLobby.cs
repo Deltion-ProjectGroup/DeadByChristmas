@@ -437,10 +437,12 @@ public class GameLobby : MonoBehaviour {
         if (inventoryToggled)
         {
             inventory.SetActive(false);
+            inventoryToggled = false;
         }
         else
         {
             inventory.SetActive(true);
+            inventoryToggled = true;
         }
         canToggle = true;
     }
