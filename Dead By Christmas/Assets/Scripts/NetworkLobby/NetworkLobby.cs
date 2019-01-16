@@ -43,6 +43,10 @@ public class NetworkLobby : Photon.MonoBehaviour {
         {
             PhotonNetwork.playerName = SaveDatabase.data.userData.username;
             PhotonNetwork.automaticallySyncScene = true;
+            if(SaveDatabase.data.userData.equippedAbilities.Count == 0)
+            {
+                print(" NO");
+            }
             if (PhotonNetwork.player.NickName == null || PhotonNetwork.player.NickName == "")
             {
                 StartCoroutine(TransitionScreen.transitionScreen.FadeOut());

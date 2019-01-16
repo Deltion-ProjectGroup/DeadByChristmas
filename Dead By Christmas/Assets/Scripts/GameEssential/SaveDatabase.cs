@@ -65,6 +65,13 @@ public class SaveDatabase : MonoBehaviour {
             FileStream stream = new FileStream(Application.persistentDataPath + "/SaveData.xml", FileMode.Open);
             userData = (PlayerData)serializer.Deserialize(stream);
             stream.Close();
+            if(userData.equippedAbilities.Count == 0)
+            {
+                for(int i = 0; i < 3; i++)
+                {
+                    userData.equippedAbilities.Add(i);
+                }
+            }
         }
     }
     [System.Serializable]
@@ -74,7 +81,7 @@ public class SaveDatabase : MonoBehaviour {
         public bool banned;
         public string bannedReason;
         public List<string> friends;
-        public int[] equippedAbilities;
+        public List<int> equippedAbilities;
     }
     public void OnApplicationQuit()
     {

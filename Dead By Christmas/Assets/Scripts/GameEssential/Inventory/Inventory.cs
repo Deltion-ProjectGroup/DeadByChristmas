@@ -99,14 +99,14 @@ public class Inventory : MonoBehaviour {
         {
             equippedAbilityIDs.Add(activeSlots[i].GetComponent<InventorySlot>().holdingAbility.GetComponent<InventoryItem>().holdingAbility.abilityID);
         }
-        database.userData.equippedAbilities = equippedAbilityIDs.ToArray();
+        database.userData.equippedAbilities = equippedAbilityIDs;
         database.Save();
     }
     public void Load()
     {
-        if(database.userData.equippedAbilities.Length > 0)
+        if(database.userData.equippedAbilities.Count > 0)
         {
-            for (int i = 0; i < database.userData.equippedAbilities.Length; i++)
+            for (int i = 0; i < database.userData.equippedAbilities.Count; i++)
             {
                 if (i < activeSlots.Count)
                 {
@@ -125,6 +125,10 @@ public class Inventory : MonoBehaviour {
                     }
                 }
             }
+        }
+        else
+        {
+            print("CUNT");
         }
     }
 }
