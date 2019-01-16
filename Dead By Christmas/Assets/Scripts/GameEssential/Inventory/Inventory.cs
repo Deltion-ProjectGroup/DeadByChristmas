@@ -104,20 +104,23 @@ public class Inventory : MonoBehaviour {
     }
     public void Load()
     {
-        for(int i = 0; i < database.userData.equippedAbilities.Length; i++)
+        if(database.userData.equippedAbilities.Length > 0)
         {
-            if(i < activeSlots.Count)
+            for (int i = 0; i < database.userData.equippedAbilities.Length; i++)
             {
-                if (activeSlots[i].GetComponent<InventorySlot>().holdingAbility.GetComponent<InventoryItem>().holdingAbility.abilityID != database.userData.equippedAbilities[i])
+                if (i < activeSlots.Count)
                 {
-                    print("SHUD SWAP");
-                    for(int ability = 0; ability < allSlots.Count; ability++)
+                    if (activeSlots[i].GetComponent<InventorySlot>().holdingAbility.GetComponent<InventoryItem>().holdingAbility.abilityID != database.userData.equippedAbilities[i])
                     {
-                        if(allSlots[ability].GetComponent<InventorySlot>().holdingAbility.GetComponent<InventoryItem>().holdingAbility.abilityID == database.userData.equippedAbilities[i])
+                        print("SHUD SWAP");
+                        for (int ability = 0; ability < allSlots.Count; ability++)
                         {
-                            print("FOUND");
-                            Swap(allSlots[ability], activeSlots[i], false);
-                            break;
+                            if (allSlots[ability].GetComponent<InventorySlot>().holdingAbility.GetComponent<InventoryItem>().holdingAbility.abilityID == database.userData.equippedAbilities[i])
+                            {
+                                print("FOUND");
+                                Swap(allSlots[ability], activeSlots[i], false);
+                                break;
+                            }
                         }
                     }
                 }
