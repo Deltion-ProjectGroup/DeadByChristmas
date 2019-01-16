@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4852594192475458}
   - component: {fileID: 33565580301692374}
   - component: {fileID: 23821636988842750}
-  - component: {fileID: 64375665185860742}
   m_Layer: 0
   m_Name: ChristmasWreath
   m_TagString: Untagged
@@ -36,7 +35,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1918140225702666}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.903371, y: 3.9, z: 5.5176816}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -83,18 +82,4 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1918140225702666}
-  m_Mesh: {fileID: 4300000, guid: ffb4c8f059fb1f94bae5e980eb59fb4c, type: 3}
---- !u!64 &64375665185860742
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1918140225702666}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: ffb4c8f059fb1f94bae5e980eb59fb4c, type: 3}

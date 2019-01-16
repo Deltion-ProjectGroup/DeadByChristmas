@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4294360199290356}
   - component: {fileID: 33024110953378226}
   - component: {fileID: 23924733292807048}
-  - component: {fileID: 64354667778046518}
   m_Layer: 0
   m_Name: Chandelier
   m_TagString: Untagged
@@ -52,7 +51,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1400230838983928}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -21}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4932004589178194}
@@ -113,20 +112,6 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1400230838983928}
-  m_Mesh: {fileID: 4300000, guid: 518bdc269a5c10742aa1c1f8bd67bfdd, type: 3}
---- !u!64 &64354667778046518
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1400230838983928}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 518bdc269a5c10742aa1c1f8bd67bfdd, type: 3}
 --- !u!108 &108240859988591198
 Light:

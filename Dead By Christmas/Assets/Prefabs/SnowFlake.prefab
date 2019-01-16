@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4817154358157072}
   - component: {fileID: 33233653980850064}
   - component: {fileID: 23809455648573642}
-  - component: {fileID: 65477974778936886}
   m_Layer: 0
   m_Name: SnowFlake
   m_TagString: Untagged
@@ -36,7 +35,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1659318460962008}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.6363673, y: 2.83, z: 5.83}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -84,15 +83,3 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1659318460962008}
   m_Mesh: {fileID: 4300000, guid: 158e67671ebe1e54680e4a1f326dbd0b, type: 3}
---- !u!65 &65477974778936886
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1659318460962008}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.55, y: 3.0000057, z: 0.1}
-  m_Center: {x: 0.00000023841858, y: 0.01074779, z: 0.000000037252903}
