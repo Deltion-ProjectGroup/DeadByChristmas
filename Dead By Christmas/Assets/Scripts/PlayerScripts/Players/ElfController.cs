@@ -181,6 +181,9 @@ public class ElfController : Player {
         if (canCraft && Input.GetButtonDown(craftingInput))
         {
             currentCrafting = StartCrafting(craftingTime);
+            animator.SetBool("Interact", true);
+            StartCoroutine(ChangeAnimBool("Interact", false));
+            animator.SetBool("Crafting", true);
             StartCoroutine(currentCrafting);
         }
     }
@@ -216,6 +219,7 @@ public class ElfController : Player {
         {
             PhotonView view = GameObject.FindGameObjectWithTag("Manager").GetComponent<PhotonView>();
             List<object> overloads = new List<object>();
+            animator.SetBool("Death", true);
             overloads.Add(PhotonNetwork.player.NickName);
             overloads.Add(1);
             view.RPC("ChangeStatusIcon", PhotonTargets.All, overloads.ToArray());
@@ -252,6 +256,7 @@ public class ElfController : Player {
             StopCoroutine(currentCrafting);
             currentCam.position += currentCam.forward * camBackwardsDistance;
             Destroy(currentFillbar);
+            animator.SetBool("Crafting", false);
             foreach (SkinnedMeshRenderer renderer in bodyRenderer)
             {
                 renderer.enabled = false;
@@ -304,6 +309,7 @@ public class ElfController : Player {
         currentItem.GetComponent<WeaponPart>().hasCollider = false;
         currentItem.GetComponent<Collider>().enabled = false;
         currentItem.GetComponent<BaseGun>().controller = this;
+        animator.SetBool("Crafting", false);
         currentState = StruggleState.Weapon;
     }
 

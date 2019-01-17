@@ -74,18 +74,10 @@ public abstract class Player : MonoBehaviour {
 		movePos.z = Input.GetAxis ("Vertical") * 1 * multiplier;
 		movePos.x = Input.GetAxis ("Horizontal") * 1 * multiplier;
 
-		//Translate the movement axis
-        if(movePos.x == 0 && movePos.z == 0)
-        {
-            animator.SetBool("Walking", false);
-            animator.SetBool("Running", false);
-        }
-        else
-        {
-            animator.SetBool("Walking", true);
-            transform.Translate(movePos); //Vertical axis
-        }
-	}
+        //Translate the movement axis
+        transform.Translate(movePos); //Vertical axis
+        animator.SetFloat("MovementSpeed", extraMovmentMultiplier);
+    }
 
 	//RaycastHit of camera
 	RaycastHit hit;
@@ -93,6 +85,8 @@ public abstract class Player : MonoBehaviour {
 	public void CheckInteract () {
 		if (CanInteract ()) {
 			if (Input.GetButtonDown ("Use")) {
+                animator.SetBool("Interact", true);
+                StartCoroutine(ChangeAnimBool("Interact", false));
 				Interact ();
 			}
 		}
@@ -187,5 +181,10 @@ public abstract class Player : MonoBehaviour {
             animator.SetBool("Walking", (bool)stream.ReceiveNext());
             animator.SetBool("Death", (bool)stream.ReceiveNext());
         }
+    }
+    public IEnumerator ChangeAnimBool(string parameterName, bool value)
+    {
+        yield return new WaitForEndOfFrame();
+        animator.SetBool(parameterName, value);
     }
 }
