@@ -78,6 +78,7 @@ public abstract class Player : MonoBehaviour {
         if(movePos.x == 0 && movePos.z == 0)
         {
             animator.SetBool("Walking", false);
+            animator.SetBool("Running", false);
         }
         else
         {
