@@ -102,6 +102,8 @@ public class ElfController : Player {
     {
         if (canJump)
         {
+            animator.SetBool("JumPland", false);
+            animator.SetBool("Jump", true);
             rig = GetComponent<Rigidbody>();
 
             if (addForce)
@@ -117,9 +119,15 @@ public class ElfController : Player {
     public void CheckGround()
     {
         if (Physics.CheckSphere(transform.position, groundDetectionRange, groundMask))
+        {
             canJump = true;
+            animator.SetBool("Jump", false);
+            animator.SetBool("JumpLand", true);
+        }
         else
+        {
             canJump = false;
+        }
     }
 
     //Checkes the state the elf is in
@@ -151,11 +159,13 @@ public class ElfController : Player {
     public void Weapon()
     {
         if (Input.GetButtonDown(dropInput) && !CanInteract() && hasItem)
+            animator.SetBool("HasGun", false);
             DropItem();
         PlayerFixedUpdate();
         PlayerUpdate();
         if (Input.GetButtonDown("Fire1"))
         {
+            animator.SetBool("HasGun", false);
             currentItem.GetComponent<BaseGun>().Fire();
             hasItem = false;
             currentItem = null;
@@ -163,9 +173,31 @@ public class ElfController : Player {
     }
 
     //The normal state
+    public override void Walk()
+    {
+        float multiplier = speed * Time.deltaTime * extraMovmentMultiplier;
+        Vector3 movePos = new Vector3();
+        movePos.z = Input.GetAxis("Vertical") * 1 * multiplier;
+        movePos.x = Input.GetAxis("Horizontal") * 1 * multiplier;
+        if (movePos == Vector3.zero)
+        {
+            extraMovmentMultiplier = 0;
+        }
+        else
+        {
+            if (Input.GetButton(runInput))
+            {
+                extraMovmentMultiplier = runMultiplier;
+            }
+            else
+            {
+                extraMovmentMultiplier = 1;
+            }
+        }
+        animator.SetFloat("MovementSpeed", extraMovmentMultiplier);
+    }
     public void Normal()
     {
-        extraMovmentMultiplier = (Input.GetButton(runInput)) ? runMultiplier : 1;
         CheckInteract();
         if(Input.GetButtonDown(dropInput) && !CanInteract() && hasItem)
             DropItem();
@@ -242,6 +274,7 @@ public class ElfController : Player {
         overloads.Add(0);
         view.RPC("ChangeStatusIcon", PhotonTargets.All, overloads.ToArray());
         print("RETURNED TO NORMAL");
+        animator.SetBool("Death", false);
         currentState = StruggleState.normal;
         isKnockedOut = false;
         health = baseHealth;
@@ -256,6 +289,7 @@ public class ElfController : Player {
             StopCoroutine(currentCrafting);
             currentCam.position += currentCam.forward * camBackwardsDistance;
             Destroy(currentFillbar);
+            animator.SetBool("SitDown", false);
             animator.SetBool("Crafting", false);
             foreach (SkinnedMeshRenderer renderer in bodyRenderer)
             {
@@ -267,6 +301,7 @@ public class ElfController : Player {
     //Call this to start crafting.
     public IEnumerator StartCrafting(float time)
     {
+        animator.SetBool("SitDown", true);
         currentFillbar = Instantiate(fillBar, transform.position + -currentCam.forward, Quaternion.identity);
         currentCam.position -= currentCam.forward * camBackwardsDistance;
         currentFillbar.transform.LookAt(currentCam);
@@ -291,6 +326,7 @@ public class ElfController : Player {
         currentState = StruggleState.normal;
         currentCam.position += currentCam.forward * camBackwardsDistance;
         Destroy(currentFillbar);
+        animator.SetBool("SitDown", false);
         Crafted();
         foreach (SkinnedMeshRenderer renderer in bodyRenderer)
         {
@@ -310,6 +346,7 @@ public class ElfController : Player {
         currentItem.GetComponent<Collider>().enabled = false;
         currentItem.GetComponent<BaseGun>().controller = this;
         animator.SetBool("Crafting", false);
+        animator.SetBool("HasGun", true);
         currentState = StruggleState.Weapon;
     }
 
@@ -325,5 +362,36 @@ public class ElfController : Player {
     public override void Death()
     {
         currentState = StruggleState.KnockedOut;
+    }
+    public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.isWriting)
+        {
+            stream.SendNext(animator.GetBool("Crafting"));
+            stream.SendNext(animator.GetBool("Sitting"));
+            stream.SendNext(animator.GetBool("Death"));
+            stream.SendNext(animator.GetBool("Jump"));
+            stream.SendNext(animator.GetBool("Knock"));
+            stream.SendNext(animator.GetBool("Interact"));
+            stream.SendNext(animator.GetBool("SitDown"));
+            stream.SendNext(animator.GetBool("JumpLand"));
+            stream.SendNext(animator.GetBool("HasGun"));
+            stream.SendNext(animator.GetBool("Emote"));
+            stream.SendNext(animator.GetFloat("MovementSpeed"));
+        }
+        else
+        {
+            animator.SetBool("Crafting", (bool)stream.ReceiveNext());
+            animator.SetBool("Sitting", (bool)stream.ReceiveNext());
+            animator.SetBool("Death", (bool)stream.ReceiveNext());
+            animator.SetBool("Jump", (bool)stream.ReceiveNext());
+            animator.SetBool("Knock", (bool)stream.ReceiveNext());
+            animator.SetBool("Interact", (bool)stream.ReceiveNext());
+            animator.SetBool("SitDown", (bool)stream.ReceiveNext());
+            animator.SetBool("JumpLand", (bool)stream.ReceiveNext());
+            animator.SetBool("HasGun", (bool)stream.ReceiveNext());
+            animator.SetBool("Emote", (bool)stream.ReceiveNext());
+            animator.SetFloat("MovementSpeed", (float)stream.ReceiveNext());
+        }
     }
 }   
