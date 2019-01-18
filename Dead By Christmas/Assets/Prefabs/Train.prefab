@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 23238626785539832}
   - component: {fileID: 54004621450787364}
   - component: {fileID: 65751131041227522}
-  - component: {fileID: 114127210365532352}
+  - component: {fileID: 114250214868372490}
   m_Layer: 0
   m_Name: Locomotive
   m_TagString: Untagged
@@ -85,8 +85,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1862109175197218}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 30.004457, y: 0, z: 8.830391}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4333217016669856}
@@ -279,7 +279,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.91669095, y: 1.489219, z: 3.2607784}
   m_Center: {x: 0, y: 0.7446095, z: 0.092815995}
---- !u!114 &114127210365532352
+--- !u!114 &114250214868372490
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -287,10 +287,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1268324991171108}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25a468c1edf40c247ade39b81207cb45, type: 3}
+  m_Script: {fileID: 11500000, guid: 97d1a22e1cd0aaf41ade3504fc552c68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactingPlayer: {fileID: 0}
   nodeParent: {fileID: 0}
   speed: 5
-  rotateSpeed: 100
+  rotateSpeed: 350
