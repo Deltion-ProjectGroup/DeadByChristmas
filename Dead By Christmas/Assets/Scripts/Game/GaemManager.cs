@@ -133,17 +133,15 @@ public class GaemManager : MonoBehaviour {
         {
             localPlayer = PhotonNetwork.Instantiate(elfPrefab, elfSpawns[Random.Range(0, elfSpawns.Length)].position, Quaternion.identity, 0);
         }
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.5f);
         GetInGamePlayers();
         if (santa.GetComponent<PhotonView>().isMine)
         {
-            List<object> overloads = new List<object>();
-            List<object> send = new List<object>();
+            List<int> send = new List<int>();
             foreach(int id in SaveDatabase.data.userData.equippedAbilities)
             {
-                overloads.Add(id);
+                send.Add(id);
             }
-            send.Add(overloads.ToArray());
             GetComponent<PhotonView>().RPC("LoadSantaAbilities", PhotonTargets.All, send.ToArray());
         }
         StartCoroutine(TransitionScreen.transitionScreen.FadeOut());
