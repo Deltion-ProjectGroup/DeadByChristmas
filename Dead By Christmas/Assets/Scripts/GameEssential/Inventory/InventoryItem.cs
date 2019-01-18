@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class InventoryItem : MonoBehaviour
 {
@@ -12,6 +12,7 @@ public class InventoryItem : MonoBehaviour
     public void Awake()
     {
         canvasComp = GetComponent<Canvas>();
+        GetComponent<Image>().sprite = holdingAbility.icon;
         inventory = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory>();
     }
 

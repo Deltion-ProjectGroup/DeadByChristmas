@@ -12,7 +12,7 @@ public class GameLobby : MonoBehaviour {
     public List<GameObject> allPlayers = new List<GameObject>();
     public Transform[] playerPlatformPositions;
     [Header("ReadyData")]
-    public Color readyColor, neutralColor;
+    public string ready, unready;
     public string readyText, neutralText, waitForPlayerText, readyUpText, loadText;
     public int waitTime, remainingTime, minPlrRequired;
     public Text timerText;
@@ -199,18 +199,18 @@ public class GameLobby : MonoBehaviour {
         PhotonNetwork.LoadLevel("Game");
     }
     //Toggles the ready button
-    public void ToggleReady(Image readyButton)
+    public void ToggleReady(Text readyButton)
     {
         if (localPlayer.GetComponent<LobbyPlayer>().isReady)
         {
             localPlayer.GetComponent<LobbyPlayer>().isReady = false;
-            readyButton.color = neutralColor;
+            readyButton.text = ready;
             localPlayer.GetComponent<LobbyPlayer>().readyText.text = neutralText;
         }
         else
         {
             localPlayer.GetComponent<LobbyPlayer>().isReady = true;
-            readyButton.color = readyColor;
+            readyButton.text = unready;
             localPlayer.GetComponent<LobbyPlayer>().readyText.text = readyText;
         }
         GetComponent<PhotonView>().RPC("CheckReadyPlayers", PhotonTargets.MasterClient);
@@ -432,10 +432,12 @@ public class GameLobby : MonoBehaviour {
     }
     public IEnumerator Inventory()
     {
-        yield return null;  
         canToggle = false;
+        Animation anim = inventory.GetComponent<Animation>();
         if (inventoryToggled)
         {
+            anim.Play("InventoryClose");
+            yield return new WaitForSeconds(anim.GetClip("InventoryClose").length);
             inventory.SetActive(false);
             inventoryToggled = false;
         }
@@ -443,6 +445,8 @@ public class GameLobby : MonoBehaviour {
         {
             inventory.SetActive(true);
             inventoryToggled = true;
+            anim.Play("InventoryOpen");
+            yield return new WaitForSeconds(anim.GetClip("InventoryOpen").length);
         }
         canToggle = true;
     }

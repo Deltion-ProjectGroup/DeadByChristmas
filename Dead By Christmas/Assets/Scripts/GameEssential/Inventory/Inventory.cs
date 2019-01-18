@@ -17,6 +17,7 @@ public class Inventory : MonoBehaviour {
     Vector3 backupPos;
     public SaveDatabase database;
     public ScrollRect scrollbar;
+    const float iconFollowSpeed = 1000;
     // Use this for initialization
     void Start () {
         database = GameObject.FindGameObjectWithTag("Database").GetComponent<SaveDatabase>();
@@ -70,13 +71,14 @@ public class Inventory : MonoBehaviour {
             {
                 draggingAbility.transform.SetParent(startSlot);
                 draggingAbility.transform.position = backupPos;
+                draggingAbility.GetComponent<Animation>().Play("ShrinkAbility");
             }
             draggingAbility = null;
             startSlot = null;
         }
         if (dragging)
         {
-            draggingAbility.position = Input.mousePosition;
+            draggingAbility.position = Vector3.MoveTowards(draggingAbility.position, Input.mousePosition, iconFollowSpeed);
         }
     }
     public void Swap(GameObject item, GameObject item2, bool ingame = true)

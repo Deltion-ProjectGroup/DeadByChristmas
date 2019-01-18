@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "New Ability", menuName = "New Ability")]
 public abstract class Ability : ScriptableObject {
+    public Sprite icon;
     public float cooldown;
     [TextArea(1, 2)]
     public string description;
