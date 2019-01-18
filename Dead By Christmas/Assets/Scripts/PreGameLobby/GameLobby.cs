@@ -43,7 +43,6 @@ public class GameLobby : MonoBehaviour {
             localPlayer.GetComponent<LobbyPlayer>().friendButton.SetActive(false);
             localPlayer.GetComponent<LobbyPlayer>().readyText.text = neutralText;
             localPlayer.GetComponent<LobbyPlayer>().userName.text = PhotonNetwork.player.NickName;
-            localPlayer.transform.LookAt(new Vector3(mainCamera.position.x, localPlayer.transform.position.y, mainCamera.position.z));
         }
         GetComponent<PhotonView>().RPC("AddPlayer", PhotonTargets.All);
         if (PhotonNetwork.isMasterClient)
@@ -60,8 +59,8 @@ public class GameLobby : MonoBehaviour {
     [PunRPC]
     public IEnumerator AddPlayer()
     {
-        yield return new WaitForSeconds(0.1f);
         GetPlayers();
+        yield return new WaitForSeconds(0.15f);
         ReSort();
         foreach(GameObject player in allPlayers)
         {
