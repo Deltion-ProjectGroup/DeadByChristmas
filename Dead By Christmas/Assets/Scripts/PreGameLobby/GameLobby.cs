@@ -59,8 +59,8 @@ public class GameLobby : MonoBehaviour {
     [PunRPC]
     public IEnumerator AddPlayer()
     {
+        yield return new WaitForSeconds(0.1f);
         GetPlayers();
-        yield return new WaitForSeconds(0.15f);
         ReSort();
         foreach(GameObject player in allPlayers)
         {
@@ -109,9 +109,11 @@ public class GameLobby : MonoBehaviour {
     public void ReSort()
     {
         localPlayer.transform.position = playerPlatformPositions[0].position;
-        for(int i = 0; i < allPlayers.Count; i++)
+        localPlayer.transform.LookAt(new Vector3(mainCamera.position.x, localPlayer.transform.position.y, mainCamera.position.z));
+        for (int i = 0; i < allPlayers.Count; i++)
         {
             allPlayers[i].transform.position = playerPlatformPositions[i + 1].position;
+            allPlayers[i].transform.LookAt(new Vector3(mainCamera.position.x, allPlayers[i].transform.position.y, mainCamera.position.z));
         }
     }
     [PunRPC]
