@@ -19,7 +19,6 @@ public class SantaController : Player {
 
 	// Use this for initialization
 	void Start () {
-        extraMovmentMultiplier = 1;
         damage = baseDamage;
         PlayerStart();
 	}

@@ -71,8 +71,8 @@ public abstract class Player : MonoBehaviour {
 		//Make multiplier
 		float multiplier = speed * Time.deltaTime * extraMovmentMultiplier;
         Vector3 movePos = new Vector3();
-		movePos.z = Input.GetAxis ("Vertical") * 1 * multiplier;
-		movePos.x = Input.GetAxis ("Horizontal") * 1 * multiplier;
+		movePos.z = Input.GetAxis ("Vertical");
+		movePos.x = Input.GetAxis ("Horizontal");
         if(movePos == Vector3.zero)
         {
             extraMovmentMultiplier = 0;
@@ -81,7 +81,7 @@ public abstract class Player : MonoBehaviour {
         {
             extraMovmentMultiplier = 1;
         }
-        animator.SetFloat("MovementSpeed", extraMovmentMultiplier);
+        animator.SetFloat("MovementSpeed", extraMovmentMultiplier * multiplier);
 
         //Translate the movement axis
         transform.Translate(movePos); //Vertical axis
