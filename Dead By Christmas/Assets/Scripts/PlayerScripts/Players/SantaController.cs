@@ -16,6 +16,7 @@ public class SantaController : Player {
     public Ability[] abilities;
     public bool canSpecial = true;
     public float specialCooldown;
+    public GameObject carryingElf;
 
 	// Use this for initialization
 	void Start () {
@@ -58,6 +59,7 @@ public class SantaController : Player {
                 if (hitObj.transform.tag == "Elf")
                 {
                     hitObj.transform.GetComponent<PhotonView>().RPC("ReceiveDamage", PhotonTargets.All, damage);
+                    GetComponent<PhotonView>().RPC("DealDamage", PhotonTargets.All);
                 }
             }
             yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length - 1);
@@ -66,6 +68,12 @@ public class SantaController : Player {
             print("COOLDOWN DONE");
             canAttack = true;
         }
+    }
+    [PunRPC]
+    public void DealDamage()
+    {
+        audioSources[0].clip = audioClips[0];
+        audioSources[0].Play();
     }
     public IEnumerator SpecialAttack(float time)
     {
@@ -80,6 +88,16 @@ public class SantaController : Player {
     public override void Death()
     {
         base.Death();
+        GaemManager gameManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>();
+        if ((bool)gameManager.isSanta[PhotonNetwork.player.NickName])
+        {
+            gameManager.audioSources[0].clip = gameManager.audioClips[1];
+        }
+        else
+        {
+            gameManager.audioSources[0].clip = gameManager.audioClips[0];
+        }
+        gameManager.audioSources[0].Play();
     }
     public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

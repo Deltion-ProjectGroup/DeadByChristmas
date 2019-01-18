@@ -63,4 +63,7 @@ MonoBehaviour:
   - CreateElfStatuses
   - RemoveSanta
   - LoadSantaAbilities
+  - DealDamage
+  - PlaceElf
+  - ReleaseElf
   DisableAutoOpenWizard: 1

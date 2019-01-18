@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class GaemManager : MonoBehaviour {
     [Header("RoleDistribution")]
     object[] emptyData;
+    public AudioSource[] audioSources;
+    public AudioClip[] audioClips;
     public ExitGames.Client.Photon.Hashtable isSanta;
     public PhotonPlayer[] allPlayers;
     public GameObject roleText;
@@ -100,7 +102,15 @@ public class GaemManager : MonoBehaviour {
         allElfs = GameObject.FindGameObjectsWithTag("Elf");
         if(allElfs.Length == 0)
         {
-            print("U WON");
+            if ((bool)isSanta[PhotonNetwork.player.NickName])
+            {
+                audioSources[0].clip = audioClips[0];
+            }
+            else
+            {
+                audioSources[0].clip = audioClips[1];
+            }
+            audioSources[0].Play();
         }
     }
     [PunRPC]
@@ -164,11 +174,13 @@ public class GaemManager : MonoBehaviour {
         {
             if ((bool)isSanta[otherPlayer.NickName])
             {
-                print("SANTA LEFT");
+                audioSources[0].clip = audioClips[0];
+                audioSources[0].Play();
             }
             else
             {
                 GetComponent<GameUIManager>().ChangeStatusIcon(otherPlayer.NickName, 4);
+                GetElfs();
             }
         }
         else

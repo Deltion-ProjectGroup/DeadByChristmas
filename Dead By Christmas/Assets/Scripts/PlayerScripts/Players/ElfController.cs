@@ -367,6 +367,11 @@ public class ElfController : Player {
     {
         currentState = StruggleState.KnockedOut;
     }
+    public void ActualDeath()
+    {
+        PhotonNetwork.Destroy(gameObject);
+        GameObject.FindGameObjectWithTag("Manager").GetComponent<PhotonView>().RPC("ChangeStatusIcon", PhotonTargets.All, 3);
+    }
     public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.isWriting)

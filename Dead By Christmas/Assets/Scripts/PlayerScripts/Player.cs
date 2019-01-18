@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Player : MonoBehaviour {
-	//HEADER MOVEMENT
-	//Movement vars
-	[Header ("Movement")]
+    //HEADER MOVEMENT
+    public AudioSource[] audioSources;
+    public AudioClip[] audioClips;
+    //Movement vars
+    [Header ("Movement")]
 
 	//Walking
 	public float baseSpeed; //The base speed
