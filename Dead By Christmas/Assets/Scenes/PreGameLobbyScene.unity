@@ -1792,7 +1792,7 @@ MonoBehaviour:
   waitForPlayerText: Waiting for players
   readyUpText: Ready up
   loadText: 
-  waitTime: 10
+  waitTime: 5
   remainingTime: 0
   minPlrRequired: 3
   timerText: {fileID: 1715155125}
