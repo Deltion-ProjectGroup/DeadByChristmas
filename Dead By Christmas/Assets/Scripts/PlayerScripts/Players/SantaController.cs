@@ -60,9 +60,9 @@ public class SantaController : Player {
                     hitObj.transform.GetComponent<PhotonView>().RPC("ReceiveDamage", PhotonTargets.All, damage);
                 }
             }
-            print("COOLDOWN");
+            yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length - 1);
             animator.SetBool("Attack", false);
-            yield return new WaitForSeconds(attackCooldown);
+            yield return new WaitForSeconds(1);
             print("COOLDOWN DONE");
             canAttack = true;
         }
