@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GameLobby : MonoBehaviour {
+    public Transform mainCamera;
     public GameObject inventory;
     bool inventoryToggled;
     bool canToggle = true;
@@ -36,12 +37,13 @@ public class GameLobby : MonoBehaviour {
     void OnJoinedRoom()
     {
         print("JOINED");
-        localPlayer = PhotonNetwork.Instantiate("LobbyPlayer", Vector3.zero, Quaternion.identity, 0);
+        localPlayer = PhotonNetwork.Instantiate("ElfLobbyPlayer", Vector3.zero, Quaternion.identity, 0);
         if (localPlayer != null)
         {
             localPlayer.GetComponent<LobbyPlayer>().friendButton.SetActive(false);
             localPlayer.GetComponent<LobbyPlayer>().readyText.text = neutralText;
             localPlayer.GetComponent<LobbyPlayer>().userName.text = PhotonNetwork.player.NickName;
+            localPlayer.transform.LookAt(new Vector3(mainCamera.position.x, localPlayer.transform.position.y, mainCamera.position.z));
         }
         GetComponent<PhotonView>().RPC("AddPlayer", PhotonTargets.All);
         if (PhotonNetwork.isMasterClient)

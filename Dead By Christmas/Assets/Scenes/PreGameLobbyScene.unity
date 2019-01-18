@@ -1774,6 +1774,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5f8269eba8e99b428a285ecb9e32aff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCamera: {fileID: 788799236}
   inventory: {fileID: 440443501}
   localPlayer: {fileID: 0}
   allPlayers: []
