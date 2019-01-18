@@ -2382,7 +2382,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.089, y: 0.822}
   m_AnchorMax: {x: 0.892, y: 0.9620001}
-  m_AnchoredPosition: {x: -0.00022888184, y: -0.000015258789}
+  m_AnchoredPosition: {x: -0.00021362305, y: -0.000015258789}
   m_SizeDelta: {x: 0, y: -0.000022888}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &684050338
@@ -2840,8 +2840,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 831807790}
-  - component: {fileID: 831807791}
   - component: {fileID: 831807792}
+  - component: {fileID: 831807791}
   m_Layer: 0
   m_Name: FriendHolder
   m_TagString: Untagged
@@ -2864,8 +2864,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.9700012, y: 43.299988}
-  m_SizeDelta: {x: 254.4, y: 0}
+  m_AnchoredPosition: {x: -1, y: 43.299988}
+  m_SizeDelta: {x: 0, y: 195}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &831807791
 MonoBehaviour:
@@ -2875,21 +2875,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 831807789}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -2095666955, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 1297475563, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 0
-  m_StartCorner: 0
-  m_StartAxis: 0
-  m_CellSize: {x: 254.4, y: 146.6}
-  m_Spacing: {x: 0, y: 0}
-  m_Constraint: 0
-  m_ConstraintCount: 2
+    m_Top: 140
+    m_Bottom: 55
+  m_ChildAlignment: 4
+  m_Spacing: 3
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
 --- !u!114 &831807792
 MonoBehaviour:
   m_ObjectHideFlags: 0
