@@ -63,7 +63,10 @@ public class ElfController : Player {
     //Update Function
     public void Update()
     {
-        CheckState();
+        if (GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().ingame)
+        {
+            CheckState();
+        }
     }
 
     public void AddItem()
@@ -177,8 +180,8 @@ public class ElfController : Player {
     {
         float multiplier = speed * Time.deltaTime * extraMovmentMultiplier;
         Vector3 movePos = new Vector3();
-        movePos.z = Input.GetAxis("Vertical") * 1 * multiplier;
-        movePos.x = Input.GetAxis("Horizontal") * 1 * multiplier;
+        movePos.z = Input.GetAxis("Vertical");
+        movePos.x = Input.GetAxis("Horizontal");
         if (movePos == Vector3.zero)
         {
             extraMovmentMultiplier = 0;
@@ -195,6 +198,7 @@ public class ElfController : Player {
             }
         }
         animator.SetFloat("MovementSpeed", extraMovmentMultiplier);
+        transform.Translate(movePos * multiplier);
     }
     public void Normal()
     {

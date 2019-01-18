@@ -22,6 +22,7 @@ public class GaemManager : MonoBehaviour {
     public GameObject[] allElfs;
     public GameObject santa;
     public List<GameObject> inGamePlayers = new List<GameObject>();
+    public bool ingame;
 	// Use this for initialization
     //Spawns weapons and showsRoles
 	void Start () {
@@ -73,7 +74,6 @@ public class GaemManager : MonoBehaviour {
             yield return new WaitForSeconds(roleText.GetComponent<Animation>().clip.length);
             roleText.SetActive(false);
             StartCoroutine(SpawnPlayer());
-            StartCoroutine(TransitionScreen.transitionScreen.FadeOut());
         }
     }
     //spawns the weapon parts
@@ -133,7 +133,7 @@ public class GaemManager : MonoBehaviour {
         {
             localPlayer = PhotonNetwork.Instantiate(elfPrefab, elfSpawns[Random.Range(0, elfSpawns.Length)].position, Quaternion.identity, 0);
         }
-        yield return null;
+        yield return new WaitForSeconds(0.5f);
         GetInGamePlayers();
         if (santa.GetComponent<PhotonView>().isMine)
         {
@@ -146,6 +146,8 @@ public class GaemManager : MonoBehaviour {
             send.Add(overloads.ToArray());
             GetComponent<PhotonView>().RPC("LoadSantaAbilities", PhotonTargets.All, send.ToArray());
         }
+        StartCoroutine(TransitionScreen.transitionScreen.FadeOut());
+        ingame = true;
     }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -21,6 +22,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         inventory.hoveringObject = gameObject;
         if (!inventory.dragging && transform.childCount > 0)
         {
+            holdingAbility.GetComponent<Animation>().Play("GrowAbility");
             inventory.description.text = holdingAbility.GetComponent<InventoryItem>().holdingAbility.description;
             inventory.abilityName.text = holdingAbility.GetComponent<InventoryItem>().holdingAbility.name;
         }
@@ -28,5 +30,9 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void OnPointerExit(PointerEventData eventData)
     {
         inventory.hoveringObject = null;
+        if(!inventory.dragging && transform.childCount > 0)
+        {
+            holdingAbility.GetComponent<Animation>().Play("ShrinkAbility");
+        }
     }
 }
