@@ -75,6 +75,7 @@ public class Cannon : InteractableObject {
 
 	void Shoot () {
 		if (hasPlayer) {
+			StopCoroutine("SetToZero");
 			shotPlayer = interactingPlayer;
 			interactingPlayer = null;
 
