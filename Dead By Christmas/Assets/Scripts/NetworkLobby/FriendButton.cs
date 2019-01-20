@@ -11,9 +11,10 @@ public class FriendButton : MonoBehaviour {
 
     public void Join()
     {
-        if (inGame)
+        if (inGame && !GameObject.FindGameObjectWithTag("Manager").GetComponent<NetworkLobby>().loading)
         {
             PhotonNetwork.JoinRoom(roomName);
+            GameObject.FindGameObjectWithTag("Manager").GetComponent<NetworkLobby>().loading = true;
         }
     }
 }

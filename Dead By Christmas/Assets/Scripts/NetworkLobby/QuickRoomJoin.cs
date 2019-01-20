@@ -13,7 +13,7 @@ public class QuickRoomJoin : MonoBehaviour {
 	void OnJoinedLobby () {
 		RoomOptions ro = new RoomOptions () { IsVisible = true, MaxPlayers = 10 };
 		PhotonNetwork.JoinOrCreateRoom ("Mike", ro, TypedLobby.Default);
-	}
+    }
 
 	void OnJoinedRoom() {
 		PhotonNetwork.Instantiate(playerName, Vector3.zero, Quaternion.Euler(Vector3.zero), 0);

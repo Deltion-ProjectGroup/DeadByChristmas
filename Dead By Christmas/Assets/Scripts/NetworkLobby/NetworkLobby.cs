@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class NetworkLobby : Photon.MonoBehaviour {
-
+    public bool loading;
     [Header("Build Version")]
     public string version;
     [Header("Room Information")]
@@ -101,7 +101,7 @@ public class NetworkLobby : Photon.MonoBehaviour {
     //Creates a new room if the room doest excist, or it joins an already excisting one.
     public void CreateRoom()
     {
-        if (roomInput.text != "")
+        if (roomInput.text != "" && !loading)
         {
             StartCoroutine(CreateARoom());
         }
@@ -110,13 +110,17 @@ public class NetworkLobby : Photon.MonoBehaviour {
     //Joins an certain room.
     public void JoinCertainRoom(string roomName)
     {
-        StartCoroutine(JoinRoom(roomName));
+        if (!loading)
+        {
+            StartCoroutine(JoinRoom(roomName));
+        }
     }
     IEnumerator JoinRoom(string name)
     {
         StartCoroutine(TransitionScreen.transitionScreen.FadeIn());
         yield return new WaitForSeconds(TransitionScreen.transitionScreen.GetComponent<TransitionScreen>().screen.GetComponent<Animation>().GetClip("TransitionFadeIn").length);
         PhotonNetwork.JoinRoom(name);
+        GameObject.FindGameObjectWithTag("Manager").GetComponent<NetworkLobby>().loading = true;
     }
     IEnumerator CreateARoom()
     {
@@ -125,6 +129,7 @@ public class NetworkLobby : Photon.MonoBehaviour {
         RoomOptions ro = new RoomOptions() { IsVisible = true, MaxPlayers = (byte)playerSlider.value };
         PhotonNetwork.JoinOrCreateRoom(roomInput.text, ro, TypedLobby.Default);
         PhotonNetwork.LoadLevel(preGameScene);
+        GameObject.FindGameObjectWithTag("Manager").GetComponent<NetworkLobby>().loading = true;
     }
     public void SetName()
     {
