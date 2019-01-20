@@ -43,6 +43,7 @@ public abstract class Player : MonoBehaviour {
     public Rigidbody rig;
     public SkinnedMeshRenderer[] bodyRenderer;
     public Animator animator;
+    public bool canInteract = true;
     //CALL THESE IN THE INHERITING SCRIPTS
     public void PlayerStart () {
         //Assign variables
@@ -94,7 +95,7 @@ public abstract class Player : MonoBehaviour {
 
 	public void CheckInteract () {
 		if (CanInteract ()) {
-			if (Input.GetButtonDown ("Use")) {
+			if (Input.GetButtonDown ("Use") && canInteract) {
                 animator.SetBool("Interact", true);
                 StartCoroutine(ChangeAnimBool("Interact", false));
 				Interact ();
@@ -118,8 +119,8 @@ public abstract class Player : MonoBehaviour {
 		//To do if interacting
 		print ("Interacting...");
 		if (hit.collider != null) {
-			hit.transform.GetComponent<InteractableObject> ().interactingPlayer = transform;
-			hit.transform.GetComponent<InteractableObject> ().Interact ();
+			hit.transform.GetComponent<InteractableObject> ().interactingPlayer = gameObject;
+			hit.transform.GetComponent<InteractableObject> ().Interact (GetComponent<PhotonView>().ownerId);
 		} else {
 			print ("Hit is null!");
 		}

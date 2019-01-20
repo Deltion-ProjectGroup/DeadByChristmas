@@ -52,6 +52,7 @@ public class ElfController : Player {
     [SerializeField] Transform currentCam;
     public float runMultiplier;
     public string runInput;
+    public GameObject interactingObject;
 
     //StartFunction
     public void Start()

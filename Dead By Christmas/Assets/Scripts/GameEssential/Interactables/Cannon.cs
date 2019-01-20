@@ -13,13 +13,13 @@ public class Cannon : InteractableObject {
 
 	void Update () { }
 
-	public override void Interact () {
-		base.Interact ();
-		CheckForPlayer ();
+    public override void Interact(int interactorID)
+    {
+        base.Interact(interactorID);
+        CheckForPlayer();
+    }
 
-	}
-
-	void CheckForPlayer () {
+    void CheckForPlayer () {
 		if (!hasPlayer) {
 			PutPlayerIn ();
 		}
@@ -28,10 +28,10 @@ public class Cannon : InteractableObject {
 	void PutPlayerIn () {
 		//GetComponent<Collider> ().enabled = false;
 		SetHasPlayer (true);
-		interactingPlayer.parent = playerInCannonParent;
+		interactingPlayer.transform.parent = playerInCannonParent;
 		interactingPlayer.GetComponent<Player> ().enabled = false;
 
-		SetPlayerVars (interactingPlayer, false);
+		SetPlayerVars (interactingPlayer.transform, false);
 
 		StartCoroutine ("SetToZero");
 
@@ -41,10 +41,10 @@ public class Cannon : InteractableObject {
 
 	IEnumerator SetToZero () {
 		if (interactingPlayer != null) {
-			if (interactingPlayer.parent != null) {
-				while (interactingPlayer.localRotation != Quaternion.Euler (Vector3.zero)) {
-					interactingPlayer.localPosition = Vector3.zero;
-					interactingPlayer.localRotation = Quaternion.Euler (90f, 0f, 0f);
+			if (interactingPlayer.transform.parent != null) {
+				while (interactingPlayer.transform.localRotation != Quaternion.Euler (Vector3.zero)) {
+					interactingPlayer.transform.localPosition = Vector3.zero;
+					interactingPlayer.transform.localRotation = Quaternion.Euler (90f, 0f, 0f);
 
 					yield return null;
 				}
@@ -76,7 +76,7 @@ public class Cannon : InteractableObject {
 	void Shoot () {
 		if (hasPlayer) {
 			StopCoroutine("SetToZero");
-			shotPlayer = interactingPlayer;
+			shotPlayer = interactingPlayer.transform;
 			interactingPlayer = null;
 
 			print ("Pew");

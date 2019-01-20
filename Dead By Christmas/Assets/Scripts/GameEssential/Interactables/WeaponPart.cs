@@ -21,7 +21,7 @@ public class WeaponPart : InteractableObject {
         }
     }
 
-    public override void Interact()
+    public override void Interact(int interactorID)
     {
         if (!pickedUp && !interactingPlayer.GetComponent<ElfController>().hasItem)
         {

@@ -66,4 +66,7 @@ MonoBehaviour:
   - DealDamage
   - PlaceElf
   - ReleaseElf
+  - Cancel
+  - FinishRelease
+  - ReleaseData
   DisableAutoOpenWizard: 1
