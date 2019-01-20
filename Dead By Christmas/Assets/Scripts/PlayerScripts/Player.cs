@@ -91,7 +91,7 @@ public abstract class Player : MonoBehaviour {
     }
 
 	//RaycastHit of camera
-	RaycastHit hit;
+	public RaycastHit hit;
 
 	public void CheckInteract () {
 		if (CanInteract ()) {
@@ -110,12 +110,12 @@ public abstract class Player : MonoBehaviour {
 			//Check if the hit object is interactable
 			if (hit.transform.tag == interactTag) {
 				return true;
-			}
+            }
 		}
 		return false;
 	}
 
-	public void Interact () {
+	public virtual void Interact () {
 		//To do if interacting
 		print ("Interacting...");
 		if (hit.collider != null) {

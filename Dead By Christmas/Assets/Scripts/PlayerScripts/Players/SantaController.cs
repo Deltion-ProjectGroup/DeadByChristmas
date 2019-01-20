@@ -116,6 +116,27 @@ public class SantaController : Player {
         }
         gameManager.audioSources[0].Play();
     }
+    public override void Interact()
+    {
+        //To do if interacting
+        print("Interacting...");
+        if (hit.collider != null)
+        {
+            if(hit.transform.GetComponent<InteractableObject>() != null)
+            {
+                hit.transform.GetComponent<InteractableObject>().interactingPlayer = gameObject;
+                hit.transform.GetComponent<InteractableObject>().Interact(GetComponent<PhotonView>().ownerId);
+            }
+            else
+            {
+                hit.transform.GetComponent<ElfController>().Interact(GetComponent<PhotonView>().ownerId);
+            }
+        }
+        else
+        {
+            print("Hit is null!");
+        }
+    }
     public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.isWriting)
