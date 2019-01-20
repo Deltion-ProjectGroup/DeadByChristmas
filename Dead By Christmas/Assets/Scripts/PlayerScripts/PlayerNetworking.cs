@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerNetworking : MonoBehaviour {
 	Vector3 position; //Player pos for the network
 	Quaternion rotation; //Player rotation for the network
+	Rigidbody rb;
 	[SerializeField] float smoothing; //Lerp smoothing of position and rotation
 	public GameObject cam;
 	public GameObject headBone;
@@ -12,6 +13,7 @@ public class PlayerNetworking : MonoBehaviour {
 	PhotonView photonView; //PhotonView of player
 	
 	void Awake () {
+		rb = GetComponent<Rigidbody>();
 		photonView = GetComponent<PhotonView>(); //Get the PhotonView of the player
 
 		//Check if the PhotonView is yours
@@ -40,10 +42,13 @@ public class PlayerNetworking : MonoBehaviour {
 			stream.SendNext (transform.position);
 			stream.SendNext(transform.rotation);
 			stream.SendNext(headBone.transform.rotation);
+			stream.SendNext(rb.useGravity);
+			
 		} else {
 			position = (Vector3) stream.ReceiveNext ();
 			rotation = (Quaternion) stream.ReceiveNext();
 			headRotation = (Quaternion) stream.ReceiveNext();
+			rb.useGravity = (bool) stream.ReceiveNext();
 		}
 	}
 
