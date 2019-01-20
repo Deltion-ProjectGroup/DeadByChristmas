@@ -99,6 +99,8 @@ public class SantaController : Player {
         }
         carryingElf = elfToPickUp;
         elfToPickUp.transform.SetParent(carryPosition);
+        elfToPickUp.transform.position = Vector3.zero;
+        elfToPickUp.GetComponent<Collider>().enabled = false;
         elfToPickUp.GetComponent<ElfController>().currentState = ElfController.StruggleState.BeingDragged;
 
     }
@@ -106,15 +108,18 @@ public class SantaController : Player {
     {
         base.Death();
         GaemManager gameManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>();
-        if ((bool)gameManager.isSanta[PhotonNetwork.player.NickName])
+        if (!gameManager.finished)
         {
-            gameManager.audioSources[0].clip = gameManager.audioClips[1];
+            if ((bool)gameManager.isSanta[PhotonNetwork.player.NickName])
+            {
+                gameManager.audioSources[0].clip = gameManager.audioClips[1];
+            }
+            else
+            {
+                gameManager.audioSources[0].clip = gameManager.audioClips[0];
+            }
+            gameManager.audioSources[0].Play();
         }
-        else
-        {
-            gameManager.audioSources[0].clip = gameManager.audioClips[0];
-        }
-        gameManager.audioSources[0].Play();
     }
     public override void Interact()
     {

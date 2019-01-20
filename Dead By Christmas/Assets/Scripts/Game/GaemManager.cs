@@ -25,6 +25,7 @@ public class GaemManager : MonoBehaviour {
     public GameObject santa;
     public List<GameObject> inGamePlayers = new List<GameObject>();
     public bool ingame;
+    public bool finished;
 	// Use this for initialization
     //Spawns weapons and showsRoles
 	void Start () {
@@ -100,8 +101,9 @@ public class GaemManager : MonoBehaviour {
     {
         print("FINDING ELFS");
         allElfs = GameObject.FindGameObjectsWithTag("Elf");
-        if(allElfs.Length == 0)
+        if(allElfs.Length == 0 && !finished)
         {
+            finished = true;
             if ((bool)isSanta[PhotonNetwork.player.NickName])
             {
                 audioSources[0].clip = audioClips[0];
