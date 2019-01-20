@@ -46,18 +46,14 @@ public class Incinerator : InteractableObject {
         }
     }
     [PunRPC]
-    public void PlaceElf(int ownerID)
+    public void PlaceElf()
     {
-        foreach(GameObject elf in GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().allElfs)
-        {
-            if(elf.GetComponent<PhotonView>().ownerId == ownerID)
-            {
-                containedElf = elf;
-                containedElf.GetComponent<ElfController>().currentState = ElfController.StruggleState.struggling;
-                containedElf.transform.position = elfPlacePosition.position;
-                break;
-            }
-        }
+        GameObject elfToPlace = GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().santa.GetComponent<SantaController>().carryingElf;
+        elfToPlace.tag = "Elf";
+        containedElf = elfToPlace;
+        containedElf.GetComponent<ElfController>().currentState = ElfController.StruggleState.struggling;
+        containedElf.transform.position = elfPlacePosition.position;
+        containedElf.transform.SetParent(null);
     }
     [PunRPC]
     public void ReleaseData(int ownerID)
@@ -100,7 +96,6 @@ public class Incinerator : InteractableObject {
             if (hit.gameObject == GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().localPlayer)
             {
                 hit.gameObject.GetComponent<ElfController>().ActualDeath();
-                GetComponent<PhotonView>().RPC("KillElf", PhotonTargets.All);
                 GetComponent<PhotonView>().RPC("Cancel", PhotonTargets.All);
             }
         }

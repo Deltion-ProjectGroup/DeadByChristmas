@@ -69,4 +69,5 @@ MonoBehaviour:
   - Cancel
   - FinishRelease
   - ReleaseData
+  - PickUpElf
   DisableAutoOpenWizard: 1

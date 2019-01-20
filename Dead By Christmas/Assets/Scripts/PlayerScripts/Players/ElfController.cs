@@ -367,11 +367,19 @@ public class ElfController : Player {
     public override void Death()
     {
         currentState = StruggleState.KnockedOut;
+        tag = "Interactable";
     }
     public void ActualDeath()
     {
         PhotonNetwork.Destroy(gameObject);
         GameObject.FindGameObjectWithTag("Manager").GetComponent<PhotonView>().RPC("ChangeStatusIcon", PhotonTargets.All, 3);
+    }
+    public void Interact(int interactorID)
+    {
+        if(GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().santa.GetComponent<SantaController>().carryingElf == null)
+        {
+            GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().santa.GetComponent<PhotonView>().RPC("PickUpElf", PhotonTargets.All, GetComponent<PhotonView>().ownerId);
+        }
     }
     public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

@@ -6743,7 +6743,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1280004928091840}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.78361, y: -3.0979102, z: -3.9659595}
+  m_LocalPosition: {x: 31.567366, y: 0.00000011920929, z: 7.6038656}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4435298100472412}
@@ -9482,6 +9482,7 @@ MonoBehaviour:
   - {fileID: 137494454478737898}
   - {fileID: 137762499420575320}
   animator: {fileID: 95002762194909586}
+  canInteract: 1
   damage: 0
   baseDamage: 1
   attackCooldown: 2
@@ -9496,6 +9497,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a2f4bdf8d049fe1488d2b419a9a4b0c7, type: 2}
   canSpecial: 1
   specialCooldown: 0
+  carryPosition: {fileID: 4513065449932830}
+  carryingElf: {fileID: 0}
 --- !u!114 &114711403990916104
 MonoBehaviour:
   m_ObjectHideFlags: 1

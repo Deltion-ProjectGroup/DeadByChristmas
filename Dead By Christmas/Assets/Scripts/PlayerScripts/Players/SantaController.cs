@@ -16,6 +16,7 @@ public class SantaController : Player {
     public Ability[] abilities;
     public bool canSpecial = true;
     public float specialCooldown;
+    public Transform carryPosition;
     public GameObject carryingElf;
 
 	// Use this for initialization
@@ -84,6 +85,22 @@ public class SantaController : Player {
             yield return new WaitForSeconds(time);
             canSpecial = true;
         }
+    }
+    [PunRPC]
+    public void PickUpElf(int elfID)
+    {
+        GameObject elfToPickUp = null;
+        foreach(GameObject elf in GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().allElfs)
+        {
+            if(elf.GetComponent<PhotonView>().ownerId == elfID)
+            {
+                elfToPickUp = elf;
+            }
+        }
+        carryingElf = elfToPickUp;
+        elfToPickUp.transform.SetParent(carryPosition);
+        elfToPickUp.GetComponent<ElfController>().currentState = ElfController.StruggleState.BeingDragged;
+
     }
     public override void Death()
     {
