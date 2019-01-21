@@ -57,6 +57,7 @@ public class Incinerator : InteractableObject {
         containedElf.GetComponent<Collider>().enabled = true;
         containedElf.GetComponent<ElfController>().currentState = ElfController.StruggleState.struggling;
         containedElf.transform.position = elfPlacePosition.position;
+        containedElf.transform.LookAt(new Vector3(transform.position.x, containedElf.transform.position.y, transform.position.z));
         containedElf.transform.SetParent(null);
     }
     [PunRPC]
