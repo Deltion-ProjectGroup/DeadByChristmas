@@ -96,6 +96,24 @@ public class GaemManager : MonoBehaviour {
         }
 
     }
+    public IEnumerator EndGame()
+    {
+        finished = true;
+        if ((bool)isSanta[PhotonNetwork.player.NickName])
+        {
+            audioSources[0].clip = audioClips[0];
+        }
+        else
+        {
+            audioSources[0].clip = audioClips[1];
+        }
+        audioSources[0].Play();
+        yield return new WaitForSeconds(1);
+        if (PhotonNetwork.isMasterClient)
+        {
+            PhotonNetwork.LoadLevel("PreGameLobby");
+        }
+    }
     [PunRPC]
     public void GetElfs()
     {
@@ -103,16 +121,7 @@ public class GaemManager : MonoBehaviour {
         allElfs = GameObject.FindGameObjectsWithTag("Elf");
         if(allElfs.Length == 0 && !finished)
         {
-            finished = true;
-            if ((bool)isSanta[PhotonNetwork.player.NickName])
-            {
-                audioSources[0].clip = audioClips[0];
-            }
-            else
-            {
-                audioSources[0].clip = audioClips[1];
-            }
-            audioSources[0].Play();
+            StartCoroutine(EndGame());
         }
     }
     [PunRPC]
@@ -154,6 +163,7 @@ public class GaemManager : MonoBehaviour {
             {
                 send.Add(id);
             }
+            GetComponent<PhotonView>().RPC("Update-+SantaHealth", PhotonTargets.All);
             GetComponent<PhotonView>().RPC("LoadSantaAbilities", PhotonTargets.All, send.ToArray());
         }
         StartCoroutine(TransitionScreen.transitionScreen.FadeOut());

@@ -8,6 +8,7 @@ public class GameUIManager : MonoBehaviour {
     public List<GameObject> icons = new List<GameObject>();
     public GameObject elfStatusHolder;
     public Transform elfStatuses;
+    public GameObject santaStatus;
     // Use this for initialization
 
     private void Awake()
@@ -17,6 +18,12 @@ public class GameUIManager : MonoBehaviour {
     public enum ElfStatus
     {
         Alive, Knocked, Incinerator, Dead, Disconnected
+    }
+    [PunRPC]
+    public void UpdateSantaHealth()
+    {
+        santaStatus.GetComponent<Animation>().Play();
+        santaStatus.GetComponentInChildren<Text>().text = GetComponent<GaemManager>().santa.GetComponent<Player>().health.ToString();
     }
     [PunRPC]
     public void ChangeStatusIcon(string username, int newStatus)

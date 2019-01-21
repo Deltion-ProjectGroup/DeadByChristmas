@@ -104,21 +104,19 @@ public class SantaController : Player {
         elfToPickUp.GetComponent<ElfController>().currentState = ElfController.StruggleState.BeingDragged;
 
     }
+    [PunRPC]
+    public override void ReceiveDamage(int damageAmount)
+    {
+        base.ReceiveDamage(damageAmount);
+        GameObject.FindGameObjectWithTag("Manager").GetComponent<GameUIManager>().UpdateSantaHealth();
+    }
     public override void Death()
     {
         base.Death();
         GaemManager gameManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>();
         if (!gameManager.finished)
         {
-            if ((bool)gameManager.isSanta[PhotonNetwork.player.NickName])
-            {
-                gameManager.audioSources[0].clip = gameManager.audioClips[1];
-            }
-            else
-            {
-                gameManager.audioSources[0].clip = gameManager.audioClips[0];
-            }
-            gameManager.audioSources[0].Play();
+            StartCoroutine(gameManager.EndGame());
         }
     }
     public override void Interact()

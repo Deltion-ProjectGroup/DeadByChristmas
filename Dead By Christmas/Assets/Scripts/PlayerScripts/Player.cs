@@ -135,7 +135,7 @@ public abstract class Player : MonoBehaviour {
         animator.SetBool("Death", true);
     }
     [PunRPC]
-	public void ReceiveDamage (int damageAmount) {
+	public virtual void ReceiveDamage (int damageAmount) {
 		//Subtract damage amount to health
 		health -= damageAmount;
 

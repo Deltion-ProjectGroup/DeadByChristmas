@@ -70,4 +70,6 @@ MonoBehaviour:
   - FinishRelease
   - ReleaseData
   - PickUpElf
+  - ChangeSantaHealth
+  - UpdateSantaHealth
   DisableAutoOpenWizard: 1
