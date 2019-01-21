@@ -55,6 +55,7 @@ public class SantaController : Player {
             animator.SetBool("Attack", true);
             Ray shootRay = cam.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition, Camera.MonoOrStereoscopicEye.Mono);
             RaycastHit hitObj;
+            yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length - 2.5f);
             if (Physics.Raycast(shootRay, out hitObj, attackRange, damageableObjects, QueryTriggerInteraction.Ignore))
             {
                 if (hitObj.transform.tag == "Elf")
@@ -63,7 +64,6 @@ public class SantaController : Player {
                     GetComponent<PhotonView>().RPC("DealDamage", PhotonTargets.All);
                 }
             }
-            yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length - 1);
             animator.SetBool("Attack", false);
             yield return new WaitForSeconds(1);
             print("COOLDOWN DONE");
