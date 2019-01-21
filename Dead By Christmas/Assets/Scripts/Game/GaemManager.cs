@@ -156,6 +156,7 @@ public class GaemManager : MonoBehaviour {
         }
         yield return new WaitForSeconds(1.5f);
         GetInGamePlayers();
+        yield return new WaitForSeconds(0.5f);
         if (santa.GetComponent<PhotonView>().isMine)
         {
             List<int> send = new List<int>();
@@ -163,7 +164,7 @@ public class GaemManager : MonoBehaviour {
             {
                 send.Add(id);
             }
-            GetComponent<PhotonView>().RPC("Update-+SantaHealth", PhotonTargets.All);
+            GetComponent<PhotonView>().RPC("UpdateSantaHealth", PhotonTargets.All);
             GetComponent<PhotonView>().RPC("LoadSantaAbilities", PhotonTargets.All, send.ToArray());
         }
         StartCoroutine(TransitionScreen.transitionScreen.FadeOut());
