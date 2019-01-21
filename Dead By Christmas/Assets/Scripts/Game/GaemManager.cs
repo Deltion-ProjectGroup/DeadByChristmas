@@ -30,12 +30,17 @@ public class GaemManager : MonoBehaviour {
     //Spawns weapons and showsRoles
 	void Start () {
         GetComponent<GameUIManager>().CreateElfStatuses();
+        StartCoroutine(StartGame());
+	}
+    public IEnumerator StartGame()
+    {
         if (PhotonNetwork.isMasterClient)
         {
+            yield return new WaitForSeconds(2);
             GetComponent<PhotonView>().RPC("ShowRoles", PhotonTargets.All);
             GetComponent<PhotonView>().RPC("SpawnWeaponParts", PhotonTargets.MasterClient);
         }
-	}
+    }
     //Randomizes the roles
     [PunRPC]
     public void RandomizePlayers()
