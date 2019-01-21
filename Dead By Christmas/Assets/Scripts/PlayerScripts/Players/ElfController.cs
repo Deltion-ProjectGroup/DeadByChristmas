@@ -242,11 +242,11 @@ public class ElfController : Player {
         }
         if (struggling != 0)
         {
-            transform.position = Vector3.Lerp(transform.position, transform.position + transform.forward/2f, struggleMoveSpeed * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, transform.position - transform.forward/2f, struggleMoveSpeed * Time.deltaTime);
             struggleMoveSpeed--;
             struggling--;
         }
-        transform.Translate(-Vector3.forward * Time.deltaTime * pullBackSpeed);
+        transform.Translate(Vector3.forward * Time.deltaTime * pullBackSpeed);
     }
 
     //the knocked out state
