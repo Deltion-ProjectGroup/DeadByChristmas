@@ -34,7 +34,8 @@ public class Cannon : InteractableObject {
 		interactingPlayer.transform.parent = playerInCannonParent;
 		interactingPlayer.GetComponent<Player> ().enabled = false;
 
-		photonView.RPC ("SetPlayerVars", PhotonTargets.All, false);
+		SetPlayerVars (interactingPlayer.transform, false);
+
 		//SetPlayerVars (interactingPlayer, false);
 
 		StartCoroutine ("SetToZero");
@@ -67,7 +68,6 @@ public class Cannon : InteractableObject {
 		}
 	}
 
-	[PunRPC]
 	void SetPlayerVars (Transform t, bool b) {
 		t.GetComponent<Collider> ().enabled = b;
 		t.GetComponent<Rigidbody> ().useGravity = b;
@@ -88,7 +88,7 @@ public class Cannon : InteractableObject {
 
 			shotPlayer.SetParent (null);
 
-			photonView.RPC ("SetPlayerVars", PhotonTargets.All, true);
+			SetPlayerVars (interactingPlayer.transform, true);
 			//SetPlayerVars (shotPlayer, true);
 			shotPlayer.GetComponent<Rigidbody> ().AddForce (shotPlayer.up * force);
 
