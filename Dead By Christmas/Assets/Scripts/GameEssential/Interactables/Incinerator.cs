@@ -99,9 +99,9 @@ public class Incinerator : InteractableObject {
     {
         if(hit.tag == "Elf" && hit.gameObject == containedElf)
         {
-            if (hit.gameObject == GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().localPlayer)
+            if (hit.gameObject.GetComponent<PhotonView>().isMine)
             {
-                hit.gameObject.GetComponent<ElfController>().ActualDeath();
+                StartCoroutine(hit.gameObject.GetComponent<ElfController>().ActualDeath());
                 GetComponent<PhotonView>().RPC("Cancel", PhotonTargets.All);
             }
         }
