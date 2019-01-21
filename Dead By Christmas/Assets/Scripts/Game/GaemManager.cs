@@ -111,7 +111,7 @@ public class GaemManager : MonoBehaviour {
         yield return new WaitForSeconds(1);
         if (PhotonNetwork.isMasterClient)
         {
-            PhotonNetwork.LoadLevel("PreGameLobby");
+            PhotonNetwork.LoadLevel("PreGameLobbyScene");
         }
     }
     [PunRPC]
