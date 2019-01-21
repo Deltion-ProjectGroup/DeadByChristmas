@@ -8,6 +8,7 @@ public class Invisibility : Buff {
 
     public override IEnumerator Effect(float duration)
     {
+        GetComponent<SantaController>().onAttack += Stop;
         foreach (SkinnedMeshRenderer renderer in GetComponent<Player>().bodyRenderer)
         {
             Material fader = new Material(renderer.material);
@@ -32,6 +33,16 @@ public class Invisibility : Buff {
             yield return new WaitForSeconds(timeBeforeFullyInvis * tickInvisibilityChange);
         }
         yield return new WaitForSeconds(duration);
+        StartCoroutine(Cancel());
+    }
+    public void Stop()
+    {
+        StopAllCoroutines();
+        StartCoroutine(Cancel());
+    }
+    public IEnumerator Cancel()
+    {
+        GetComponent<SantaController>().onAttack -= Stop;
         while (GetComponent<Player>().bodyRenderer[0].material.color.a < 1)
         {
             foreach (SkinnedMeshRenderer renderer in GetComponent<Player>().bodyRenderer)

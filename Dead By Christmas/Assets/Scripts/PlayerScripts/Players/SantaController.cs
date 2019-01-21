@@ -8,6 +8,10 @@ public class SantaController : Player {
     public int damage;
     [SerializeField] int baseDamage;
     [SerializeField] float attackCooldown;
+    [PunRPC]
+    public delegate void delVoid();
+    [PunRPC]
+    public delVoid onAttack;
     [Header("Attack")]
     [SerializeField] float attackRange;
     [SerializeField] LayerMask damageableObjects;
@@ -53,6 +57,10 @@ public class SantaController : Player {
         {
             canAttack = false;
             animator.SetBool("Attack", true);
+            if(onAttack != null)
+            {
+                GetComponent<PhotonView>().RPC("onAttack", PhotonTargets.All);
+            }
             Ray shootRay = cam.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition, Camera.MonoOrStereoscopicEye.Mono);
             RaycastHit hitObj;
             if (Physics.Raycast(shootRay, out hitObj, attackRange, damageableObjects, QueryTriggerInteraction.Ignore))
