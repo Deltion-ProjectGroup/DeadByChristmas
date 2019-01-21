@@ -88,7 +88,7 @@ public class GameLobby : MonoBehaviour {
     //If a player left everyone will get the new playerlist
     public IEnumerator RemovePlayer()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.05f);
         GetPlayers();
         GetComponent<PhotonView>().RPC("CheckReadyPlayers", PhotonTargets.MasterClient);
     }

@@ -373,13 +373,7 @@ public class ElfController : Player {
         PhotonNetwork.Destroy(gameObject);
         GameObject.FindGameObjectWithTag("Manager").GetComponent<PhotonView>().RPC("ChangeStatusIcon", PhotonTargets.All, 3);
     }
-    public void Interact(int interactorID)
-    {
-        if(GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().santa.GetComponent<SantaController>().carryingElf == null)
-        {
-            GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().santa.GetComponent<PhotonView>().RPC("PickUpElf", PhotonTargets.All, GetComponent<PhotonView>().ownerId);
-        }
-    }
+
     public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.isWriting)

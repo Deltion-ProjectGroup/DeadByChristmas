@@ -153,7 +153,7 @@ public class SantaController : Player {
             }
             else
             {
-                hit.transform.GetComponent<ElfController>().Interact(GetComponent<PhotonView>().ownerId);
+                GetComponent<PhotonView>().RPC("PickUpElf", PhotonTargets.All, hit.transform.GetComponent<PhotonView>().ownerId);
             }
         }
         else

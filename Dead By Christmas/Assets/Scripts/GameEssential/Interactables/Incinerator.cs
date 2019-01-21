@@ -31,7 +31,7 @@ public class Incinerator : InteractableObject {
                 if(interactingPlayer.GetComponent<SantaController>().carryingElf != null)
                 {
                     GameObject.FindGameObjectWithTag("Manager").GetComponent<PhotonView>().RPC("ChangeStatusIcon", PhotonTargets.All, PhotonNetwork.player.NickName, 2);
-                    GetComponent<PhotonView>().RPC("PlaceElf", PhotonTargets.All, interactingPlayer.GetComponent<PhotonView>().ownerId);
+                    GetComponent<PhotonView>().RPC("PlaceElf", PhotonTargets.All);
                 }
             }
         }
