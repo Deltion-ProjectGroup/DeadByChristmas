@@ -72,4 +72,5 @@ MonoBehaviour:
   - PickUpElf
   - ChangeSantaHealth
   - UpdateSantaHealth
+  - SetPlayerVars
   DisableAutoOpenWizard: 1

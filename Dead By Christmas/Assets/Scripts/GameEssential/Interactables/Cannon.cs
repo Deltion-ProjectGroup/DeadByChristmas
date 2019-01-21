@@ -13,13 +13,16 @@ public class Cannon : InteractableObject {
 
 	void Update () { }
 
-    public override void Interact(int interactorID)
-    {
-        base.Interact(interactorID);
-        CheckForPlayer();
-    }
+	public override void Interact (int id) {
+		base.Interact (id);
+		if (interactingPlayer.transform.GetComponent<ElfController> ()) {
 
-    void CheckForPlayer () {
+			CheckForPlayer ();
+		}
+
+	}
+
+	void CheckForPlayer () {
 		if (!hasPlayer) {
 			PutPlayerIn ();
 		}
@@ -31,7 +34,8 @@ public class Cannon : InteractableObject {
 		interactingPlayer.transform.parent = playerInCannonParent;
 		interactingPlayer.GetComponent<Player> ().enabled = false;
 
-		SetPlayerVars (interactingPlayer.transform, false);
+		photonView.RPC ("SetPlayerVars", PhotonTargets.All, false);
+		//SetPlayerVars (interactingPlayer, false);
 
 		StartCoroutine ("SetToZero");
 
@@ -63,6 +67,7 @@ public class Cannon : InteractableObject {
 		}
 	}
 
+	[PunRPC]
 	void SetPlayerVars (Transform t, bool b) {
 		t.GetComponent<Collider> ().enabled = b;
 		t.GetComponent<Rigidbody> ().useGravity = b;
@@ -75,14 +80,16 @@ public class Cannon : InteractableObject {
 
 	void Shoot () {
 		if (hasPlayer) {
-			StopCoroutine("SetToZero");
+			StopCoroutine ("SetToZero");
 			shotPlayer = interactingPlayer.transform;
 			interactingPlayer = null;
 
 			print ("Pew");
 
 			shotPlayer.SetParent (null);
-			SetPlayerVars (shotPlayer, true);
+
+			photonView.RPC ("SetPlayerVars", PhotonTargets.All, true);
+			//SetPlayerVars (shotPlayer, true);
 			shotPlayer.GetComponent<Rigidbody> ().AddForce (shotPlayer.up * force);
 
 			StartCoroutine ("CheckIfLanded");
