@@ -156,7 +156,7 @@ public class GaemManager : MonoBehaviour {
         }
         yield return new WaitForSeconds(1.5f);
         GetInGamePlayers();
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1);
         if (santa.GetComponent<PhotonView>().isMine)
         {
             List<int> send = new List<int>();

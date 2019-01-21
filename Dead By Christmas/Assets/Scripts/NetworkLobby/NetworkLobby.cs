@@ -25,7 +25,6 @@ public class NetworkLobby : Photon.MonoBehaviour {
     public GameObject friendPanel;
     public Transform friendHolder;
     public string ingameStatus, lobbyStatus;
-    public float refreshDelay;
 
 
     public void Update()
@@ -35,7 +34,7 @@ public class NetworkLobby : Photon.MonoBehaviour {
     //Connects with Photon.
     public void OnJoinedLobby()
     {
-        StartCoroutine(Refresher());
+        RefreshFriends();
     }
     public void Start()
     {
@@ -168,14 +167,15 @@ public class NetworkLobby : Photon.MonoBehaviour {
                 }
             }
         }
+        loading = false;
     }
-    public IEnumerator Refresher()
+    public void RefreshFriends()
     {
-        while (true)
+        if (!loading)
         {
-            yield return new WaitForSecondsRealtime(refreshDelay);
             if (SaveDatabase.data.userData.friends.Count > 0)
             {
+                loading = true;
                 PhotonNetwork.FindFriends(SaveDatabase.data.userData.friends.ToArray());
             }
         }
