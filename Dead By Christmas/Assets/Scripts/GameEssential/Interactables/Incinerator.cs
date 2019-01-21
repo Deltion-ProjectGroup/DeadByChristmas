@@ -55,6 +55,7 @@ public class Incinerator : InteractableObject {
         GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().santa.GetComponent<SantaController>().carryingElf = null;
         containedElf = elfToPlace;
         containedElf.GetComponent<Collider>().enabled = true;
+        containedElf.GetComponent<Rigidbody>().isKinematic = false;
         containedElf.GetComponent<ElfController>().currentState = ElfController.StruggleState.struggling;
         containedElf.transform.position = elfPlacePosition.position;
         containedElf.transform.LookAt(new Vector3(transform.position.x, containedElf.transform.position.y, transform.position.z));
@@ -78,7 +79,6 @@ public class Incinerator : InteractableObject {
         interactingPlayer = null;
         interactingPlayer.GetComponent<ElfController>().canInteract = true;
         containedElf.transform.SetParent(null);
-        containedElf.GetComponent<Rigidbody>().isKinematic = false;
         containedElf.GetComponent<ElfController>().currentState = ElfController.StruggleState.normal;
         containedElf = null;
     }
