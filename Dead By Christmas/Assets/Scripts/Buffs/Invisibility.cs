@@ -45,15 +45,16 @@ public class Invisibility : Buff {
         foreach (SkinnedMeshRenderer renderer in GetComponent<Player>().bodyRenderer)
         {
             Material fader = new Material(renderer.material);
-            fader.SetFloat("_Mode", 2);
-            fader.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-            fader.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-            fader.SetInt("_ZWrite", 0);
+            fader.SetFloat("_Mode", 0);
+            fader.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+            fader.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+            fader.SetInt("_ZWrite", 1);
             fader.DisableKeyword("_ALPHATEST_ON");
-            fader.EnableKeyword("_ALPHABLEND_ON");
+            fader.DisableKeyword("_ALPHABLEND_ON");
             fader.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-            fader.renderQueue = 3000;
+            fader.renderQueue = -1;
             renderer.material = fader;
         }
+        Destroy(this);
     }
 }

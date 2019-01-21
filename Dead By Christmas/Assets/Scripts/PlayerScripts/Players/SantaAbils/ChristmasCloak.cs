@@ -6,22 +6,17 @@ using UnityEngine;
 public class ChristmasCloak : Ability {
 
     public float duration;
-    public float slowAmount;
-    public float range;
-    public LayerMask targets;
+    public float timeBeforeFullyInvisible;
+    public float tickInvisibilityChangeAmt;
     public override void Attack(Transform thisTransform)
     {
-        Collider[] availableTargets = Physics.OverlapSphere(thisTransform.position, range, targets, QueryTriggerInteraction.Ignore);
         for (int ab = 0; ab < GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().santa.GetComponent<SantaController>().abilities.Length; ab++)
         {
             if (GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().santa.GetComponent<SantaController>().abilities[ab] == this)
             {
                 List<object> dataTransfer = new List<object>();
                 dataTransfer.Add(ab);
-                foreach (Collider col in availableTargets)
-                {
-                    dataTransfer.Add(col.GetComponent<PhotonView>().ownerId);
-                }
+                dataTransfer.Add(GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().santa.GetComponent<PhotonView>().ownerId);
                 RaiseEventOptions options = new RaiseEventOptions();
                 options.Receivers = ReceiverGroup.All;
                 PhotonNetwork.RaiseEvent(0, dataTransfer.ToArray(), true, options);
@@ -37,7 +32,9 @@ public class ChristmasCloak : Ability {
     {
         foreach (GameObject target in targets)
         {
-
+            Invisibility buff = target.AddComponent<Invisibility>();
+            buff.tickInvisibilityChange = tickInvisibilityChangeAmt;
+            buff.timeBeforeFullyInvis = timeBeforeFullyInvisible;
         }
     }
 }

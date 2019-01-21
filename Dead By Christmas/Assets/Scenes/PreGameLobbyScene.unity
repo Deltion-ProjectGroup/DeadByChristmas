@@ -4230,7 +4230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 0}
-  holdingAbility: {fileID: 11400000, guid: 03354468204bf684ba4dfe13fecc6efd, type: 2}
+  holdingAbility: {fileID: 11400000, guid: 58657cc290a2056468e270e86c99f368, type: 2}
   canvasComp: {fileID: 0}
 --- !u!114 &1064579115
 MonoBehaviour:
