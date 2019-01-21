@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33634668823029770}
   - component: {fileID: 23342681687955066}
   - component: {fileID: 65396218839050270}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WorkingStation_Small (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

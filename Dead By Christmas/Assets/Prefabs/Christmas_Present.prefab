@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33864410406971580}
   - component: {fileID: 23525829697596158}
   - component: {fileID: 65380698218934308}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Christmas_Present
   m_TagString: Untagged
   m_Icon: {fileID: 0}

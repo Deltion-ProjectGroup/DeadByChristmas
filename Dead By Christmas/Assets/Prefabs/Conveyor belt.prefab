@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4819918599162802}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Conveyor belt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 33888940800220948}
   - component: {fileID: 23900832687190724}
   - component: {fileID: 65944994964898174}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ConveyorBelt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 33160661142088928}
   - component: {fileID: 23179315767518862}
   - component: {fileID: 64121465147588716}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ConveyorBeltCasing
   m_TagString: Untagged
   m_Icon: {fileID: 0}

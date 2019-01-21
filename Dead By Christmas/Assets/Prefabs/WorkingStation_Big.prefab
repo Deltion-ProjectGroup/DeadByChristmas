@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 65845031476298344}
   - component: {fileID: 65090220348282198}
   - component: {fileID: 65088766459679242}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WorkingStation_Big
   m_TagString: Untagged
   m_Icon: {fileID: 0}
