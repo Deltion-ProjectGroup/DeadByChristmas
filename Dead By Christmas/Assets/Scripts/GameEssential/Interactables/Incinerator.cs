@@ -110,6 +110,7 @@ public class Incinerator : InteractableObject {
         if(interactingPlayer != null)
         {
             StopAllCoroutines();
+            print(interactingPlayer);
             interactingPlayer.GetComponent<Player>().canInteract = true; //Interactingplayer could be santa???
             interactingPlayer = null;
         }
