@@ -88,7 +88,7 @@ public class Cannon : InteractableObject {
 
 			shotPlayer.SetParent (null);
 
-			SetPlayerVars (interactingPlayer.transform, true);
+			SetPlayerVars (shotPlayer.transform, true);
 			//SetPlayerVars (shotPlayer, true);
 			shotPlayer.GetComponent<Rigidbody> ().AddForce (shotPlayer.up * force);
 
