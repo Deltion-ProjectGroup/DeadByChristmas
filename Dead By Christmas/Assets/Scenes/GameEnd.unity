@@ -38156,6 +38156,16 @@ Prefab:
       propertyPath: m_Name
       value: Toy Cannon (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 114686822817542158, guid: 962845261e4c1e44d980012b0197a3f1,
+        type: 2}
+      propertyPath: viewIdField
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114686822817542158, guid: 962845261e4c1e44d980012b0197a3f1,
+        type: 2}
+      propertyPath: instantiationId
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 962845261e4c1e44d980012b0197a3f1, type: 2}
   m_IsPrefabAsset: 0
@@ -41893,6 +41903,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4065250073434588, guid: 962845261e4c1e44d980012b0197a3f1, type: 2}
       propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114686822817542158, guid: 962845261e4c1e44d980012b0197a3f1,
+        type: 2}
+      propertyPath: viewIdField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114686822817542158, guid: 962845261e4c1e44d980012b0197a3f1,
+        type: 2}
+      propertyPath: instantiationId
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
