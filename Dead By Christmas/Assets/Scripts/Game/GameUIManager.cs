@@ -9,6 +9,7 @@ public class GameUIManager : MonoBehaviour {
     public GameObject elfStatusHolder;
     public Transform elfStatuses;
     public GameObject santaStatus;
+    public GameObject indicatorText;
     // Use this for initialization
 
     private void Awake()
@@ -18,6 +19,15 @@ public class GameUIManager : MonoBehaviour {
     public enum ElfStatus
     {
         Alive, Knocked, Incinerator, Dead, Disconnected
+    }
+    public void IndicatorAppear(string inputButton, string effect)
+    {
+        indicatorText.SetActive(true);
+        indicatorText.GetComponent<Text>().text = "Press " + "[" + inputButton + "] " + "to " + effect;
+    }
+    public void IndicatorDissapear()
+    {
+        indicatorText.SetActive(false);
     }
     [PunRPC]
     public void UpdateSantaHealth()

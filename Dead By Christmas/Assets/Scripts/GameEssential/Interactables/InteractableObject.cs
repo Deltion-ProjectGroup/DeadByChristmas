@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InteractableObject : Photon.MonoBehaviour {
 	public GameObject interactingPlayer;
+    public string interactEffect;
 	public virtual void Interact (int interactorID) {
 		print("Interacting with " + transform.name);
         if(interactorID == GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().santa.GetComponent<PhotonView>().ownerId)

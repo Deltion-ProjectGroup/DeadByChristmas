@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ElfController : Player {
-
+    public string effectText;
+    [Range(0, 1)]
+    public float walkSoundAmt, runSoundAmt;
 	public enum StruggleState { normal, struggling, KnockedOut , Crafting , BeingDragged, Weapon}
     [Header("CurrentState")]
     public StruggleState currentState;
@@ -186,16 +188,19 @@ public class ElfController : Player {
         if (movePos == Vector3.zero)
         {
             extraMovmentMultiplier = 0;
+            audioSources[2].volume = 0;
         }
         else
         {
             if (Input.GetButton(runInput))
             {
                 extraMovmentMultiplier = runMultiplier;
+                audioSources[1].volume = runSoundAmt;
             }
             else
             {
                 extraMovmentMultiplier = 1;
+                audioSources[1].volume = walkSoundAmt;
             }
         }
         animator.SetFloat("MovementSpeed", extraMovmentMultiplier);
@@ -368,9 +373,16 @@ public class ElfController : Player {
     {
         currentState = StruggleState.KnockedOut;
     }
+    [PunRPC]
+    public void Kill()
+    {
+        audioSources[2].clip = audioClips[0];
+    }
     public IEnumerator ActualDeath()
     {
         GameObject.FindGameObjectWithTag("Manager").GetComponent<PhotonView>().RPC("ChangeStatusIcon", PhotonTargets.All, PhotonNetwork.player.NickName, 3);
+        GetComponent<PhotonView>().RPC("Kill", PhotonTargets.All);
+        yield return new WaitForSeconds(audioClips[0].length);
         PhotonNetwork.Destroy(gameObject);
         yield return new WaitForSeconds(0.1f);
         GameObject.FindGameObjectWithTag("Manager").GetComponent<PhotonView>().RPC("GetElfs", PhotonTargets.All);

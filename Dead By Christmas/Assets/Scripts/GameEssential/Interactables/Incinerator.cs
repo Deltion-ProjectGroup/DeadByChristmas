@@ -6,6 +6,7 @@ public class Incinerator : InteractableObject {
     public GameObject containedElf;
     public Transform elfPlacePosition;
     public float releaseDelay;
+    public Camera incineratorCam;
     // Use this for initialization
     void Start () {
 		
@@ -54,6 +55,11 @@ public class Incinerator : InteractableObject {
         GameObject elfToPlace = GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().santa.GetComponent<SantaController>().carryingElf;
         GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().santa.GetComponent<SantaController>().carryingElf = null;
         containedElf = elfToPlace;
+        if (containedElf.GetComponent<PhotonView>().isMine)
+        {
+            containedElf.GetComponent<Player>().cam.GetComponent<Camera>().enabled = false;
+            incineratorCam.enabled = true;
+        }
         containedElf.GetComponent<Collider>().enabled = true;
         containedElf.GetComponent<Rigidbody>().isKinematic = false;
         containedElf.GetComponent<ElfController>().currentState = ElfController.StruggleState.struggling;
@@ -80,6 +86,11 @@ public class Incinerator : InteractableObject {
         interactingPlayer.GetComponent<ElfController>().canInteract = true;
         containedElf.transform.SetParent(null);
         containedElf.GetComponent<ElfController>().currentState = ElfController.StruggleState.normal;
+        if (containedElf.GetComponent<PhotonView>().isMine)
+        {
+            containedElf.GetComponent<Player>().cam.GetComponent<Camera>().enabled = true;
+            incineratorCam.enabled = false;
+        }
         containedElf = null;
     }
     public IEnumerator ReleaseElf()
@@ -101,10 +112,16 @@ public class Incinerator : InteractableObject {
         {
             if (hit.gameObject.GetComponent<PhotonView>().isMine)
             {
+                GetComponent<PhotonView>().RPC("Kill", PhotonTargets.All);
                 StartCoroutine(hit.gameObject.GetComponent<ElfController>().ActualDeath());
                 GetComponent<PhotonView>().RPC("Cancel", PhotonTargets.All);
             }
         }
+    }
+    [PunRPC]
+    public void Kill()
+    {
+        GetComponent<AudioSource>().Play();
     }
     [PunRPC]
     void Cancel()

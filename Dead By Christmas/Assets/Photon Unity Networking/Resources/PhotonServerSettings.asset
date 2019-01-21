@@ -73,4 +73,5 @@ MonoBehaviour:
   - ChangeSantaHealth
   - UpdateSantaHealth
   - SetPlayerVars
+  - Kill
   DisableAutoOpenWizard: 1

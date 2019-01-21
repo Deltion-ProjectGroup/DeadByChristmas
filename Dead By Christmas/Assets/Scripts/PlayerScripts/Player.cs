@@ -28,6 +28,7 @@ public abstract class Player : MonoBehaviour {
 	[Header ("Interactions")]
 	public float interactionRange; //Range of the interaction
 	public string interactTag;
+    public string interactInput;
 	bool carrying; //If player is currently carrying an item
 
 	//HEADER CAMERA
@@ -96,12 +97,12 @@ public abstract class Player : MonoBehaviour {
 
 	public void CheckInteract () {
 		if (CanInteract ()) {
-			if (Input.GetButtonDown ("Use") && canInteract) {
+            if (Input.GetButtonDown ("Use") && canInteract) {
                 animator.SetBool("Interact", true);
                 StartCoroutine(ChangeAnimBool("Interact", false));
 				Interact ();
 			}
-		}
+        }
 	}
 
 	public virtual bool CanInteract () {
@@ -110,10 +111,12 @@ public abstract class Player : MonoBehaviour {
 
 			//Check if the hit object is interactable
 			if (hit.transform.tag == interactTag) {
-				return true;
+                GameObject.FindGameObjectWithTag("Manager").GetComponent<GameUIManager>().IndicatorAppear(interactInput, hit.transform.GetComponent<InteractableObject>().interactEffect);
+                return true;
             }
 		}
-		return false;
+        GameObject.FindGameObjectWithTag("Manager").GetComponent<GameUIManager>().IndicatorDissapear();
+        return false;
 	}
 
 	public virtual void Interact () {
