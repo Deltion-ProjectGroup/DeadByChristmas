@@ -42,6 +42,7 @@ public abstract class Player : MonoBehaviour {
     [Header ("Body")]
     public Rigidbody rig;
     public SkinnedMeshRenderer[] bodyRenderer;
+    public SkinnedMeshRenderer[] allRenderer;
     public Animator animator;
     public bool canInteract = true;
     //CALL THESE IN THE INHERITING SCRIPTS

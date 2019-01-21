@@ -6743,7 +6743,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1280004928091840}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2742.932, y: 1721.7521, z: 1345.7007}
+  m_LocalPosition: {x: 2734.2463, y: 1712.0956, z: 1344.7802}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4435298100472412}
@@ -9446,8 +9446,8 @@ MonoBehaviour:
   - {fileID: 114711403990916104}
   - {fileID: 114410452345855098}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 3
-  instantiationId: 3
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114410452345855098
@@ -9469,8 +9469,8 @@ MonoBehaviour:
   speed: 0
   extraMovmentMultiplier: 0
   rotateMultiplier: 20
-  baseHealth: 100
-  health: 0
+  baseHealth: 3
+  health: 3
   interactionRange: 10
   interactTag: Interactable
   cam: {fileID: 4183125654817282}
@@ -9481,6 +9481,10 @@ MonoBehaviour:
   bodyRenderer:
   - {fileID: 137494454478737898}
   - {fileID: 137762499420575320}
+  allRenderer:
+  - {fileID: 137494454478737898}
+  - {fileID: 137762499420575320}
+  - {fileID: 137756597325483482}
   animator: {fileID: 95002762194909586}
   canInteract: 1
   damage: 0

@@ -11,12 +11,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d82fba1cddf37ec498229f822a2f7f3b, type: 3}
   m_Name: ChristmasCloak
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 0e4f092fc89a8fb4dbde064545d395dd, type: 3}
   audio: {fileID: 0}
   cooldown: 0
   description: Become invisible for a few seconds. Invisibility breaks when attacking(NOT
     YET).
   abilityID: 2
-  duration: 3
+  duration: 10
   timeBeforeFullyInvisible: 2
   tickInvisibilityChangeAmt: 0.05

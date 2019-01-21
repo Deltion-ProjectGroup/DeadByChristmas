@@ -8,8 +8,7 @@ public class Invisibility : Buff {
 
     public override IEnumerator Effect(float duration)
     {
-        GetComponent<SantaController>().onAttack += Stop;
-        foreach (SkinnedMeshRenderer renderer in GetComponent<Player>().bodyRenderer)
+        foreach (SkinnedMeshRenderer renderer in GetComponent<Player>().allRenderer)
         {
             Material fader = new Material(renderer.material);
             fader.SetFloat("_Mode", 2);
@@ -24,7 +23,7 @@ public class Invisibility : Buff {
         }
         while(GetComponent<Player>().bodyRenderer[0].material.color.a > 0)
         {
-            foreach(SkinnedMeshRenderer renderer in GetComponent<Player>().bodyRenderer)
+            foreach(SkinnedMeshRenderer renderer in GetComponent<Player>().allRenderer)
             {
                 Color newColor = renderer.material.color;
                 newColor.a -= tickInvisibilityChange;
@@ -35,17 +34,11 @@ public class Invisibility : Buff {
         yield return new WaitForSeconds(duration);
         StartCoroutine(Cancel());
     }
-    public void Stop()
-    {
-        StopAllCoroutines();
-        StartCoroutine(Cancel());
-    }
     public IEnumerator Cancel()
     {
-        GetComponent<SantaController>().onAttack -= Stop;
         while (GetComponent<Player>().bodyRenderer[0].material.color.a < 1)
         {
-            foreach (SkinnedMeshRenderer renderer in GetComponent<Player>().bodyRenderer)
+            foreach (SkinnedMeshRenderer renderer in GetComponent<Player>().allRenderer)
             {
                 Color newColor = renderer.material.color;
                 newColor.a += tickInvisibilityChange;
@@ -53,7 +46,7 @@ public class Invisibility : Buff {
             }
             yield return new WaitForSeconds(timeBeforeFullyInvis * tickInvisibilityChange);
         }
-        foreach (SkinnedMeshRenderer renderer in GetComponent<Player>().bodyRenderer)
+        foreach (SkinnedMeshRenderer renderer in GetComponent<Player>().allRenderer)
         {
             Material fader = new Material(renderer.material);
             fader.SetFloat("_Mode", 0);

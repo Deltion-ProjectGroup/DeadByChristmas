@@ -35,6 +35,7 @@ public class ChristmasCloak : Ability {
             Invisibility buff = target.AddComponent<Invisibility>();
             buff.tickInvisibilityChange = tickInvisibilityChangeAmt;
             buff.timeBeforeFullyInvis = timeBeforeFullyInvisible;
+            buff.duration = duration;
         }
     }
 }

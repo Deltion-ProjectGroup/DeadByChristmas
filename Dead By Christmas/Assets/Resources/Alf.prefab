@@ -13398,7 +13398,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1984900508194350}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.6451912, y: -0.88813925, z: 3.1794062}
+  m_LocalPosition: {x: 2739.6555, y: 1716.078, z: 1343.5714}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4058537897365862}
@@ -14702,6 +14702,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0941001141cbcb54e9b61d8c2ef1a512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSources: []
+  audioClips: []
   baseSpeed: 3
   speed: 0
   extraMovmentMultiplier: 0
@@ -14718,7 +14720,11 @@ MonoBehaviour:
   bodyRenderer:
   - {fileID: 137609928891230292}
   - {fileID: 137328736676053114}
+  allRenderer:
+  - {fileID: 137328736676053114}
+  - {fileID: 137609928891230292}
   animator: {fileID: 95215159495034874}
+  canInteract: 1
   currentState: 0
   struggleInput: Jump
   struggleMoveSpeed: 3
@@ -14752,6 +14758,7 @@ MonoBehaviour:
   currentCam: {fileID: 4845145912563356}
   runMultiplier: 3
   runInput: Fire3
+  interactingObject: {fileID: 0}
 --- !u!114 &114689629386066704
 MonoBehaviour:
   m_ObjectHideFlags: 1

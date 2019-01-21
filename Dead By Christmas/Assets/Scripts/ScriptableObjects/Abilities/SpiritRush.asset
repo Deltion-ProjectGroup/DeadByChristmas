@@ -11,6 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0138a881d7dd7645b12c5e88ac171ee, type: 3}
   m_Name: SpiritRush
   m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 8f8e7a876d2527747a58d5d407dcd40c, type: 3}
+  audio: {fileID: 0}
   cooldown: 0
   description: Boosts the movementspeed of the santa with a small amount.
   abilityID: 1
