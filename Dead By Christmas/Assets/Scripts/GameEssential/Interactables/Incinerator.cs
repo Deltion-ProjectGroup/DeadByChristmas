@@ -52,7 +52,7 @@ public class Incinerator : InteractableObject {
     public void PlaceElf()
     {
         GameObject elfToPlace = GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().santa.GetComponent<SantaController>().carryingElf;
-        elfToPlace.tag = "Elf";
+        GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().santa.GetComponent<SantaController>().carryingElf = null;
         containedElf = elfToPlace;
         containedElf.GetComponent<Collider>().enabled = true;
         containedElf.GetComponent<ElfController>().currentState = ElfController.StruggleState.struggling;

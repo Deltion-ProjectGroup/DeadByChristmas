@@ -95,6 +95,7 @@ public class SantaController : Player {
             if(elf.GetComponent<PhotonView>().ownerId == elfID)
             {
                 elfToPickUp = elf;
+                break;
             }
         }
         carryingElf = elfToPickUp;

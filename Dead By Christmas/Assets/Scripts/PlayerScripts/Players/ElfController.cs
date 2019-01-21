@@ -370,8 +370,9 @@ public class ElfController : Player {
     }
     public void ActualDeath()
     {
-        PhotonNetwork.Destroy(gameObject);
         GameObject.FindGameObjectWithTag("Manager").GetComponent<PhotonView>().RPC("ChangeStatusIcon", PhotonTargets.All, PhotonNetwork.player.NickName, 3);
+        GameObject.FindGameObjectWithTag("Manager").GetComponent<PhotonView>().RPC("GetElfs", PhotonTargets.All);
+        PhotonNetwork.Destroy(gameObject);
     }
 
     public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
