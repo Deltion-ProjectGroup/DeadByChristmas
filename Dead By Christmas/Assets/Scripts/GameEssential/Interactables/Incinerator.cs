@@ -16,7 +16,10 @@ public class Incinerator : InteractableObject {
         {
             if(interactingPlayer == GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().localPlayer)
             {
-                GetComponent<PhotonView>().RPC("Cancel", PhotonTargets.All);
+                if(interactingPlayer.GetComponent<ElfController>() != null)
+                {
+                    GetComponent<PhotonView>().RPC("Cancel", PhotonTargets.All);
+                }
             }
         }
     }
@@ -107,7 +110,7 @@ public class Incinerator : InteractableObject {
         if(interactingPlayer != null)
         {
             StopAllCoroutines();
-            interactingPlayer.GetComponent<ElfController>().canInteract = true;
+            interactingPlayer.GetComponent<ElfController>().canInteract = true; //Interactingplayer could be santa???
             interactingPlayer = null;
         }
     }
