@@ -367,7 +367,6 @@ public class ElfController : Player {
     public override void Death()
     {
         currentState = StruggleState.KnockedOut;
-        tag = "Interactable";
     }
     public void ActualDeath()
     {

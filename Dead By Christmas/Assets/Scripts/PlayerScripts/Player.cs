@@ -26,8 +26,8 @@ public abstract class Player : MonoBehaviour {
 	//HEADER INTERACCTION
 	//Interaction vars
 	[Header ("Interactions")]
-	[SerializeField] float interactionRange; //Range of the interaction
-	[SerializeField] string interactTag;
+	public float interactionRange; //Range of the interaction
+	public string interactTag;
 	bool carrying; //If player is currently carrying an item
 
 	//HEADER CAMERA
@@ -104,7 +104,7 @@ public abstract class Player : MonoBehaviour {
 		}
 	}
 
-	public bool CanInteract () {
+	public virtual bool CanInteract () {
 		//Shoot ray
 		if (Physics.Raycast (cam.position, cam.forward, out hit, interactionRange)) {
 

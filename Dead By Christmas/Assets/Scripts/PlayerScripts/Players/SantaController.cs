@@ -119,6 +119,27 @@ public class SantaController : Player {
             StartCoroutine(gameManager.EndGame());
         }
     }
+    public virtual bool CanInteract()
+    {
+        //Shoot ray
+        if (Physics.Raycast(cam.position, cam.forward, out hit, interactionRange))
+        {
+
+            //Check if the hit object is interactable
+            if (hit.transform.tag == interactTag)
+            {
+                return true;
+            }
+            else
+            {
+                if(hit.transform.tag == "Elf")
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     public override void Interact()
     {
         //To do if interacting
