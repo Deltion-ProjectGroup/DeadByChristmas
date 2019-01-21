@@ -119,7 +119,7 @@ public class SantaController : Player {
             StartCoroutine(gameManager.EndGame());
         }
     }
-    public virtual bool CanInteract()
+    public override bool CanInteract()
     {
         //Shoot ray
         if (Physics.Raycast(cam.position, cam.forward, out hit, interactionRange))
