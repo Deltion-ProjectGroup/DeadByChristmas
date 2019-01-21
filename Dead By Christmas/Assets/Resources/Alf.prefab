@@ -13398,7 +13398,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1984900508194350}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2739.6555, y: 1716.078, z: 1343.5714}
+  m_LocalPosition: {x: 1489.5566, y: 428.07742, z: 793.06537}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4058537897365862}
@@ -14708,8 +14708,8 @@ MonoBehaviour:
   speed: 0
   extraMovmentMultiplier: 0
   rotateMultiplier: 40
-  baseHealth: 2
-  health: 2
+  baseHealth: 1
+  health: 1
   interactionRange: 4
   interactTag: Interactable
   cam: {fileID: 4845145912563356}
@@ -14821,10 +14821,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.22653705
-  m_Height: 1.2600346
+  m_Radius: 0.32
+  m_Height: 1.9676208
   m_Direction: 1
-  m_Center: {x: 0, y: 0.5947716, z: -0.041508257}
+  m_Center: {x: 0, y: 0.92207336, z: -0.041508257}
 --- !u!137 &137328736676053114
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

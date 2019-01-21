@@ -368,11 +368,12 @@ public class ElfController : Player {
     {
         currentState = StruggleState.KnockedOut;
     }
-    public void ActualDeath()
+    public IEnumerator ActualDeath()
     {
         GameObject.FindGameObjectWithTag("Manager").GetComponent<PhotonView>().RPC("ChangeStatusIcon", PhotonTargets.All, PhotonNetwork.player.NickName, 3);
-        GameObject.FindGameObjectWithTag("Manager").GetComponent<PhotonView>().RPC("GetElfs", PhotonTargets.All);
         PhotonNetwork.Destroy(gameObject);
+        yield return new WaitForSeconds(0.1f);
+        GameObject.FindGameObjectWithTag("Manager").GetComponent<PhotonView>().RPC("GetElfs", PhotonTargets.All);
     }
 
     public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
