@@ -2654,6 +2654,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactingPlayer: {fileID: 0}
+  seats: 0000
+  seatTransform:
+  - {fileID: 1915788695}
+  - {fileID: 963216405}
 --- !u!4 &1144927173
 Transform:
   m_ObjectHideFlags: 0
