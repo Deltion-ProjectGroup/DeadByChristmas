@@ -429,62 +429,19 @@ Prefab:
       propertyPath: nodeParent
       value: 
       objectReference: {fileID: 1254659908}
-    - target: {fileID: 114250214868372490, guid: bc0bddaeb8a85d14e8fce8b8538710b4,
+    - target: {fileID: 114875672793049910, guid: bc0bddaeb8a85d14e8fce8b8538710b4,
         type: 2}
-      propertyPath: networkSmoothing
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4333217016669856, guid: bc0bddaeb8a85d14e8fce8b8538710b4, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0.0044574738
-      objectReference: {fileID: 0}
-    - target: {fileID: 4333217016669856, guid: bc0bddaeb8a85d14e8fce8b8538710b4, type: 2}
-      propertyPath: m_LocalPosition.z
+      propertyPath: viewIdField
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4835645423398498, guid: bc0bddaeb8a85d14e8fce8b8538710b4, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -0.501
+    - target: {fileID: 114875672793049910, guid: bc0bddaeb8a85d14e8fce8b8538710b4,
+        type: 2}
+      propertyPath: instantiationId
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc0bddaeb8a85d14e8fce8b8538710b4, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &87578512 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1268324991171108, guid: bc0bddaeb8a85d14e8fce8b8538710b4,
-    type: 2}
-  m_PrefabInternal: {fileID: 87578511}
---- !u!114 &87578514
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 87578512}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ownerId: 0
-  group: 0
-  OwnerShipWasTransfered: 0
-  prefixBackup: -1
-  synchronization: 3
-  onSerializeTransformOption: 3
-  onSerializeRigidBodyOption: 2
-  ownershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 87578519}
-  ObservedComponentsFoldoutOpen: 1
-  viewIdField: 1
-  instantiationId: 1
-  currentMasterID: -1
-  isRuntimeInstantiated: 0
---- !u!4 &87578519 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4333217016669856, guid: bc0bddaeb8a85d14e8fce8b8538710b4,
-    type: 2}
-  m_PrefabInternal: {fileID: 87578511}
 --- !u!1 &118342567
 GameObject:
   m_ObjectHideFlags: 0
@@ -2272,34 +2229,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 914759127}
   m_Mesh: {fileID: 4300000, guid: 0fd310326c5f8e249ac0e8d418170cfe, type: 3}
---- !u!1 &963216404
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 963216405}
-  m_Layer: 0
-  m_Name: Seat (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &963216405
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 963216404}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.6, z: -1.723}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1139278401}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &980271889
 GameObject:
   m_ObjectHideFlags: 0
@@ -2632,32 +2561,6 @@ Transform:
   m_Father: {fileID: 1254659908}
   m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1139278400 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1187602824355410, guid: bc0bddaeb8a85d14e8fce8b8538710b4,
-    type: 2}
-  m_PrefabInternal: {fileID: 87578511}
---- !u!4 &1139278401 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4835645423398498, guid: bc0bddaeb8a85d14e8fce8b8538710b4,
-    type: 2}
-  m_PrefabInternal: {fileID: 87578511}
---- !u!114 &1139278402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1139278400}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64f6b131d40a1034aaccea40d9444225, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactingPlayer: {fileID: 0}
-  seats: 0000
-  seatTransform:
-  - {fileID: 1915788695}
-  - {fileID: 963216405}
 --- !u!4 &1144927173
 Transform:
   m_ObjectHideFlags: 0
@@ -3790,34 +3693,6 @@ Transform:
   m_Father: {fileID: 1254659908}
   m_RootOrder: 53
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1915788694
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1915788695}
-  m_Layer: 0
-  m_Name: Seat
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1915788695
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1915788694}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0.6, z: -0.374}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1139278401}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &1931400285
 GameObject:
   m_ObjectHideFlags: 0
