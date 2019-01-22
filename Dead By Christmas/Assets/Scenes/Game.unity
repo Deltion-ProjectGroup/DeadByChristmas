@@ -6546,41 +6546,29 @@ Prefab:
       propertyPath: nodeParent
       value: 
       objectReference: {fileID: 2121204708}
-    - target: {fileID: 114875672793049910, guid: bc0bddaeb8a85d14e8fce8b8538710b4,
+    - target: {fileID: 114596104938281916, guid: bc0bddaeb8a85d14e8fce8b8538710b4,
         type: 2}
       propertyPath: viewIdField
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 114875672793049910, guid: bc0bddaeb8a85d14e8fce8b8538710b4,
+    - target: {fileID: 114596104938281916, guid: bc0bddaeb8a85d14e8fce8b8538710b4,
         type: 2}
       propertyPath: instantiationId
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 114875672793049910, guid: bc0bddaeb8a85d14e8fce8b8538710b4,
+        type: 2}
+      propertyPath: viewIdField
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114875672793049910, guid: bc0bddaeb8a85d14e8fce8b8538710b4,
+        type: 2}
+      propertyPath: instantiationId
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc0bddaeb8a85d14e8fce8b8538710b4, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &573438142 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1187602824355410, guid: bc0bddaeb8a85d14e8fce8b8538710b4,
-    type: 2}
-  m_PrefabInternal: {fileID: 573438141}
---- !u!114 &573438143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 573438142}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64f6b131d40a1034aaccea40d9444225, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactingPlayer: {fileID: 0}
-  interactEffect: 
-  seats: 0000
-  seatTransform:
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!1 &574490664
 GameObject:
   m_ObjectHideFlags: 0
