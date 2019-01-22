@@ -2172,7 +2172,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &53990836
 Transform:
   m_ObjectHideFlags: 0
@@ -20904,7 +20904,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &515168370
 Transform:
   m_ObjectHideFlags: 0
@@ -55417,9 +55417,9 @@ Transform:
   - {fileID: 25844156}
   - {fileID: 2146347951}
   - {fileID: 705937920}
-  - {fileID: 1793236752}
   - {fileID: 898044359}
   - {fileID: 1545835087}
+  - {fileID: 1793236752}
   - {fileID: 171007146}
   - {fileID: 1089729466}
   - {fileID: 1965264330}
@@ -70853,10 +70853,10 @@ Transform:
   - {fileID: 2144667089}
   - {fileID: 454640775}
   - {fileID: 2111396882}
+  - {fileID: 2028281348}
   - {fileID: 734708995}
   - {fileID: 2086306855}
   - {fileID: 207851576}
-  - {fileID: 2028281348}
   m_Father: {fileID: 2104353275}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -88902,10 +88902,10 @@ Transform:
   - {fileID: 900510637}
   - {fileID: 1996260002}
   - {fileID: 557739668}
+  - {fileID: 2132960416}
   - {fileID: 2088444875}
   - {fileID: 1744530388}
   - {fileID: 903874198}
-  - {fileID: 2132960416}
   m_Father: {fileID: 2104353275}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
