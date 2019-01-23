@@ -383,7 +383,7 @@ public class ElfController : Player {
     {
         GameObject.FindGameObjectWithTag("Manager").GetComponent<PhotonView>().RPC("ChangeStatusIcon", PhotonTargets.All, PhotonNetwork.player.NickName, 3);
         GetComponent<PhotonView>().RPC("Kill", PhotonTargets.All);
-        yield return new WaitForSeconds(audioClips[0].length);
+        yield return new WaitForSeconds(1);
         GameObject.FindGameObjectWithTag("Manager").GetComponent<PhotonView>().RPC("GetElfs", PhotonTargets.All);
         PhotonNetwork.Destroy(gameObject);
     }
