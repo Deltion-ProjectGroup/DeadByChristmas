@@ -4,18 +4,18 @@ ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
-    100002: ConveyorBelt
-    100004: ConveyorBeltCasing
+    100002: ConveyorBeltCasing
+    100004: ConveyorBeltCasing.001
     400000: //RootNode
-    400002: ConveyorBelt
-    400004: ConveyorBeltCasing
+    400002: ConveyorBeltCasing
+    400004: ConveyorBeltCasing.001
     2100000: ConveyorBelt
     2100002: ConveyorBelt_Casing
-    2300000: ConveyorBelt
-    2300002: ConveyorBeltCasing
-    3300000: ConveyorBelt
-    3300002: ConveyorBeltCasing
-    4300000: ConveyorBelt
+    2300000: ConveyorBeltCasing
+    2300002: ConveyorBeltCasing.001
+    3300000: ConveyorBeltCasing
+    3300002: ConveyorBeltCasing.001
+    4300000: ConveyorBeltCasing.001
     4300002: ConveyorBeltCasing
   externalObjects: {}
   materials:
