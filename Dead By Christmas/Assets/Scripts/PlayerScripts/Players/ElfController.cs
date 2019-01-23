@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ElfController : Player {
+    public float invisTimeAfterKO;
     public string effectText;
     [Range(0, 1)]
     public float walkSoundAmt, runSoundAmt;
@@ -383,9 +384,8 @@ public class ElfController : Player {
         GameObject.FindGameObjectWithTag("Manager").GetComponent<PhotonView>().RPC("ChangeStatusIcon", PhotonTargets.All, PhotonNetwork.player.NickName, 3);
         GetComponent<PhotonView>().RPC("Kill", PhotonTargets.All);
         yield return new WaitForSeconds(audioClips[0].length);
-        PhotonNetwork.Destroy(gameObject);
-        yield return new WaitForSeconds(0.1f);
         GameObject.FindGameObjectWithTag("Manager").GetComponent<PhotonView>().RPC("GetElfs", PhotonTargets.All);
+        PhotonNetwork.Destroy(gameObject);
     }
 
     public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
