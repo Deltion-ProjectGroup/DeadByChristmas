@@ -129,27 +129,21 @@ public class SantaController : Player {
         {
 
             //Check if the hit object is interactable
-            if (hit.transform.gameObject.layer == interactableObjects)
+            if (hit.transform.tag == interactTag)
             {
-                if (hit.transform.tag == interactTag)
+                //GameObject.FindGameObjectWithTag("Manager").GetComponent<GameUIManager>().IndicatorAppear(interactInput, hit.transform.GetComponent<InteractableObject>().interactEffect);
+                return true;
+            }
+            else
+            {
+                if(hit.transform.tag == "Elf")
                 {
-                    GameObject.FindGameObjectWithTag("Manager").GetComponent<GameUIManager>().IndicatorAppear(interactInput, hit.transform.GetComponent<InteractableObject>().interactEffect);
+                    //GameObject.FindGameObjectWithTag("Manager").GetComponent<GameUIManager>().IndicatorAppear(interactInput, hit.transform.GetComponent<ElfController>().effectText);
                     return true;
-                }
-                else
-                {
-                    if (hit.transform.tag == "Elf")
-                    {
-                        if (hit.transform.GetComponent<ElfController>().isKnockedOut)
-                        {
-                            GameObject.FindGameObjectWithTag("Manager").GetComponent<GameUIManager>().IndicatorAppear(interactInput, hit.transform.GetComponent<ElfController>().effectText);
-                        }
-                        return true;
-                    }
                 }
             }
         }
-        GameObject.FindGameObjectWithTag("Manager").GetComponent<GameUIManager>().IndicatorDissapear();
+        //GameObject.FindGameObjectWithTag("Manager").GetComponent<GameUIManager>().IndicatorDissapear();
         return false;
     }
     public override void Interact()

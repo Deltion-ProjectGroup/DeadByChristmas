@@ -29,7 +29,6 @@ public abstract class Player : MonoBehaviour {
 	public float interactionRange; //Range of the interaction
 	public string interactTag;
     public string interactInput;
-    public LayerMask interactableObjects;
 	bool carrying; //If player is currently carrying an item
 
 	//HEADER CAMERA
@@ -111,14 +110,9 @@ public abstract class Player : MonoBehaviour {
 		if (Physics.Raycast (cam.position, cam.forward, out hit, interactionRange)) {
 
 			//Check if the hit object is interactable
-            if(hit.transform.gameObject.layer == interactableObjects)
-            {
-                if (hit.transform.tag == interactTag)
-                {
-                    GameObject.FindGameObjectWithTag("Manager").GetComponent<GameUIManager>().IndicatorAppear(interactInput, hit.transform.GetComponent<InteractableObject>().interactEffect);
-                    return true;
-                }
-                return false;
+			if (hit.transform.tag == interactTag) {
+
+                return true;
             }
 		}
         return false;
