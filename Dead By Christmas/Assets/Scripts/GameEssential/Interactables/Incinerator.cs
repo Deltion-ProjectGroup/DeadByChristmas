@@ -130,7 +130,7 @@ public class Incinerator : InteractableObject {
     public void Kill()
     {
         GetComponent<AudioSource>().Play();
-        containedElf.tag = null;
+        containedElf.tag = "Untagged";
     }
     [PunRPC]
     void Cancel()

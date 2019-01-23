@@ -14900,7 +14900,7 @@ MonoBehaviour:
   - {fileID: 82154030561491054}
   audioClips:
   - {fileID: 8300000, guid: 8ffb750ddc10f8e4ea5a9c6417923222, type: 3}
-  baseSpeed: 3
+  baseSpeed: 1
   speed: 0
   extraMovmentMultiplier: 0
   rotateMultiplier: 40
@@ -14909,9 +14909,6 @@ MonoBehaviour:
   interactionRange: 4
   interactTag: Interactable
   interactInput: 
-  interactableObjects:
-    serializedVersion: 2
-    m_Bits: 512
   cam: {fileID: 4845145912563356}
   headBone: {fileID: 4365635886622224}
   minX: -90
@@ -14925,6 +14922,7 @@ MonoBehaviour:
   - {fileID: 137609928891230292}
   animator: {fileID: 95215159495034874}
   canInteract: 1
+  invisTimeAfterKO: 0
   effectText: 
   walkSoundAmt: 0.3
   runSoundAmt: 1

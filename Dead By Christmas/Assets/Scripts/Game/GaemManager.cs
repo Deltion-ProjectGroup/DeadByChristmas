@@ -160,8 +160,8 @@ public class GaemManager : MonoBehaviour {
             localPlayer = PhotonNetwork.Instantiate(elfPrefab, elfSpawns[Random.Range(0, elfSpawns.Length)].position, Quaternion.identity, 0);
         }
         yield return new WaitForSeconds(1.5f);
-        GetInGamePlayers();
         yield return new WaitForSeconds(1);
+        GetInGamePlayers();
         if (santa.GetComponent<PhotonView>().isMine)
         {
             List<int> send = new List<int>();
