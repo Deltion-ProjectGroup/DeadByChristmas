@@ -290,7 +290,14 @@ public class ElfController : Player {
         isKnockedOut = false;
         health = baseHealth;
     }
-
+    [PunRPC]
+    public override void ReceiveDamage(int damageAmount)
+    {
+        if(currentState != StruggleState.KnockedOut || currentState != StruggleState.BeingDragged || currentState != StruggleState.struggling)
+        {
+            base.ReceiveDamage(damageAmount);
+        }
+    }
     //the crafting state
     public void Crafting()
     {

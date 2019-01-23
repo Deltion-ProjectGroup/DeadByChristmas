@@ -113,11 +113,8 @@ public class GaemManager : MonoBehaviour {
             audioSources[0].clip = audioClips[1];
         }
         audioSources[0].Play();
-        yield return new WaitForSeconds(1);
-        if (PhotonNetwork.isMasterClient)
-        {
-            PhotonNetwork.LoadLevel("PreGameLobbyScene");
-        }
+        yield return new WaitForSeconds(audioSources[0].clip.length + 1);
+        PhotonNetwork.LeaveRoom();
     }
     [PunRPC]
     public void GetElfs()
@@ -207,6 +204,7 @@ public class GaemManager : MonoBehaviour {
         else
         {
             GetComponent<GameUIManager>().ChangeStatusIcon(otherPlayer.NickName, 4);
+            GetElfs();
         }
     }
     [PunRPC]
