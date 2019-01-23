@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GaemManager : MonoBehaviour {
     [Header("RoleDistribution")]
@@ -115,6 +116,7 @@ public class GaemManager : MonoBehaviour {
         audioSources[0].Play();
         yield return new WaitForSeconds(audioSources[0].clip.length + 1);
         PhotonNetwork.LeaveRoom();
+        SceneManager.LoadScene("MainMenuScene");
     }
     [PunRPC]
     public void GetElfs()

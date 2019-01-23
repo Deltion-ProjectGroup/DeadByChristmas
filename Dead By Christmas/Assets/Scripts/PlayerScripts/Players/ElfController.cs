@@ -293,7 +293,7 @@ public class ElfController : Player {
     [PunRPC]
     public override void ReceiveDamage(int damageAmount)
     {
-        if(currentState != StruggleState.KnockedOut || currentState != StruggleState.BeingDragged || currentState != StruggleState.struggling)
+        if(currentState != StruggleState.KnockedOut && currentState != StruggleState.BeingDragged && currentState != StruggleState.struggling)
         {
             base.ReceiveDamage(damageAmount);
         }
