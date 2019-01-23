@@ -15990,7 +15990,7 @@ MonoBehaviour:
   containedElf: {fileID: 0}
   elfPlacePosition: {fileID: 490870615}
   releaseDelay: 0.1
-  incineratorCam: {fileID: 0}
+  incineratorCam: {fileID: 1153193746}
 --- !u!65 &1318038906
 BoxCollider:
   m_ObjectHideFlags: 0

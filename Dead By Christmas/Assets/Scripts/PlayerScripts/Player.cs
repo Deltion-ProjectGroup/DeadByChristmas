@@ -111,11 +111,10 @@ public abstract class Player : MonoBehaviour {
 
 			//Check if the hit object is interactable
 			if (hit.transform.tag == interactTag) {
-                GameObject.FindGameObjectWithTag("Manager").GetComponent<GameUIManager>().IndicatorAppear(interactInput, hit.transform.GetComponent<InteractableObject>().interactEffect);
+
                 return true;
             }
 		}
-        GameObject.FindGameObjectWithTag("Manager").GetComponent<GameUIManager>().IndicatorDissapear();
         return false;
 	}
 
