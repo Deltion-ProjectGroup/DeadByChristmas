@@ -100,10 +100,10 @@ public class SantaController : Player {
         }
         carryingElf = elfToPickUp;
         elfToPickUp.GetComponent<ElfController>().StopAllCoroutines();
+        elfToPickUp.transform.position = carryPosition.position;
         elfToPickUp.transform.SetParent(carryPosition);
         elfToPickUp.GetComponent<Collider>().enabled = false;
         elfToPickUp.GetComponent<Rigidbody>().isKinematic = true;
-        elfToPickUp.transform.position = Vector3.zero;
         elfToPickUp.GetComponent<ElfController>().currentState = ElfController.StruggleState.BeingDragged;
 
     }
