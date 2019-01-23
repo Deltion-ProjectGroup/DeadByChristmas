@@ -109,7 +109,7 @@ public class Incinerator : InteractableObject {
         while(process < 1)
         {
             yield return new WaitForSeconds(releaseDelay);
-            process += 0.01f;
+            process += 0.1f;
         }
         interactingPlayer.GetComponent<ElfController>().canInteract = false;
         GetComponent<PhotonView>().RPC("FinishRelease", PhotonTargets.All);
