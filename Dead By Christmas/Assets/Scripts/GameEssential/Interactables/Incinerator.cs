@@ -44,7 +44,7 @@ public class Incinerator : InteractableObject {
             if (containedElf != null)
             {
 
-                GetComponent<PhotonView>().RPC("ReleaseData", PhotonTargets.All, interactorID, interactingPlayer.GetComponent<PhotonView>().ownerId);
+                GetComponent<PhotonView>().RPC("ReleaseData", PhotonTargets.All, interactingPlayer.GetComponent<PhotonView>().ownerId);
                 StartCoroutine(ReleaseElf());
             }
         }
