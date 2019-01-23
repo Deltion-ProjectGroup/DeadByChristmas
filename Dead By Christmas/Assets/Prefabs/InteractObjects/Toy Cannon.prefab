@@ -219,6 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactingPlayer: {fileID: 0}
+  interactEffect: 
   force: 2000
   sensitivity: 0
   playerInCannonParent: {fileID: 4154279278400176}
