@@ -58,6 +58,10 @@ public class Incinerator : InteractableObject {
         if (containedElf.GetComponent<PhotonView>().isMine)
         {
             containedElf.GetComponent<Player>().cam.GetComponent<Camera>().enabled = false;
+            foreach(SkinnedMeshRenderer renderer in containedElf.GetComponent<Player>().allRenderer)
+            {
+                renderer.enabled = true;
+            }
             incineratorCam.enabled = true;
         }
         containedElf.GetComponent<Collider>().enabled = true;
@@ -89,6 +93,10 @@ public class Incinerator : InteractableObject {
         if (containedElf.GetComponent<PhotonView>().isMine)
         {
             containedElf.GetComponent<Player>().cam.GetComponent<Camera>().enabled = true;
+            foreach (SkinnedMeshRenderer renderer in containedElf.GetComponent<Player>().allRenderer)
+            {
+                renderer.enabled = false;
+            }
             incineratorCam.enabled = false;
         }
         containedElf = null;
