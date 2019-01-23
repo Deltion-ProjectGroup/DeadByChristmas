@@ -46,11 +46,11 @@ MonoBehaviour:
       radius: 0.3
       sampleCount: 10
       downsampling: 1
-      forceForwardCompatibility: 1
-      ambientOnly: 1
-      highPrecision: 0
+      forceForwardCompatibility: 0
+      ambientOnly: 0
+      highPrecision: 1
   screenSpaceReflection:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
       reflection:
         blendType: 0
@@ -85,8 +85,8 @@ MonoBehaviour:
   eyeAdaptation:
     m_Enabled: 0
     m_Settings:
-      lowPercent: 45
-      highPercent: 95
+      lowPercent: 49.00002
+      highPercent: 99
       minLuminance: -5
       maxLuminance: 1
       keyValue: 0.25
@@ -104,7 +104,7 @@ MonoBehaviour:
         threshold: 1
         softKnee: 0.886
         radius: 7
-        antiFlicker: 0
+        antiFlicker: 1
       lensDirt:
         texture: {fileID: 0}
         intensity: 3
