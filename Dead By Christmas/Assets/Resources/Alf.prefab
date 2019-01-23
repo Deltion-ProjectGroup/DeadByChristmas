@@ -14908,6 +14908,10 @@ MonoBehaviour:
   health: 1
   interactionRange: 4
   interactTag: Interactable
+  interactInput: 
+  interactableObjects:
+    serializedVersion: 2
+    m_Bits: 512
   cam: {fileID: 4845145912563356}
   headBone: {fileID: 4365635886622224}
   minX: -90
@@ -14921,6 +14925,7 @@ MonoBehaviour:
   - {fileID: 137609928891230292}
   animator: {fileID: 95215159495034874}
   canInteract: 1
+  effectText: 
   walkSoundAmt: 0.3
   runSoundAmt: 1
   currentState: 0

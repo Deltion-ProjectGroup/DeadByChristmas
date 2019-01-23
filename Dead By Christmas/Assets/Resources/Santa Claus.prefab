@@ -9473,6 +9473,10 @@ MonoBehaviour:
   health: 3
   interactionRange: 10
   interactTag: Interactable
+  interactInput: 
+  interactableObjects:
+    serializedVersion: 2
+    m_Bits: 2048
   cam: {fileID: 4183125654817282}
   headBone: {fileID: 4561519574619394}
   minX: -90
