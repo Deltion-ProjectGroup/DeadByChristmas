@@ -7,6 +7,8 @@ public class Incinerator : InteractableObject {
     public Transform elfPlacePosition;
     public float releaseDelay;
     public Camera incineratorCam;
+    public string elfRescueEffect;
+    public string santaPlaceEffect;
     // Use this for initialization
     void Start () {
 		
@@ -70,6 +72,8 @@ public class Incinerator : InteractableObject {
         containedElf.transform.position = elfPlacePosition.position;
         containedElf.transform.LookAt(new Vector3(transform.position.x, containedElf.transform.position.y, transform.position.z));
         containedElf.transform.SetParent(null);
+        gameObject.layer = 9;
+        interactEffect = elfRescueEffect;
     }
     [PunRPC]
     public void ReleaseData(int ownerID)
@@ -100,6 +104,8 @@ public class Incinerator : InteractableObject {
             incineratorCam.enabled = false;
         }
         containedElf = null;
+        gameObject.layer = 11;
+        interactEffect = santaPlaceEffect;
     }
     public IEnumerator ReleaseElf()
     {

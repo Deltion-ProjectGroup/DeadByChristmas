@@ -5683,7 +5683,7 @@ GameObject:
   - component: {fileID: 490870615}
   - component: {fileID: 490870617}
   - component: {fileID: 490870616}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ElfSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13606,7 +13606,7 @@ GameObject:
   - component: {fileID: 1153193744}
   - component: {fileID: 1153193746}
   - component: {fileID: 1153193745}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: IncineratorCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15901,7 +15901,7 @@ GameObject:
   - component: {fileID: 1318038905}
   - component: {fileID: 1318038910}
   - component: {fileID: 1318038909}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Incinerator
   m_TagString: Interactable
   m_Icon: {fileID: 0}
@@ -15986,11 +15986,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactingPlayer: {fileID: 0}
-  interactEffect: 
+  interactEffect: place elf
   containedElf: {fileID: 0}
   elfPlacePosition: {fileID: 490870615}
   releaseDelay: 0.1
   incineratorCam: {fileID: 1153193746}
+  elfRescueEffect: jam incinerator
+  santaPlaceEffect: place elf
 --- !u!65 &1318038906
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18616,10 +18618,6 @@ Prefab:
     - target: {fileID: 1341089105085976, guid: 962845261e4c1e44d980012b0197a3f1, type: 2}
       propertyPath: m_Name
       value: Toy Cannon (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4065250073434588, guid: 962845261e4c1e44d980012b0197a3f1, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -30.000002
       objectReference: {fileID: 0}
     - target: {fileID: 114686822817542158, guid: 962845261e4c1e44d980012b0197a3f1,
         type: 2}

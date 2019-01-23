@@ -129,17 +129,23 @@ public class SantaController : Player {
         {
 
             //Check if the hit object is interactable
-            if (hit.transform.tag == interactTag)
+            if (hit.transform.gameObject.layer == interactableObjects)
             {
-                GameObject.FindGameObjectWithTag("Manager").GetComponent<GameUIManager>().IndicatorAppear(interactInput, hit.transform.GetComponent<InteractableObject>().interactEffect);
-                return true;
-            }
-            else
-            {
-                if(hit.transform.tag == "Elf")
+                if (hit.transform.tag == interactTag)
                 {
-                    GameObject.FindGameObjectWithTag("Manager").GetComponent<GameUIManager>().IndicatorAppear(interactInput, hit.transform.GetComponent<ElfController>().effectText);
+                    GameObject.FindGameObjectWithTag("Manager").GetComponent<GameUIManager>().IndicatorAppear(interactInput, hit.transform.GetComponent<InteractableObject>().interactEffect);
                     return true;
+                }
+                else
+                {
+                    if (hit.transform.tag == "Elf")
+                    {
+                        if (hit.transform.GetComponent<ElfController>().isKnockedOut)
+                        {
+                            GameObject.FindGameObjectWithTag("Manager").GetComponent<GameUIManager>().IndicatorAppear(interactInput, hit.transform.GetComponent<ElfController>().effectText);
+                        }
+                        return true;
+                    }
                 }
             }
         }
