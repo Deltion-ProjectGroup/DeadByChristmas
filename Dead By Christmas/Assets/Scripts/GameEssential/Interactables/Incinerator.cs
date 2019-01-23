@@ -85,8 +85,8 @@ public class Incinerator : InteractableObject {
     [PunRPC]
     public void FinishRelease()
     {
-        interactingPlayer = null;
         interactingPlayer.GetComponent<ElfController>().canInteract = true;
+        interactingPlayer = null;
         containedElf.transform.SetParent(null);
         containedElf.GetComponent<Rigidbody>().isKinematic = false;
         containedElf.GetComponent<ElfController>().currentState = ElfController.StruggleState.normal;
