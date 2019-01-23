@@ -6,14 +6,14 @@ public class Wagon : InteractableObject {
 	public bool[] seats;
 	public Transform[] seatTransform;
 
+	int index = 0;
+
 	public override void Interact (int interactorID) {
 		if (interactingPlayer.GetComponent<ElfController> ()) {
-			int index = 0;
-
 			foreach (bool seat in seats) {
 				//False means not taken
 				if (seat == false) {
-					PutPlayerIn (index);
+					PutPlayerIn ();
 					break;
 				}
 				index += 1;
@@ -21,9 +21,29 @@ public class Wagon : InteractableObject {
 		}
 	}
 
-	void PutPlayerIn (int index) {
+	IEnumerator WaitForInput () {
+		while (true) {
+			if (Input.GetButtonDown ("Use")) {
+				PutPlayerOut();
+				StopCoroutine("WaitForInput");
+			}
+			yield return null;
+		}
+
+	}
+
+	void PutPlayerIn () {
 		interactingPlayer.GetComponent<ElfController> ().enabled = false;
 		interactingPlayer.transform.position = seatTransform[index].position;
+		interactingPlayer.transform.parent = seatTransform[index];
+		WaitForInput ();
+		seats[index] = true;
+	}
+
+	void PutPlayerOut () {
+		interactingPlayer.GetComponent<ElfController> ().enabled = true;
+		interactingPlayer.transform.parent = null;
+		seats[index] = false;
 	}
 
 	void OnPhotonSerializeView (PhotonStream stream, PhotonMessageInfo info) {
