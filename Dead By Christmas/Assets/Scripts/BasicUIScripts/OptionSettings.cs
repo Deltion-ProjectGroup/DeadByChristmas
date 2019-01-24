@@ -24,7 +24,7 @@ public class OptionSettings : MonoBehaviour {
         for (int i = 0; i < resolutions.Length; i++)
         {
             Dropdown.OptionData data = new Dropdown.OptionData();
-            data.text = resolutions[i].width.ToString() + "x" + resolutions[i].height.ToString();
+            data.text = resolutions[i].width.ToString() + " x " + resolutions[i].height.ToString();
             resOptions.Add(data);
             if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
                 index = i;
