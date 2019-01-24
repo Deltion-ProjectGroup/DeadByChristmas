@@ -201,15 +201,21 @@ public class GameLobby : MonoBehaviour {
         GetComponent<PhotonView>().RPC("LoadLevel", PhotonTargets.All);
     }
     [PunRPC]
-    public void LoadLevel()
+    public IEnumerator LoadLevel()
     {
         AsyncOperation asyncLoad = PhotonNetwork.LoadLevelAsync("GameEnd");
         asyncLoad.allowSceneActivation = false;
-        asyncLoad.completed += AsyncLoad_completed;
+        print("Start loading");
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+        CheckLoaded();
     }
 
-    private void AsyncLoad_completed(AsyncOperation obj)
+    private void CheckLoaded()
     {
+        print("Loaded");
         localPlayer.GetComponent<LobbyPlayer>().gameLoaded = true;
         foreach(GameObject player in allPlayers)
         {
@@ -219,6 +225,7 @@ public class GameLobby : MonoBehaviour {
             }
         }
         GetComponent<PhotonView>().RPC("LoadLv", PhotonTargets.MasterClient);
+        print("LOADING GAME");
     }
     [PunRPC]
     public void LoadLv()
