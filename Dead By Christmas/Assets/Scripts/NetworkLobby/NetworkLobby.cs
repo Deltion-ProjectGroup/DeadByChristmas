@@ -39,6 +39,7 @@ public class NetworkLobby : Photon.MonoBehaviour {
     }
     public void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
         if (!SaveDatabase.data.userData.banned)
         {
             PhotonNetwork.playerName = SaveDatabase.data.userData.username;
