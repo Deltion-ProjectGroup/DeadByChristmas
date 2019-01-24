@@ -13,7 +13,7 @@ public class Wagon : InteractableObject {
 			foreach (bool seat in seats) {
 				//False means not taken
 				if (seat == false) {
-					PutPlayerIn ();
+					photonView.RPC("PutPlayerIn", PhotonTargets.All);
 					break;
 				}
 				index += 1;
@@ -24,7 +24,7 @@ public class Wagon : InteractableObject {
 	IEnumerator WaitForInput () {
 		while (true) {
 			if (Input.GetButtonDown ("Use")) {
-				PutPlayerOut();
+				photonView.RPC("PutPlayerOut", PhotonTargets.All);
 				StopCoroutine("WaitForInput");
 			}
 			yield return null;
@@ -32,6 +32,7 @@ public class Wagon : InteractableObject {
 
 	}
 
+	[PunRPC]
 	void PutPlayerIn () {
 		interactingPlayer.GetComponent<ElfController> ().enabled = false;
 		interactingPlayer.transform.position = seatTransform[index].position;
@@ -40,21 +41,11 @@ public class Wagon : InteractableObject {
 		seats[index] = true;
 	}
 
+	[PunRPC]
 	void PutPlayerOut () {
 		interactingPlayer.GetComponent<ElfController> ().enabled = true;
 		interactingPlayer.transform.parent = null;
 		seats[index] = false;
-	}
-
-	void OnPhotonSerializeView (PhotonStream stream, PhotonMessageInfo info) {
-
-		//Check if you are writing to the network
-		if (stream.isWriting) {
-			stream.SendNext (seats);
-		} else {
-			seats = (bool[]) stream.ReceiveNext ();
-		}
-
 	}
 
 }
