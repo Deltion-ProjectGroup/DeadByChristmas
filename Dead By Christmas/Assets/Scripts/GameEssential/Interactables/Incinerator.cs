@@ -139,8 +139,8 @@ public class Incinerator : InteractableObject {
             if (hit.gameObject.GetComponent<PhotonView>().isMine)
             {
                 GetComponent<PhotonView>().RPC("Kill", PhotonTargets.All);
-                StartCoroutine(hit.gameObject.GetComponent<ElfController>().ActualDeath());
                 GetComponent<PhotonView>().RPC("Cancel", PhotonTargets.All);
+                StartCoroutine(hit.gameObject.GetComponent<ElfController>().ActualDeath());
             }
         }
     }
