@@ -204,22 +204,27 @@ public class GaemManager : MonoBehaviour {
     }
     public void OnPhotonPlayerDisconnected(PhotonPlayer otherPlayer)
     {
-        if (isSanta.ContainsKey(otherPlayer.NickName))
+        if (!finished)
         {
-            if ((bool)isSanta[otherPlayer.NickName])
+            if (isSanta.ContainsKey(otherPlayer.NickName))
             {
-                StartCoroutine(EndGame(false));
+                if ((bool)isSanta[otherPlayer.NickName])
+                {
+                    santa.GetComponent<SantaController>().health = 0;
+                    GetComponent<GameUIManager>().UpdateSantaHealth();
+                    StartCoroutine(EndGame(false));
+                }
+                else
+                {
+                    GetComponent<GameUIManager>().ChangeStatusIcon(otherPlayer.NickName, 4);
+                    GetElfs();
+                }
             }
             else
             {
                 GetComponent<GameUIManager>().ChangeStatusIcon(otherPlayer.NickName, 4);
                 GetElfs();
             }
-        }
-        else
-        {
-            GetComponent<GameUIManager>().ChangeStatusIcon(otherPlayer.NickName, 4);
-            GetElfs();
         }
     }
     [PunRPC]
