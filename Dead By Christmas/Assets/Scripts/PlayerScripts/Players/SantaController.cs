@@ -9,8 +9,7 @@ public class SantaController : Player {
     [SerializeField] int baseDamage;
     [SerializeField] float attackCooldown;
     [Header("Attack")]
-    [SerializeField] float attackRange;
-    [SerializeField] LayerMask damageableObjects;
+    public SantaWeapon weapon;
     public bool canAttack = true;
     [Header("Abilities")]
     public Ability[] abilities;
@@ -53,19 +52,11 @@ public class SantaController : Player {
         {
             canAttack = false;
             animator.SetBool("Attack", true);
-            Ray shootRay = cam.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition, Camera.MonoOrStereoscopicEye.Mono);
-            RaycastHit hitObj;
+            weapon.GetComponent<SantaWeapon>().enabled = true;
             yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length - 2.5f);
-            if (Physics.Raycast(shootRay, out hitObj, attackRange, damageableObjects, QueryTriggerInteraction.Ignore))
-            {
-                if (hitObj.transform.tag == "Elf")
-                {
-                    hitObj.transform.GetComponent<PhotonView>().RPC("ReceiveDamage", PhotonTargets.All, damage);
-                    GetComponent<PhotonView>().RPC("DealDamage", PhotonTargets.All);
-                }
-            }
             animator.SetBool("Attack", false);
             yield return new WaitForSeconds(1);
+            weapon.GetComponent<SantaWeapon>().enabled = false;
             print("COOLDOWN DONE");
             canAttack = true;
         }

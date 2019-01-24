@@ -531,6 +531,7 @@ GameObject:
   - component: {fileID: 4435298100472412}
   - component: {fileID: 137756597325483482}
   - component: {fileID: 82662579742597268}
+  - component: {fileID: 114618814190613842}
   m_Layer: 11
   m_Name: Candystick
   m_TagString: Untagged
@@ -6743,7 +6744,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1280004928091840}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2734.2463, y: 1712.0956, z: 1344.7802}
+  m_LocalPosition: {x: 4.9810286, y: 3.9200587, z: 53.216743}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4435298100472412}
@@ -9491,10 +9492,7 @@ MonoBehaviour:
   damage: 0
   baseDamage: 1
   attackCooldown: 2
-  attackRange: 99999
-  damageableObjects:
-    serializedVersion: 2
-    m_Bits: 512
+  weapon: {fileID: 114618814190613842}
   canAttack: 1
   abilities:
   - {fileID: 11400000, guid: a2f4bdf8d049fe1488d2b419a9a4b0c7, type: 2}
@@ -9504,6 +9502,19 @@ MonoBehaviour:
   specialCooldown: 0
   carryPosition: {fileID: 4513065449932830}
   carryingElf: {fileID: 0}
+--- !u!114 &114618814190613842
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1103771221772630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c0d2fbf9880c0945a4ce6fdb3dfe127, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitTag: Elf
+  enabled: 0
 --- !u!114 &114711403990916104
 MonoBehaviour:
   m_ObjectHideFlags: 1
