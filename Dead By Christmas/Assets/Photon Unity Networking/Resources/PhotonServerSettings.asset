@@ -74,4 +74,6 @@ MonoBehaviour:
   - UpdateSantaHealth
   - SetPlayerVars
   - Kill
+  - PutPlayerIn
+  - PutPlayerOut
   DisableAutoOpenWizard: 1
