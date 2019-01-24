@@ -31,6 +31,7 @@ public class Cannon : InteractableObject {
 
 	void PutPlayerIn () {
 		//GetComponent<Collider> ().enabled = false;
+		photonView.RPC ("SetHasPlayer", PhotonTargets.All, true);
 		SetHasPlayer (true);
 		interactingPlayer.transform.parent = playerInCannonParent;
 		interactingPlayer.GetComponent<Player> ().enabled = false;
@@ -96,7 +97,7 @@ public class Cannon : InteractableObject {
 			StartCoroutine ("CheckIfLanded");
 			StartCoroutine ("WaitFor");
 
-			SetHasPlayer (false);
+			photonView.RPC ("SetHasPlayer", PhotonTargets.All, true);
 		}
 	}
 
@@ -136,19 +137,20 @@ public class Cannon : InteractableObject {
 		yield return null;
 	}
 
+	[PunRPC]
 	void SetHasPlayer (bool b) {
 		hasPlayer = b;
 	}
 
-	void OnPhotonSerializeView (PhotonStream stream, PhotonMessageInfo info) {
-		print ("Has player before serializing: " + hasPlayer);
-		//Check if you are writing to the network
-		if (stream.isWriting) {
-			stream.SendNext (hasPlayer);
-		} else {
-			hasPlayer = (bool) stream.ReceiveNext ();
-		}
-		print ("Has player after serializing: " + hasPlayer);
-	}
+	// void OnPhotonSerializeView (PhotonStream stream, PhotonMessageInfo info) {
+	// 	print ("Has player before serializing: " + hasPlayer);
+	// 	//Check if you are writing to the network
+	// 	if (stream.isWriting) {
+	// 		stream.SendNext (hasPlayer);
+	// 	} else {
+	// 		hasPlayer = (bool) stream.ReceiveNext ();
+	// 	}
+	// 	print ("Has player after serializing: " + hasPlayer);
+	// }
 
 }
