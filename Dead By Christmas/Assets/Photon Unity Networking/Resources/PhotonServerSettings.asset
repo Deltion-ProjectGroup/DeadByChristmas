@@ -76,4 +76,6 @@ MonoBehaviour:
   - Kill
   - PutPlayerIn
   - PutPlayerOut
+  - LoadLevel
+  - LoadLv
   DisableAutoOpenWizard: 1
