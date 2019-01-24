@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class Player : MonoBehaviour {
     //HEADER MOVEMENT
+    public float animTransSmooth;
     public AudioSource[] audioSources;
     public AudioClip[] audioClips;
     //Movement vars
@@ -80,11 +81,11 @@ public abstract class Player : MonoBehaviour {
         movePos.x = Input.GetAxis("Horizontal");
         if (movePos == Vector3.zero)
         {
-            extraMovmentMultiplier = 0;
+            extraMovmentMultiplier = Mathf.MoveTowards(extraMovmentMultiplier, 0, animTransSmooth);
         }
         else
         {
-            extraMovmentMultiplier = 1;
+            extraMovmentMultiplier = Mathf.MoveTowards(extraMovmentMultiplier, 1, animTransSmooth);
         }
         animator.SetFloat("MovementSpeed", extraMovmentMultiplier * multiplier);
 
