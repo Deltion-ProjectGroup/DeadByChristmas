@@ -263,9 +263,7 @@ public class ElfController : Player {
             PhotonView view = GameObject.FindGameObjectWithTag("Manager").GetComponent<PhotonView>();
             List<object> overloads = new List<object>();
             animator.SetBool("Death", true);
-            overloads.Add(PhotonNetwork.player.NickName);
-            overloads.Add(1);
-            view.RPC("ChangeStatusIcon", PhotonTargets.All, overloads.ToArray());
+            view.RPC("ChangeStatusIcon", PhotonTargets.All, PhotonNetwork.player.NickName, 2);
             currentKnockedOutNumerator = KnockedOutTimer(knockedOutTime);
             StartCoroutine(KnockedOutTimer(knockedOutTime));
         }
