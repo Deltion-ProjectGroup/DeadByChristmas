@@ -184,19 +184,6 @@ public abstract class Player : MonoBehaviour {
 		}
 	}
 
-    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.isWriting)
-        {
-            stream.SendNext(animator.GetBool("Walking"));
-            stream.SendNext(animator.GetBool("Death"));
-        }
-        else
-        {
-            animator.SetBool("Walking", (bool)stream.ReceiveNext());
-            animator.SetBool("Death", (bool)stream.ReceiveNext());
-        }
-    }
     public IEnumerator ChangeAnimBool(string parameterName, bool value)
     {
         yield return new WaitForEndOfFrame();

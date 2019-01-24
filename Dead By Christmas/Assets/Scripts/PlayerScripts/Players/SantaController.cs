@@ -160,19 +160,4 @@ public class SantaController : Player {
             print("Hit is null!");
         }
     }
-    public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.isWriting)
-        {
-            stream.SendNext(animator.GetBool("Walking"));
-            stream.SendNext(animator.GetBool("Death"));
-            stream.SendNext(animator.GetBool("Attack"));
-        }
-        else
-        {
-            animator.SetBool("Walking", (bool)stream.ReceiveNext());
-            animator.SetBool("Death", (bool)stream.ReceiveNext());
-            animator.SetBool("Attack", (bool)stream.ReceiveNext());
-        }
-    }
 }
