@@ -8,6 +8,7 @@ public class Cannon : InteractableObject {
 	[SerializeField] Transform playerInCannonParent;
 	[SerializeField] Transform cannonCamera;
 	public bool hasPlayer;
+	public float timeToGetUp;
 
 	void Start () { }
 
@@ -115,7 +116,7 @@ public class Cannon : InteractableObject {
 	[SerializeField] LayerMask mask;
 
 	IEnumerator CheckIfLanded () {
-		yield return new WaitForSecondsRealtime (2f);
+		yield return new WaitForSecondsRealtime (1f);
 		while (!Physics.CheckSphere (shotPlayer.position, 0.5f, mask)) {
 			yield return null;
 		}
@@ -126,7 +127,7 @@ public class Cannon : InteractableObject {
 	}
 
 	IEnumerator WaitForStand () {
-		yield return new WaitForSecondsRealtime (2f);
+		yield return new WaitForSecondsRealtime (timeToGetUp);
 		shotPlayer.GetComponent<Player> ().enabled = true;
 		hasLanded = true;
 		shotPlayer = null;
