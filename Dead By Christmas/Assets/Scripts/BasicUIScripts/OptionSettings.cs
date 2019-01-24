@@ -58,11 +58,11 @@ public class OptionSettings : MonoBehaviour {
     }
     public void MusicSliderChange()
     {
-        mixer.SetFloat("Music", mainSlider.value);
+        mixer.SetFloat("Music", musicSlider.value);
     }
     public void SoundEffectSliderChange()
     {
-        mixer.SetFloat("SoundEffects", mainSlider.value);
+        mixer.SetFloat("SoundEffects", soundEffectSlider.value);
     }
 
     public void ToggleScreenSize()
