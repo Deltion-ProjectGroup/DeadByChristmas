@@ -122,8 +122,10 @@ public class Incinerator : InteractableObject {
 
         while(process < releaseDelay)
         {
+
             yield return new WaitForSeconds(releaseSmoothness);
             process += releaseSmoothness;
+            fillBarComponent.fillbar.fillAmount = process;
         }
         Destroy(currentFillbar);
         interactingPlayer.GetComponent<ElfController>().canInteract = false;
