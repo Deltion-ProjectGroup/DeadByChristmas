@@ -119,6 +119,8 @@ public class SantaController : Player {
         GaemManager gameManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>();
         if (!gameManager.finished)
         {
+            health = 0;
+            GameObject.FindGameObjectWithTag("Manager").GetComponent<GameUIManager>().UpdateSantaHealth();
             StartCoroutine(gameManager.EndGame(false));
         }
     }
