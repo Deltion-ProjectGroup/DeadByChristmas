@@ -37,6 +37,9 @@ public class GameLobby : MonoBehaviour {
     void OnJoinedRoom()
     {
         print("JOINED");
+        ExitGames.Client.Photon.Hashtable customProps = new ExitGames.Client.Photon.Hashtable();
+        customProps.Add("Loaded", false);
+        PhotonNetwork.player.SetCustomProperties(customProps);
         localPlayer = PhotonNetwork.Instantiate("ElfLobbyPlayer", Vector3.zero, Quaternion.identity, 0);
         if (localPlayer != null)
         {

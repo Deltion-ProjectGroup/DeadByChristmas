@@ -31,6 +31,9 @@ public class GaemManager : MonoBehaviour {
 	// Use this for initialization
     //Spawns weapons and showsRoles
 	void Start () {
+        ExitGames.Client.Photon.Hashtable customProps = new ExitGames.Client.Photon.Hashtable();
+        customProps.Add("Loaded", true);
+        PhotonNetwork.player.SetCustomProperties(customProps);
         uiManager = GetComponent<GameUIManager>();
         uiManager.CreateElfStatuses();
         StartCoroutine(StartGame());
@@ -39,10 +42,24 @@ public class GaemManager : MonoBehaviour {
     {
         if (PhotonNetwork.isMasterClient)
         {
-            yield return new WaitForSeconds(2);
-            GetComponent<PhotonView>().RPC("ShowRoles", PhotonTargets.All);
-            GetComponent<PhotonView>().RPC("SpawnWeaponParts", PhotonTargets.MasterClient);
+            if (EveryoneJoined())
+            {
+                yield return new WaitForSeconds(2);
+                GetComponent<PhotonView>().RPC("ShowRoles", PhotonTargets.All);
+                GetComponent<PhotonView>().RPC("SpawnWeaponParts", PhotonTargets.MasterClient);
+            }
         }
+    }
+    public bool EveryoneJoined()
+    {
+        foreach(PhotonPlayer player in PhotonNetwork.otherPlayers)
+        {
+            if (!(bool)player.CustomProperties["Loaded"])
+            {
+                return false;
+            }
+        }
+        return true;
     }
     //Randomizes the roles
     [PunRPC]
