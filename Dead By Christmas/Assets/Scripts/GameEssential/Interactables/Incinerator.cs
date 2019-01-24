@@ -57,6 +57,7 @@ public class Incinerator : InteractableObject {
     [PunRPC]
     public void PlaceElf()
     {
+        interactingPlayer = null;
         GameObject elfToPlace = gameManager.santa.GetComponent<SantaController>().carryingElf;
         gameManager.santa.GetComponent<SantaController>().carryingElf = null;
         containedElf = elfToPlace;

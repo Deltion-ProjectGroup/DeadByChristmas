@@ -9543,7 +9543,7 @@ MonoBehaviour:
   audioClips:
   - {fileID: 8300000, guid: c79d8c780e378b34f9b55ebf21246be6, type: 3}
   baseSpeed: 1
-  speed: 0
+  speed: 250
   extraMovmentMultiplier: 0
   rotateMultiplier: 20
   baseHealth: 3
