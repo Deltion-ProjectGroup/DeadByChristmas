@@ -133,8 +133,9 @@ public class GaemManager : MonoBehaviour {
         SceneManager.LoadScene("MainMenuScene");
     }
     [PunRPC]
-    public void GetElfs()
+    public IEnumerator GetElfs()
     {
+        yield return null;
         print("FINDING ELFS");
         allElfs = GameObject.FindGameObjectsWithTag("Elf");
         if(allElfs.Length == 0 && !finished)
@@ -217,13 +218,13 @@ public class GaemManager : MonoBehaviour {
                 else
                 {
                     GetComponent<GameUIManager>().ChangeStatusIcon(otherPlayer.NickName, 4);
-                    GetElfs();
+                    StartCoroutine(GetElfs());
                 }
             }
             else
             {
                 GetComponent<GameUIManager>().ChangeStatusIcon(otherPlayer.NickName, 4);
-                GetElfs();
+                StartCoroutine(GetElfs());
             }
         }
     }
