@@ -42,12 +42,14 @@ public class GaemManager : MonoBehaviour {
     {
         if (PhotonNetwork.isMasterClient)
         {
-            if (EveryoneJoined())
+            while (!EveryoneJoined())
             {
-                yield return new WaitForSeconds(2);
-                GetComponent<PhotonView>().RPC("ShowRoles", PhotonTargets.All);
-                GetComponent<PhotonView>().RPC("SpawnWeaponParts", PhotonTargets.MasterClient);
+                
             }
+            print("EVERYONE INGAME");
+            yield return new WaitForSeconds(2);
+            GetComponent<PhotonView>().RPC("ShowRoles", PhotonTargets.All);
+            GetComponent<PhotonView>().RPC("SpawnWeaponParts", PhotonTargets.MasterClient);
         }
     }
     public bool EveryoneJoined()
