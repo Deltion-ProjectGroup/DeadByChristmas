@@ -73,12 +73,12 @@ public abstract class Player : MonoBehaviour {
 	//^^^ CALL THESE IN THE INHERITING SCRIPTS ^^^
 
 	public virtual void Walk () {
-		//Make multiplier
-		float multiplier = speed * Time.deltaTime * extraMovmentMultiplier;
+        //Make multiplier
+        float multiplier = speed * Time.deltaTime * extraMovmentMultiplier;
         Vector3 movePos = new Vector3();
-		movePos.z = Input.GetAxis ("Vertical");
-		movePos.x = Input.GetAxis ("Horizontal");
-        if(movePos == Vector3.zero)
+        movePos.z = Input.GetAxis("Vertical");
+        movePos.x = Input.GetAxis("Horizontal");
+        if (movePos == Vector3.zero)
         {
             extraMovmentMultiplier = 0;
         }
@@ -89,7 +89,7 @@ public abstract class Player : MonoBehaviour {
         animator.SetFloat("MovementSpeed", extraMovmentMultiplier * multiplier);
 
         //Translate the movement axis
-        transform.Translate(movePos); //Vertical axis
+        transform.Translate(movePos * multiplier * Time.deltaTime); //Vertical axis
     }
 
 	//RaycastHit of camera

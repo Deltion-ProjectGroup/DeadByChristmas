@@ -291,11 +291,6 @@ public class GameLobby : MonoBehaviour {
             PhotonNetwork.CloseConnection(playerToKick);
         }
     }
-    //When a player leaves
-    public void OnLeftRoom()
-    {
-        PhotonNetwork.LoadLevel("MainMenuScene");
-    }
     public void OnPhotonPlayerDisconnected(PhotonPlayer otherPlayer)
     {
         GetPlayers();

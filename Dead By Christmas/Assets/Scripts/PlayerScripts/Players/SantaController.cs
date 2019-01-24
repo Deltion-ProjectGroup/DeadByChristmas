@@ -119,7 +119,7 @@ public class SantaController : Player {
         GaemManager gameManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>();
         if (!gameManager.finished)
         {
-            StartCoroutine(gameManager.EndGame());
+            StartCoroutine(gameManager.EndGame(false));
         }
     }
     public override bool CanInteract()

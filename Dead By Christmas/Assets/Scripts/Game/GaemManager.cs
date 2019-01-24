@@ -102,16 +102,30 @@ public class GaemManager : MonoBehaviour {
         }
 
     }
-    public IEnumerator EndGame()
+    public IEnumerator EndGame(bool santaWon)
     {
         finished = true;
-        if ((bool)isSanta[PhotonNetwork.player.NickName])
+        if (santaWon)
         {
-            audioSources[0].clip = audioClips[0];
+            if ((bool)isSanta[PhotonNetwork.player.NickName])
+            {
+                audioSources[0].clip = audioClips[0];
+            }
+            else
+            {
+                audioSources[0].clip = audioClips[1];
+            }
         }
         else
         {
-            audioSources[0].clip = audioClips[1];
+            if ((bool)isSanta[PhotonNetwork.player.NickName])
+            {
+                audioSources[0].clip = audioClips[1];
+            }
+            else
+            {
+                audioSources[0].clip = audioClips[0];
+            }
         }
         audioSources[0].Play();
         yield return new WaitForSeconds(audioSources[0].clip.length + 1);
@@ -125,7 +139,7 @@ public class GaemManager : MonoBehaviour {
         allElfs = GameObject.FindGameObjectsWithTag("Elf");
         if(allElfs.Length == 0 && !finished)
         {
-            StartCoroutine(EndGame());
+            StartCoroutine(EndGame(true));
         }
     }
     [PunRPC]
@@ -194,8 +208,7 @@ public class GaemManager : MonoBehaviour {
         {
             if ((bool)isSanta[otherPlayer.NickName])
             {
-                audioSources[0].clip = audioClips[0];
-                audioSources[0].Play();
+                StartCoroutine(EndGame(false));
             }
             else
             {
