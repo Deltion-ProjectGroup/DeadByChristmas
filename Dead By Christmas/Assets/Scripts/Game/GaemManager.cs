@@ -154,7 +154,7 @@ public class GaemManager : MonoBehaviour {
     {
         print("FINDING PLAYERS");
         inGamePlayers = new List<GameObject>();
-        GetElfs();
+        StartCoroutine(GetElfs());
         GetSanta();
         inGamePlayers.Add(santa);
         for(int elf = 0; elf < allElfs.Length; elf++)
