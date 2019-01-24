@@ -10,6 +10,8 @@ public class OptionSettings : MonoBehaviour {
     [Header("ResolutionOptions")]
     public Dropdown resolutionDropDown;
     Resolution[] resolutions;
+    public Slider mainSlider, musicSlider, soundEffectSlider;
+    public AudioMixer mixer;
 
     public void Start()
     {
@@ -29,6 +31,38 @@ public class OptionSettings : MonoBehaviour {
         }
         resolutionDropDown.AddOptions(resOptions);
         resolutionDropDown.value = index;
+
+        if (mainSlider)
+        {
+            float value;
+            mixer.GetFloat("Master", out value);
+            mainSlider.value = value;
+        }
+        if (musicSlider)
+        {
+            float value;
+            mixer.GetFloat("Music", out value);
+            musicSlider.value = value;
+        }
+        if (soundEffectSlider)
+        {
+            float value;
+            mixer.GetFloat("SoundEffects", out value);
+            soundEffectSlider.value = value;
+        }
+    }
+
+    public void MainSliderChange()
+    {
+        mixer.SetFloat("Master", mainSlider.value);
+    }
+    public void MusicSliderChange()
+    {
+        mixer.SetFloat("Music", mainSlider.value);
+    }
+    public void SoundEffectSliderChange()
+    {
+        mixer.SetFloat("SoundEffects", mainSlider.value);
     }
 
     public void ToggleScreenSize()
