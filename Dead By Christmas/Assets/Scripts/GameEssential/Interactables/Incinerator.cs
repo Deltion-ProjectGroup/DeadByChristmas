@@ -95,8 +95,8 @@ public class Incinerator : InteractableObject {
         interactingPlayer = null;
         containedElf.transform.SetParent(null);
         containedElf.GetComponent<Rigidbody>().isKinematic = false;
-        interactorController.currentState = ElfController.StruggleState.normal;
-        interactorController.animator.SetBool("Death", false);
+        containedElf.GetComponent<ElfController>().currentState = ElfController.StruggleState.normal;
+        containedElf.GetComponent<ElfController>().animator.SetBool("Death", false);
         if (containedElf.GetComponent<PhotonView>().isMine)
         {
             GameObject.FindGameObjectWithTag("Manager").GetComponent<PhotonView>().RPC("ChangeStatusIcon", PhotonTargets.All, PhotonNetwork.player.NickName, 0);
@@ -128,7 +128,8 @@ public class Incinerator : InteractableObject {
             fillBarComponent.fillbar.fillAmount = process;
         }
         Destroy(currentFillbar);
-        interactingPlayer.GetComponent<ElfController>().canInteract = false;
+        elfController.canInteract = false;
+        elfController.currentCam.position += elfController.currentCam.forward * elfController.camBackwardsDistance;
         GetComponent<PhotonView>().RPC("FinishRelease", PhotonTargets.All);
     }
     public void OnTriggerEnter(Collider hit)
@@ -156,7 +157,10 @@ public class Incinerator : InteractableObject {
         {
             if (interactingPlayer.GetComponent<PhotonView>().isMine)
             {
+                ElfController elfController = interactingPlayer.GetComponent<ElfController>();
                 Destroy(currentFillbar);
+                elfController.canInteract = false;
+                elfController.currentCam.position += elfController.currentCam.forward * elfController.camBackwardsDistance;
             }
             StopAllCoroutines();
             print(interactingPlayer);
