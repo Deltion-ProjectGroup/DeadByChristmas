@@ -511,5 +511,6 @@ MonoBehaviour:
   interactEffect: place elf
   containedElf: {fileID: 0}
   elfPlacePosition: {fileID: 4655142806397978}
-  releaseDelay: 0.1
+  releaseDelay: 2
+  releaseSmoothness: 0.1
   incineratorCam: {fileID: 20652420461721276}

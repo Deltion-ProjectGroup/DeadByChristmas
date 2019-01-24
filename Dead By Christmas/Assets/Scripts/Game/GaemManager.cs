@@ -22,6 +22,7 @@ public class GaemManager : MonoBehaviour {
     [Header("Initializers")]
     public int partAmount;
     [Header("GameData")]
+    public GameUIManager uiManager;
     public GameObject[] allElfs;
     public GameObject santa;
     public List<GameObject> inGamePlayers = new List<GameObject>();
@@ -30,7 +31,8 @@ public class GaemManager : MonoBehaviour {
 	// Use this for initialization
     //Spawns weapons and showsRoles
 	void Start () {
-        GetComponent<GameUIManager>().CreateElfStatuses();
+        uiManager = GetComponent<GameUIManager>();
+        uiManager.CreateElfStatuses();
         StartCoroutine(StartGame());
 	}
     public IEnumerator StartGame()
@@ -212,18 +214,18 @@ public class GaemManager : MonoBehaviour {
                 if ((bool)isSanta[otherPlayer.NickName])
                 {
                     santa.GetComponent<SantaController>().health = 0;
-                    GetComponent<GameUIManager>().UpdateSantaHealth();
+                    uiManager.UpdateSantaHealth();
                     StartCoroutine(EndGame(false));
                 }
                 else
                 {
-                    GetComponent<GameUIManager>().ChangeStatusIcon(otherPlayer.NickName, 4);
+                    uiManager.ChangeStatusIcon(otherPlayer.NickName, 4);
                     StartCoroutine(GetElfs());
                 }
             }
             else
             {
-                GetComponent<GameUIManager>().ChangeStatusIcon(otherPlayer.NickName, 4);
+                uiManager.ChangeStatusIcon(otherPlayer.NickName, 4);
                 StartCoroutine(GetElfs());
             }
         }

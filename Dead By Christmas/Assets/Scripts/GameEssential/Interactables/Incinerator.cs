@@ -4,21 +4,26 @@ using UnityEngine;
 
 public class Incinerator : InteractableObject {
     public GameObject containedElf;
+    GaemManager gameManager;
     public Transform elfPlacePosition;
     public float releaseDelay;
+    GameObject currentFillbar;
+    [Tooltip("Lower is smoother")]
+    public float releaseSmoothness;
     public Camera incineratorCam;
     // Use this for initialization
     void Start () {
-		
+        gameManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>();
 	}
     private void Update()
     {
         if(Input.GetButtonUp("Fire1") && interactingPlayer != null)
         {
-            if(interactingPlayer == GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().localPlayer)
+            if(interactingPlayer.GetComponent<PhotonView>().isMine)
             {
                 if(interactingPlayer.GetComponent<ElfController>() != null)
                 {
+                    Destroy(currentFillbar);
                     GetComponent<PhotonView>().RPC("Cancel", PhotonTargets.All);
                 }
             }
@@ -52,8 +57,8 @@ public class Incinerator : InteractableObject {
     [PunRPC]
     public void PlaceElf()
     {
-        GameObject elfToPlace = GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().santa.GetComponent<SantaController>().carryingElf;
-        GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().santa.GetComponent<SantaController>().carryingElf = null;
+        GameObject elfToPlace = gameManager.santa.GetComponent<SantaController>().carryingElf;
+        gameManager.santa.GetComponent<SantaController>().carryingElf = null;
         containedElf = elfToPlace;
         if (containedElf.GetComponent<PhotonView>().isMine)
         {
@@ -73,7 +78,7 @@ public class Incinerator : InteractableObject {
     [PunRPC]
     public void ReleaseData(int ownerID)
     {
-        foreach (GameObject elf in GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().allElfs)
+        foreach (GameObject elf in gameManager.allElfs)
         {
             if (elf.GetComponent<PhotonView>().ownerId == ownerID)
             {
@@ -85,14 +90,18 @@ public class Incinerator : InteractableObject {
     [PunRPC]
     public void FinishRelease()
     {
-        interactingPlayer.GetComponent<ElfController>().canInteract = true;
+        ElfController interactorController = interactingPlayer.GetComponent<ElfController>();
+        interactorController.canInteract = true;
         interactingPlayer = null;
         containedElf.transform.SetParent(null);
         containedElf.GetComponent<Rigidbody>().isKinematic = false;
-        containedElf.GetComponent<ElfController>().currentState = ElfController.StruggleState.normal;
+        interactorController.currentState = ElfController.StruggleState.normal;
+        interactorController.animator.SetBool("Death", false);
         if (containedElf.GetComponent<PhotonView>().isMine)
         {
+            GameObject.FindGameObjectWithTag("Manager").GetComponent<PhotonView>().RPC("ChangeStatusIcon", PhotonTargets.All, PhotonNetwork.player.NickName, 0);
             containedElf.GetComponent<Player>().cam.GetComponent<Camera>().enabled = true;
+            incineratorCam.enabled = false;
             foreach (SkinnedMeshRenderer renderer in containedElf.GetComponent<Player>().allRenderer)
             {
                 renderer.enabled = false;
@@ -103,14 +112,20 @@ public class Incinerator : InteractableObject {
     }
     public IEnumerator ReleaseElf()
     {
-        interactingPlayer.GetComponent<ElfController>().canInteract = false;
+        ElfController elfController = interactingPlayer.GetComponent<ElfController>();
+        elfController.canInteract = false;
+        currentFillbar = Instantiate(elfController.fillBar, elfController.transform.position + -elfController.currentCam.forward, Quaternion.identity);
+        elfController.currentCam.position -= elfController.currentCam.forward * elfController.camBackwardsDistance;
+        currentFillbar.transform.LookAt(elfController.currentCam);
+        FillbarValueSet fillBarComponent = currentFillbar.GetComponent<FillbarValueSet>();
         float process = 0;
 
-        while(process < 1)
+        while(process < releaseDelay)
         {
-            yield return new WaitForSeconds(releaseDelay);
-            process += 0.1f;
+            yield return new WaitForSeconds(releaseSmoothness);
+            process += releaseSmoothness;
         }
+        Destroy(currentFillbar);
         interactingPlayer.GetComponent<ElfController>().canInteract = false;
         GetComponent<PhotonView>().RPC("FinishRelease", PhotonTargets.All);
     }
@@ -137,6 +152,10 @@ public class Incinerator : InteractableObject {
     {
         if(interactingPlayer != null)
         {
+            if (interactingPlayer.GetComponent<PhotonView>().isMine)
+            {
+                Destroy(currentFillbar);
+            }
             StopAllCoroutines();
             print(interactingPlayer);
             interactingPlayer.GetComponent<Player>().canInteract = true; //Interactingplayer could be santa???

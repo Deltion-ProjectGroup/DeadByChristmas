@@ -49,22 +49,23 @@ public class GameUIManager : MonoBehaviour {
         }
         if(target != null)
         {
+            Image statusIcon = target.GetComponentInChildren<Image>();
             switch (newStatus)
             {
                 case 0:
-                    target.GetComponentInChildren<Image>().sprite = elfStatusIcons[0];
+                    statusIcon.sprite = elfStatusIcons[0];
                     break;
                 case 1:
-                    target.GetComponentInChildren<Image>().sprite = elfStatusIcons[1];
+                    statusIcon.sprite = elfStatusIcons[1];
                     break;
                 case 2:
-                    target.GetComponentInChildren<Image>().sprite = elfStatusIcons[2];
+                    statusIcon.sprite = elfStatusIcons[2];
                     break;
                 case 3:
-                    target.GetComponentInChildren<Image>().sprite = elfStatusIcons[3];
+                    statusIcon.sprite = elfStatusIcons[3];
                     break;
                 case 4:
-                    target.GetComponentInChildren<Image>().sprite = elfStatusIcons[4];
+                    statusIcon.sprite = elfStatusIcons[4];
                     break;
             }
             target.GetComponent<Animation>().Play();

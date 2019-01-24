@@ -52,7 +52,7 @@ public class ElfController : Player {
     [Header("ExtraCharacterInfo")]
     public GameObject fillBar;
     GameObject currentFillbar;
-    [SerializeField] Transform currentCam;
+    public Transform currentCam;
     public float runMultiplier;
     public string runInput;
     public GameObject interactingObject;
