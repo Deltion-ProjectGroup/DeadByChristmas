@@ -8724,7 +8724,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1616294096221712}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 31.976698, y: -1.8304067, z: 12.641825}
+  m_LocalPosition: {x: 43.998543, y: -4.4497986, z: 16.90688}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4343818114984360}
@@ -9483,8 +9483,8 @@ MonoBehaviour:
   - {fileID: 114130893744571196}
   - {fileID: 114985338680632658}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 3
+  instantiationId: 3
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114130893744571196
@@ -9525,6 +9525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitTag: Elf
+  santaView: {fileID: 114076111597706626}
   enabled: 0
 --- !u!114 &114985338680632658
 MonoBehaviour:
@@ -10111,7 +10112,7 @@ SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1612938685631414}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

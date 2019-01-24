@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SantaWeapon : MonoBehaviour {
     public string hitTag;
+    public PhotonView santaView;
     public bool enabled;
     // Use this for initialization
 
@@ -14,7 +15,7 @@ public class SantaWeapon : MonoBehaviour {
         if(hit.tag == hitTag && enabled)
         {
             hit.GetComponent<PhotonView>().RPC("ReceiveDamage", PhotonTargets.All, 1);
-            hit.GetComponentInParent<PhotonView>().RPC("DealDamage", PhotonTargets.All);
+            santaView.RPC("DealDamage", PhotonTargets.All);
         }
     }
 }
