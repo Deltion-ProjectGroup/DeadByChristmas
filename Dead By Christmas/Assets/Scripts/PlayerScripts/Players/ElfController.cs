@@ -392,5 +392,15 @@ public class ElfController : Player {
         GameObject.FindGameObjectWithTag("Manager").GetComponent<PhotonView>().RPC("GetElfs", PhotonTargets.All);
         PhotonNetwork.Destroy(gameObject);
     }
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.isWriting)
+        {
 
+        }
+        else
+        {
+
+        }
+    }
 }   
