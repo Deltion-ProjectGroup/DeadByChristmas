@@ -97,7 +97,7 @@ public class Cannon : InteractableObject {
 			StartCoroutine ("CheckIfLanded");
 			StartCoroutine ("WaitFor");
 
-			photonView.RPC ("SetHasPlayer", PhotonTargets.All, true);
+			photonView.RPC ("SetHasPlayer", PhotonTargets.All, false);
 		}
 	}
 
