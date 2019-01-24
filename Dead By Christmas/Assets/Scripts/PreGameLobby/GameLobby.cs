@@ -210,6 +210,7 @@ public class GameLobby : MonoBehaviour {
 
     private void AsyncLoad_completed(AsyncOperation obj)
     {
+        localPlayer.GetComponent<LobbyPlayer>().gameLoaded = true;
         foreach(GameObject player in allPlayers)
         {
             if (!player.GetComponent<LobbyPlayer>().gameLoaded)
