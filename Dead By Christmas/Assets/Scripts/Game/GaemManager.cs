@@ -44,7 +44,7 @@ public class GaemManager : MonoBehaviour {
         {
             while (!EveryoneJoined())
             {
-                
+                yield return new WaitForSeconds(0.1f);
             }
             print("EVERYONE INGAME");
             yield return new WaitForSeconds(2);
