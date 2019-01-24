@@ -198,9 +198,33 @@ public class GameLobby : MonoBehaviour {
         inIntermission = false;
         TransitionScreen.transitionScreen.GetComponent<PhotonView>().RPC("FadeIn", PhotonTargets.All);
         yield return new WaitForSeconds(TransitionScreen.transitionScreen.GetComponent<TransitionScreen>().screen.GetComponent<Animation>().GetClip("TransitionFadeIn").length);
-        
+        GetComponent<PhotonView>().RPC("LoadLevel", PhotonTargets.All);
+    }
+    [PunRPC]
+    public void LoadLevel()
+    {
+        AsyncOperation asyncLoad = PhotonNetwork.LoadLevelAsync("GameEnd");
+        asyncLoad.allowSceneActivation = false;
+        asyncLoad.completed += AsyncLoad_completed;
+    }
+
+    private void AsyncLoad_completed(AsyncOperation obj)
+    {
+        foreach(GameObject player in allPlayers)
+        {
+            if (!player.GetComponent<LobbyPlayer>().gameLoaded)
+            {
+                return;
+            }
+        }
+        GetComponent<PhotonView>().RPC("LoadLv", PhotonTargets.MasterClient);
+    }
+    [PunRPC]
+    public void LoadLv()
+    {
         PhotonNetwork.LoadLevel("GameEnd");
     }
+
     //Toggles the ready button
     public void ToggleReady(Text readyButton)
     {
