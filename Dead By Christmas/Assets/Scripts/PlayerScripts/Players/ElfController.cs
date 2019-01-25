@@ -67,7 +67,7 @@ public class ElfController : Player {
     //Update Function
     public void Update()
     {
-        if (GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().ingame)
+        if (GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().ingame && !paused)
         {
             CheckState();
         }

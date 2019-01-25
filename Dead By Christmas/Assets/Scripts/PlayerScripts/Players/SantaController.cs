@@ -26,7 +26,7 @@ public class SantaController : Player {
 	
 	// Update is called once per frame
 	void Update () {
-        if (GetComponent<PhotonView>().isMine && GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().ingame)
+        if (GetComponent<PhotonView>().isMine && GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().ingame && !paused)
         {
             PlayerUpdate();
             if (Input.GetButtonDown("Fire1"))
@@ -41,7 +41,7 @@ public class SantaController : Player {
 	}
     private void FixedUpdate()
     {
-        if (GetComponent<PhotonView>().isMine && GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().ingame)
+        if (GetComponent<PhotonView>().isMine && GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().ingame && !paused)
         {
             PlayerFixedUpdate();
         }

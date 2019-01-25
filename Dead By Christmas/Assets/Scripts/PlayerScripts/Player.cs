@@ -65,12 +65,18 @@ public abstract class Player : MonoBehaviour {
 	}
 
 	public void PlayerUpdate () {
-		CheckInteract ();
-		CamRotate ();
+        if (!paused)
+        {
+            CheckInteract();
+            CamRotate();
+        }
 	}
 
 	public void PlayerFixedUpdate () {
-		Walk ();
+        if (!paused)
+        {
+            Walk();
+        }
 	}
 	//^^^ CALL THESE IN THE INHERITING SCRIPTS ^^^
 
