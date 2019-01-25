@@ -73,10 +73,13 @@ public class ElfController : Player {
         }
     }
 
-    public void AddItem()
+    public void AddItem(bool weapon)
     {
         hasItem = true;
-        currentItem = PhotonNetwork.Instantiate(ItemName, inventoryLocation.position, inventoryLocation.rotation, 0);
+        if(weapon)
+            currentItem = PhotonNetwork.Instantiate("Gun", inventoryLocation.position, inventoryLocation.rotation, 0);
+        else
+            currentItem = PhotonNetwork.Instantiate(ItemName, inventoryLocation.position, inventoryLocation.rotation, 0);
         currentItem.transform.parent = inventoryLocation;
         currentItem.GetComponent<Rigidbody>().isKinematic = true;
         currentItem.GetComponent<WeaponPart>().pickedUp = true;
