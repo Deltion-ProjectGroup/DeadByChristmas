@@ -16,6 +16,7 @@ public class SantaWeapon : MonoBehaviour {
         {
             hit.GetComponent<PhotonView>().RPC("ReceiveDamage", PhotonTargets.All, 1);
             santaView.RPC("DealDamage", PhotonTargets.All);
+            enabled = false;
         }
     }
 }
