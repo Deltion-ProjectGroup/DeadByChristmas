@@ -28,6 +28,7 @@ public class ElfController : Player {
     IEnumerator currentCrafting;
     public float camBackwardsDistance;
     public string gun;
+    public GameObject gunObject;
 
     [Header("InventoryInfo")]
     public Transform inventoryLocation;
@@ -175,17 +176,15 @@ public class ElfController : Player {
     //The weapon State
     public void Weapon()
     {
-        if (Input.GetButtonDown(dropInput) && !CanInteract() && hasItem)
-            animator.SetBool("HasGun", false);
-            DropItem();
         PlayerFixedUpdate();
         PlayerUpdate();
         if (Input.GetButtonDown("Fire1"))
         {
             animator.SetBool("HasGun", false);
-            currentItem.GetComponent<BaseGun>().Fire();
+            gunObject.GetComponent<BaseGun>().Fire();
             hasItem = false;
-            currentItem = null;
+            GetComponent<PhotonView>().RPC("SetGunActive", PhotonTargets.All, true);
+            currentState = StruggleState.normal;
         }
     }
 
@@ -365,17 +364,17 @@ public class ElfController : Player {
     public IEnumerator Crafted()
     {
         hasItem = true;
-        currentItem = PhotonNetwork.Instantiate(gun, inventoryLocation.position, inventoryLocation.rotation, 0);
-        currentItem.transform.SetParent(inventoryLocation);
-        currentItem.GetComponent<Rigidbody>().isKinematic = true;
-        currentItem.GetComponent<WeaponPart>().pickedUp = true;
-        currentItem.GetComponent<WeaponPart>().hasCollider = false;
-        currentItem.GetComponent<Collider>().enabled = false;
-        currentItem.GetComponent<BaseGun>().controller = this;
+        GetComponent<PhotonView>().RPC("SetGunActive", PhotonTargets.All, true);
         animator.SetBool("Crafting", false);
         animator.SetBool("HasGun", true);
         currentState = StruggleState.Weapon;
         yield return null;
+    }
+
+    [PunRPC]
+    public void SetGunActive(bool active)
+    {
+        gunObject.SetActive(active);
     }
 
     //gizmos

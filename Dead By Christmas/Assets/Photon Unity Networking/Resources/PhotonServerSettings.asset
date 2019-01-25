@@ -78,4 +78,5 @@ MonoBehaviour:
   - PutPlayerOut
   - LoadLevel
   - LoadLv
+  - SetGunActive
   DisableAutoOpenWizard: 1
