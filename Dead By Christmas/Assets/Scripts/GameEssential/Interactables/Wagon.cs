@@ -9,6 +9,7 @@ public class Wagon : InteractableObject {
 	int index = 0;
 
 	public override void Interact (int interactorID) {
+		print("Interacting with wagon");
 		if (interactingPlayer.GetComponent<ElfController> ()) {
 			foreach (bool seat in seats) {
 				//False means not taken
