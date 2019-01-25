@@ -14942,7 +14942,7 @@ MonoBehaviour:
   craftingTime: 2
   camBackwardsDistance: 4
   gun: Gun
-  InventoryLocation: {fileID: 4165042560635062}
+  inventoryLocation: {fileID: 4165042560635062}
   hasItem: 0
   ItemName: WeaponPart
   dropInput: Use
