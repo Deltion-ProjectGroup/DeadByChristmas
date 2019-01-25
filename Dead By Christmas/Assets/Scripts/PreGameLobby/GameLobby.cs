@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GameLobby : MonoBehaviour {
+    [HideInInspector] public bool optToggled;
+    public GameObject options;
     public Transform mainCamera;
     public GameObject inventory;
     bool inventoryToggled;
@@ -54,9 +56,21 @@ public class GameLobby : MonoBehaviour {
         }
         StartCoroutine(TransitionScreen.transitionScreen.FadeOut());
     }
-    public void Leave()
+    public void Update()
     {
-
+        if (Input.GetButtonDown("Cancel"))
+        {
+            if (optToggled)
+            {
+                options.SetActive(false);
+                optToggled = false;
+            }
+            else
+            {
+                options.SetActive(true);
+                optToggled = true;
+            }
+        }
     }
     //If the player joins it gets all the players and resorts them
     [PunRPC]
