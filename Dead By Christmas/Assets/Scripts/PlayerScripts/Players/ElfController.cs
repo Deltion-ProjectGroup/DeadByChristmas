@@ -30,7 +30,7 @@ public class ElfController : Player {
     public string gun;
 
     [Header("InventoryInfo")]
-    public Transform InventoryLocation;
+    public Transform inventoryLocation;
     public bool hasItem;
     GameObject currentItem;
     public string ItemName;
@@ -67,7 +67,7 @@ public class ElfController : Player {
     //Update Function
     public void Update()
     {
-        if (GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().ingame)
+        if (GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().ingame && !paused)
         {
             CheckState();
         }
@@ -76,8 +76,8 @@ public class ElfController : Player {
     public void AddItem()
     {
         hasItem = true;
-        currentItem = PhotonNetwork.Instantiate(ItemName, InventoryLocation.position, InventoryLocation.rotation, 0);
-        currentItem.transform.parent = InventoryLocation;
+        currentItem = PhotonNetwork.Instantiate(ItemName, inventoryLocation.position, inventoryLocation.rotation, 0);
+        currentItem.transform.parent = inventoryLocation;
         currentItem.GetComponent<Rigidbody>().isKinematic = true;
         currentItem.GetComponent<WeaponPart>().pickedUp = true;
         currentItem.GetComponent<WeaponPart>().hasCollider = false;
@@ -355,8 +355,8 @@ public class ElfController : Player {
     public void Crafted()
     {
         hasItem = true;
-        currentItem = PhotonNetwork.Instantiate(gun, InventoryLocation.position, InventoryLocation.rotation, 0);
-        currentItem.transform.parent = InventoryLocation;
+        currentItem = PhotonNetwork.Instantiate(gun, inventoryLocation.position, inventoryLocation.rotation, 0);
+        currentItem.transform.SetParent(inventoryLocation);
         currentItem.GetComponent<Rigidbody>().isKinematic = true;
         currentItem.GetComponent<WeaponPart>().pickedUp = true;
         currentItem.GetComponent<WeaponPart>().hasCollider = false;

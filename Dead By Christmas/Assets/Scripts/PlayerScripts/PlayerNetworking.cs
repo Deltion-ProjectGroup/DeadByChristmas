@@ -20,6 +20,7 @@ public class PlayerNetworking : MonoBehaviour {
 		if (photonView.isMine) { 
 			print("Is mine...");
 			GetComponent<Player> ().enabled = true; //Enable player behaviour script
+			cam.GetComponent<AudioListener>().enabled = true;
 			cam.SetActive(true);
 		} else {
 			StartCoroutine ("UpdateData"); //Update the data of the player

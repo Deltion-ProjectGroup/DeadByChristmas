@@ -48,12 +48,15 @@ public class GaemManager : MonoBehaviour {
             {
                 options.SetActive(false);
                 optToggled = false;
+                localPlayer.GetComponent<Player>().paused = false;
+                Cursor.lockState = CursorLockMode.Locked;
             }
             else
             {
                 options.SetActive(true);
                 optToggled = true;
                 localPlayer.GetComponent<Player>().paused = true;
+                Cursor.lockState = CursorLockMode.None;
             }
         }
     }
@@ -110,13 +113,13 @@ public class GaemManager : MonoBehaviour {
         {
             if ((bool)isSanta[PhotonNetwork.player.NickName] == true)
             {
-                roleText.GetComponent<Text>().color = Color.red;
-                roleText.GetComponent<Text>().text = santaText;
+                roleText.GetComponentInChildren<Text>().color = Color.red;
+                roleText.GetComponentInChildren<Text>().text = santaText;
             }
             else
             {
-                roleText.GetComponent<Text>().color = Color.green;
-                roleText.GetComponent<Text>().text = elfText;
+                roleText.GetComponentInChildren<Text>().color = Color.green;
+                roleText.GetComponentInChildren<Text>().text = elfText;
             }
             roleText.SetActive(true);
             roleText.GetComponent<Animation>().Play();
