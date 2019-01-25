@@ -48,6 +48,7 @@ public class GaemManager : MonoBehaviour {
             {
                 options.SetActive(false);
                 optToggled = false;
+                localPlayer.GetComponent<Player>().paused = false;
             }
             else
             {

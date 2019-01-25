@@ -11,7 +11,6 @@ public class PhotonOptions : MonoBehaviour {
     }
     public void Continue(bool ingame)
     {
-        gameObject.SetActive(false);
         if (ingame)
         {
             GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().optToggled = false;
@@ -21,5 +20,6 @@ public class PhotonOptions : MonoBehaviour {
         {
             GameObject.FindGameObjectWithTag("Manager").GetComponent<GameLobby>().optToggled = false;
         }
+        gameObject.SetActive(false);
     }
 }
