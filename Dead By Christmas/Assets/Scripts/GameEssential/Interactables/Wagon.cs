@@ -10,8 +10,10 @@ public class Wagon : InteractableObject {
 
 	public override void Interact (int interactorID) {
 		print("Interacting with wagon");
+
 		if (interactingPlayer.GetComponent<ElfController> ()) {
 			foreach (bool seat in seats) {
+				
 				//False means not taken
 				if (seat == false) {
 					photonView.RPC("PutPlayerIn", PhotonTargets.All);
@@ -35,6 +37,7 @@ public class Wagon : InteractableObject {
 
 	[PunRPC]
 	void PutPlayerIn () {
+		print("Putting player in.");
 		interactingPlayer.GetComponent<ElfController> ().enabled = false;
 		interactingPlayer.transform.position = seatTransform[index].position;
 		interactingPlayer.transform.parent = seatTransform[index];
@@ -44,6 +47,7 @@ public class Wagon : InteractableObject {
 
 	[PunRPC]
 	void PutPlayerOut () {
+		print("Putting player out.");
 		interactingPlayer.GetComponent<ElfController> ().enabled = true;
 		interactingPlayer.transform.parent = null;
 		seats[index] = false;
