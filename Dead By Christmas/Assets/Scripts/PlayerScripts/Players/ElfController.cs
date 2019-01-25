@@ -211,7 +211,8 @@ public class ElfController : Player {
     {
         CheckInteract();
         if(Input.GetButtonDown(dropInput) && !CanInteract() && hasItem)
-            DropItem();
+            if (!currentItem.GetComponent<BaseGun>())
+                DropItem();
         CheckGround();
         if (downardsVelocityEnabled)
             ExtraDownwardsVelocity();
