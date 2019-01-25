@@ -397,11 +397,31 @@ public class ElfController : Player {
     {
         if (stream.isWriting)
         {
-
+            stream.SendNext(animator.GetBool("Crafting"));
+            stream.SendNext(animator.GetBool("Sitting"));
+            stream.SendNext(animator.GetBool("Death"));
+            stream.SendNext(animator.GetBool("Jump"));
+            stream.SendNext(animator.GetBool("Knock"));
+            stream.SendNext(animator.GetBool("Interact"));
+            stream.SendNext(animator.GetBool("SitDown"));
+            stream.SendNext(animator.GetBool("JumpLand"));
+            stream.SendNext(animator.GetBool("HasGun"));
+            stream.SendNext(animator.GetBool("Emote"));
+            stream.SendNext(animator.GetFloat("MovementSpeed"));
         }
         else
         {
-
+            animator.SetBool("Crafting", (bool)stream.ReceiveNext());
+            animator.SetBool("Sitting", (bool)stream.ReceiveNext());
+            animator.SetBool("Death", (bool)stream.ReceiveNext());
+            animator.SetBool("Jump", (bool)stream.ReceiveNext());
+            animator.SetBool("Knock", (bool)stream.ReceiveNext());
+            animator.SetBool("Interact", (bool)stream.ReceiveNext());
+            animator.SetBool("SitDown", (bool)stream.ReceiveNext());
+            animator.SetBool("JumpLand", (bool)stream.ReceiveNext());
+            animator.SetBool("HasGun", (bool)stream.ReceiveNext());
+            animator.SetBool("Emote", (bool)stream.ReceiveNext());
+            animator.SetFloat("MovementSpeed", (float)stream.ReceiveNext());
         }
     }
 }   
