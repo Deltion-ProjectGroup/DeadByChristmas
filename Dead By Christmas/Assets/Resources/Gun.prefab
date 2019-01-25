@@ -121,7 +121,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1401715876112060}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.393, y: 0.478, z: 0.263}
+  m_LocalPosition: {x: 0.393, y: 0.184, z: 0.37900004}
   m_LocalScale: {x: 0.3246, y: 0.3246, z: 1.157621}
   m_Children:
   - {fileID: 4243519882268876}
@@ -135,7 +135,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1476486864545022}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.3637297, y: 1.0022361e-18, z: -0.0451367}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4290921917287562}
@@ -166,7 +166,7 @@ Transform:
   m_GameObject: {fileID: 1232927294736546}
   m_LocalRotation: {x: 0.000000054948035, y: 0.0000000018626454, z: -2.9103834e-11,
     w: 1}
-  m_LocalPosition: {x: 0.393, y: 0.268, z: 0.622}
+  m_LocalPosition: {x: 0.393, y: -0.026, z: 0.738}
   m_LocalScale: {x: 0.06471819, y: 0.11734937, z: 0.06474629}
   m_Children: []
   m_Father: {fileID: 4217992230559702}
@@ -179,7 +179,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1475509424166100}
   m_LocalRotation: {x: 0.7071069, y: -0.000000010244548, z: 0.000000021020242, w: 0.70710665}
-  m_LocalPosition: {x: 0.393, y: 0.4801, z: 0.361}
+  m_LocalPosition: {x: 0.393, y: 0.18610002, z: 0.47700003}
   m_LocalScale: {x: 0.32450595, y: 0.59246916, z: 0.3183849}
   m_Children: []
   m_Father: {fileID: 4217992230559702}
@@ -192,7 +192,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1629214265227008}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.607, z: 1.401}
+  m_LocalPosition: {x: 0.0000000081490725, y: 0.31300002, z: 1.5170001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4217992230559702}
@@ -445,6 +445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactingPlayer: {fileID: 0}
+  interactEffect: 
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 0}
   rig: {fileID: 54360471191685820}

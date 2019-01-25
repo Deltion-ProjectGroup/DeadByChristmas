@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class Player : MonoBehaviour {
     //HEADER MOVEMENT
+    [HideInInspector] public bool paused;
     public float animTransSmooth;
     public AudioSource[] audioSources;
     public AudioClip[] audioClips;

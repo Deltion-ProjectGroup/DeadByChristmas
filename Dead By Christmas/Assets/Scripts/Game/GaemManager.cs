@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GaemManager : MonoBehaviour {
+    [HideInInspector] public bool optToggled;
+    public GameObject options;
     [Header("RoleDistribution")]
     object[] emptyData;
     public AudioSource[] audioSources;
@@ -38,6 +40,23 @@ public class GaemManager : MonoBehaviour {
         uiManager.CreateElfStatuses();
         StartCoroutine(StartGame());
 	}
+    public void Update()
+    {
+        if (Input.GetButtonDown("Cancel"))
+        {
+            if (optToggled)
+            {
+                options.SetActive(false);
+                optToggled = false;
+            }
+            else
+            {
+                options.SetActive(true);
+                optToggled = true;
+                localPlayer.GetComponent<Player>().paused = true;
+            }
+        }
+    }
     public IEnumerator StartGame()
     {
         if (PhotonNetwork.isMasterClient)
