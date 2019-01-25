@@ -82,6 +82,13 @@ public class ElfController : Player {
         currentItem.GetComponent<WeaponPart>().pickedUp = true;
         currentItem.GetComponent<WeaponPart>().hasCollider = false;
         currentItem.GetComponent<Collider>().enabled = false;
+        if (currentItem.GetComponent<BaseGun>())
+        {
+            currentItem.GetComponent<BaseGun>().controller = this;
+            animator.SetBool("Crafting", false);
+            animator.SetBool("HasGun", true);
+            currentState = StruggleState.Weapon;
+        }
     }
     public void DropItem()
     {
