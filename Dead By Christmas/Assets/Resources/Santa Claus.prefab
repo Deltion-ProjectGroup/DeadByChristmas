@@ -6744,7 +6744,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1280004928091840}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.9810286, y: 3.9200587, z: 53.216743}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4435298100472412}
@@ -9310,7 +9310,7 @@ AudioListener:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1520567919994600}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!82 &82662579742597268
 AudioSource:
   m_ObjectHideFlags: 1
@@ -9462,6 +9462,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ed5eeffb6b03c146a90d633e5362d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  paused: 0
+  animTransSmooth: 0
   audioSources:
   - {fileID: 82662579742597268}
   audioClips:
@@ -9514,6 +9516,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitTag: Elf
+  santaView: {fileID: 0}
   enabled: 0
 --- !u!114 &114711403990916104
 MonoBehaviour:
