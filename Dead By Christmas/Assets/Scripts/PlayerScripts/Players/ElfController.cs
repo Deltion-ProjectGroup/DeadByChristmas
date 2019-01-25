@@ -344,7 +344,7 @@ public class ElfController : Player {
         currentCam.position += currentCam.forward * camBackwardsDistance;
         Destroy(currentFillbar);
         animator.SetBool("SitDown", false);
-        Crafted();
+        StartCoroutine(Crafted());
         foreach (SkinnedMeshRenderer renderer in bodyRenderer)
         {
             renderer.enabled = false;
@@ -352,7 +352,7 @@ public class ElfController : Player {
     }
 
     //This is called when youre done crafting an item.
-    public void Crafted()
+    public IEnumerator Crafted()
     {
         hasItem = true;
         currentItem = PhotonNetwork.Instantiate(gun, inventoryLocation.position, inventoryLocation.rotation, 0);
@@ -365,6 +365,7 @@ public class ElfController : Player {
         animator.SetBool("Crafting", false);
         animator.SetBool("HasGun", true);
         currentState = StruggleState.Weapon;
+        yield return null;
     }
 
     //gizmos

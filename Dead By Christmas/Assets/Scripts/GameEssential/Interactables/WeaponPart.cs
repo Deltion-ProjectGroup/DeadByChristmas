@@ -27,7 +27,7 @@ public class WeaponPart : InteractableObject {
         if (!pickedUp && !interactingPlayer.GetComponent<ElfController>().hasItem)
         {
             if (gun)
-                interactingPlayer.GetComponent<ElfController>().Crafted();
+                StartCoroutine(interactingPlayer.GetComponent<ElfController>().Crafted());
             else
                 interactingPlayer.GetComponent<ElfController>().AddItem();
 
