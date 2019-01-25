@@ -96,6 +96,7 @@ public class Incinerator : InteractableObject {
         interactingPlayer = null;
         containedElf.transform.SetParent(null);
         containedElf.GetComponent<ElfController>().health = 1;
+        containedElf.GetComponent<ElfController>().isKnockedOut = false;
         containedElf.GetComponent<Rigidbody>().isKinematic = false;
         containedElf.GetComponent<ElfController>().currentState = ElfController.StruggleState.normal;
         containedElf.GetComponent<ElfController>().animator.SetBool("Death", false);
