@@ -164,11 +164,15 @@ public class SantaController : Player {
     {
         if (stream.isWriting)
         {
-
+            stream.SendNext(animator.GetFloat("MovementSpeed"));
+            stream.SendNext(animator.GetBool("Death"));
+            stream.SendNext(animator.GetBool("Attack"));
         }
         else
         {
-
+            animator.SetFloat("MovementSpeed", (float)stream.ReceiveNext());
+            animator.SetBool("Death", (bool)stream.ReceiveNext());
+            animator.SetBool("Attack", (bool)stream.ReceiveNext());
         }
     }
 }
