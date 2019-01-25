@@ -23,6 +23,7 @@ public class WeaponPart : InteractableObject {
 
     public override void Interact(int interactorID)
     {
+        base.Interact(interactorID);
         if (!pickedUp && !interactingPlayer.GetComponent<ElfController>().hasItem)
         {
             if (gun)
