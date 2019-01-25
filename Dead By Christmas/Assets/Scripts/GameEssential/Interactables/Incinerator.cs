@@ -125,7 +125,7 @@ public class Incinerator : InteractableObject {
 
         while(process < releaseDelay)
         {
-
+            fillBarComponent.fillbar.fillAmount = process;
             yield return new WaitForSeconds(releaseSmoothness);
             process += releaseSmoothness;
             fillBarComponent.fillbar.fillAmount = process;
