@@ -16,7 +16,6 @@ public class Inventory : MonoBehaviour {
     public Text abilityName;
     Vector3 backupPos;
     public SaveDatabase database;
-    public ScrollRect scrollbar;
     const float iconFollowSpeed = 1000;
     // Use this for initialization
     void Start () {
@@ -45,14 +44,12 @@ public class Inventory : MonoBehaviour {
                 draggingAbility.GetComponent<InventoryItem>().canvasComp.sortingOrder++;
                 startSlot = draggingAbility.parent;
                 backupPos = draggingAbility.position;
-                scrollbar.enabled = false;
             }
         }
         if(Input.GetButtonUp("Fire1") && dragging == true)
         {
             draggingAbility.GetComponent<Image>().raycastTarget = true;
             draggingAbility.GetComponent<InventoryItem>().canvasComp.sortingOrder--;
-            scrollbar.enabled = true;
             dragging = false;
             if(hoveringObject != null)
             {
