@@ -19,7 +19,7 @@ public class PhotonOptions : MonoBehaviour {
         }
         else
         {
-            GameObject.FindGameObjectWithTag("Manager").GetComponent<GaemManager>().optToggled = false;
+            GameObject.FindGameObjectWithTag("Manager").GetComponent<GameLobby>().optToggled = false;
         }
     }
 }
