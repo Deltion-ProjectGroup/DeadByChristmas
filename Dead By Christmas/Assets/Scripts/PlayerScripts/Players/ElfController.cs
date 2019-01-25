@@ -365,6 +365,7 @@ public class ElfController : Player {
     {
         hasItem = true;
         GetComponent<PhotonView>().RPC("SetGunActive", PhotonTargets.All, true);
+        gunObject.GetComponent<BaseGun>().controller = this;
         animator.SetBool("Crafting", false);
         animator.SetBool("HasGun", true);
         currentState = StruggleState.Weapon;

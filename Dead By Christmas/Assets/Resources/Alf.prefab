@@ -3880,8 +3880,6 @@ GameObject:
   - component: {fileID: 114906069408262998}
   - component: {fileID: 114820751165522752}
   - component: {fileID: 114950369926420362}
-  - component: {fileID: 54082115573292968}
-  - component: {fileID: 65845495172617082}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Interactable
@@ -15009,21 +15007,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1042887954118038}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!54 &54082115573292968
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1508638118129486}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!54 &54596531285085068
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -15039,18 +15022,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!65 &65845495172617082
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1508638118129486}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.35452804, y: 0.35050938, z: 1.1523615}
-  m_Center: {x: 0.4276337, y: 0.179565, z: 0.38184738}
 --- !u!81 &81434778824941952
 AudioListener:
   m_ObjectHideFlags: 1
@@ -15400,12 +15371,12 @@ MonoBehaviour:
   group: 0
   OwnerShipWasTransfered: 0
   prefixBackup: -1
-  synchronization: 3
+  synchronization: 0
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 114950369926420362}
+  - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -15454,7 +15425,7 @@ MonoBehaviour:
   interactEffect: 
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 0}
-  rig: {fileID: 54082115573292968}
+  rig: {fileID: 0}
   smoothing: 10
   pickedUp: 0
   hasCollider: 1
