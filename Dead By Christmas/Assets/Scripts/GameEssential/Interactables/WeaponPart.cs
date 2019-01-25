@@ -26,8 +26,7 @@ public class WeaponPart : InteractableObject {
         base.Interact(interactorID);
         if (!pickedUp && !interactingPlayer.GetComponent<ElfController>().hasItem)
         {
-            interactingPlayer.GetComponent<ElfController>().AddItem();
-
+            interactingPlayer.GetComponent<ElfController>().AddItem(gun);
             photonView.RPC("DestroyThis", PhotonTargets.All);
         }
     }
