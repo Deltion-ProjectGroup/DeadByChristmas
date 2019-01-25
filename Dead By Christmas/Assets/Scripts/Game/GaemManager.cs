@@ -49,12 +49,14 @@ public class GaemManager : MonoBehaviour {
                 options.SetActive(false);
                 optToggled = false;
                 localPlayer.GetComponent<Player>().paused = false;
+                Cursor.lockState = CursorLockMode.Locked;
             }
             else
             {
                 options.SetActive(true);
                 optToggled = true;
                 localPlayer.GetComponent<Player>().paused = true;
+                Cursor.lockState = CursorLockMode.None;
             }
         }
     }
