@@ -53,9 +53,9 @@ public class SantaController : Player {
             canAttack = false;
             animator.SetBool("Attack", true);
             weapon.GetComponent<SantaWeapon>().enabled = true;
-            yield return new WaitForSeconds(4);
+            yield return new WaitForSeconds(2.5f);
             animator.SetBool("Attack", false);
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(2.5f);
             weapon.GetComponent<SantaWeapon>().enabled = false;
             print("COOLDOWN DONE");
             canAttack = true;
